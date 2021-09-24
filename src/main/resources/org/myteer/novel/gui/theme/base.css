@@ -1,0 +1,94 @@
+@import "font.css";
+
+/*******************************************************************************
+ *                                                                             *
+ *                                  Base View                                  *
+ *                                                                             *
+ ******************************************************************************/
+.overlay-box {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 20, 0.19, -1, 6);
+}
+.overlay-box .title-bar {
+    -fx-padding: 5;
+    -fx-background-radius: 5 5 0 0;
+}
+.overlay-box .content {
+    -fx-background-radius: 0 0 5 5;
+}
+.alertDialog .button {
+    -fx-padding: 5;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                 NotificationNode                            *
+ *                                                                             *
+ ******************************************************************************/
+.notification-node {
+    -fx-border-width: 0.5;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .26), 20, 0.19, -1, 6);
+}
+.notification-node .content-panel {
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-padding: 0 25 0 0;
+}
+.notification-node .glyph-icon {
+    -fx-font-size: 20 !important;
+}
+.notification-node .content-panel .title {
+    -fx-font-size: 1.1em;
+    -fx-font-weight: bold;
+}
+.notification-node .content-panel .message {
+    -fx-font-size: 1em;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                  Login view                                 *
+ *                                                                             *
+ ******************************************************************************/
+.login-form {
+    -fx-background-size: stretch;
+}
+.login-box {
+    -fx-border-radius: 0 0 0 0;
+    -fx-background-radius: 0 0 0 0;
+}
+.login-box .header .label {
+    -fx-font-family: "JetBrains Mono Bold";
+    -fx-font-size: 35px;
+}
+.login-box .header .logo {
+    -fx-image: url("/org/myteer/novel/image/logo/bookshelf_64.png");
+}
+.login-box .source-adder {
+    -fx-border-radius: 0 0 0 0;
+    -fx-background-radius: 0 0 0 0;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                  Database manager                           *
+ *                                                                             *
+ ******************************************************************************/
+.state-indicator-file-not-exists {
+    -fx-fill: #B00020 !important;
+}
+.state-indicator-used {
+    -fx-fill: green !important;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                                                             *
+ *                                                                             *
+ ******************************************************************************/
+.header-toolbar {
+    -fx-padding: 12 10 12 10;
+    -fx-border-width: 0;
+}

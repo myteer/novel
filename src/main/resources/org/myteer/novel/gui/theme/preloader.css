@@ -1,0 +1,41 @@
+@import "font.css";
+
+.root {
+    -fx-background-image: url(../../image/background/preloader-background.jpg);
+    -fx-border-color: #1f1f1f;
+    -fx-pref-width: 739px;
+    -fx-pref-height: 453px;
+}
+
+.mainPane {
+    -fx-pref-width: 739px;
+    -fx-pref-height: 453px;
+}
+
+.logo {
+    -fx-image: url(../../image/logo/bookshelf_256.png);
+}
+
+.appNameLabel {
+    -fx-font-family: "JetBrains Mono Bold";
+    -fx-font-size: 40px;
+    -fx-text-fill: #cbcbcb;
+}
+
+.companyLabel {
+    -fx-font-size: 15px;
+    -fx-text-fill: #dedede;
+    -fx-padding: 5;
+}
+
+.messageLabel {
+    -fx-font-size: 20px;
+    -fx-text-fill: #dedede;
+}
+
+.jfx-progress-bar {
+    -fx-pref-height: 8px;
+}
+.jfx-progress-bar .bar {
+    -fx-background-color: #a87d24;
+}

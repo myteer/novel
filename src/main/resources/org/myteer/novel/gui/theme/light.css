@@ -1,0 +1,51 @@
+@import "base.css";
+
+/*******************************************************************************
+ *                                                                             *
+ *                                  Glyph icons                                *
+ *                                                                             *
+ ******************************************************************************/
+.button .glyph-icon {
+    -fx-fill: black;
+}
+.button:default .glyph-icon {
+    -fx-fill: white;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                 NotificationNode                            *
+ *                                                                             *
+ ******************************************************************************/
+.notification-node {
+    -fx-background-color: #e5e5e5;
+    -fx-border-color: #565656;
+}
+.notification-node .glyph-icon {
+    -fx-fill: #565656;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                  Login view                                 *
+ *                                                                             *
+ ******************************************************************************/
+.login-form {
+    -fx-background-image: url("/org/myteer/novel/image/background/background-light.jpg");
+}
+.login-box {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, #000000, 10.0, 0, 0, 0);
+}
+.login-box .header .label {
+    -fx-text-fill: #797979;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                    Other                                    *
+ *                                                                             *
+ ******************************************************************************/
+.header-toolbar {
+    -fx-background-color: #e5e5e5;
+}
