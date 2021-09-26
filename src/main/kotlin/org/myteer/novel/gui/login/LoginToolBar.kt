@@ -6,6 +6,7 @@ import org.myteer.novel.config.Preferences
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.control.BiToolBar
 import org.myteer.novel.gui.entry.DatabaseTracker
+import org.myteer.novel.gui.info.InformationActivity
 import org.myteer.novel.gui.utils.icon
 import org.myteer.novel.i18n.i18n
 
@@ -43,5 +44,6 @@ class LoginToolBar(
 
     private fun buildInfoItem() = Button().apply {
         graphic = icon("info-icon")
+        setOnAction { InformationActivity(context).show() }
     }
 }

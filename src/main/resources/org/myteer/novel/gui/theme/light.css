@@ -41,6 +41,9 @@
     -on-surface-color: #000000;
     -on-error-color: #FFFFFF;
 }
+.overlay-box .title-bar {
+    -fx-background-color: #D9D9D9;
+}
 
 /*******************************************************************************
  *                                                                             *

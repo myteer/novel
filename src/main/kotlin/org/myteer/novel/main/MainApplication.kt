@@ -36,9 +36,9 @@ class MainApplication : BaseApplication() {
 
     override fun init() {
         notifyPreloader(Preloader.MessageNotification("1111", false))
-        Thread.sleep(1000)
+        Thread.sleep(500)
         notifyPreloader(Preloader.MessageNotification("2222", false))
-        Thread.sleep(1000)
+        Thread.sleep(500)
         applyBaseConfigurations(Preferences.global)
         logger.debug("Locale: {}", Locale.getDefault())
         logger.debug("Theme: {}", Theme.getDefault())

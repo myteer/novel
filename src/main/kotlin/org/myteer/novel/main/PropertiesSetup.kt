@@ -9,6 +9,7 @@ object PropertiesSetup {
     const val APP_NAME = "app.name"
     const val APP_VERSION = "app.version"
     const val APP_COMPANY = "app.company"
+    const val APP_DEVELOPER = "app.developer"
     const val APP_BUILD_INFO = "app.build.info"
     const val APP_FILE_EXTENSION = "app.file.extension"
     const val CONFIG_FILE_PATH = "config.file.path"
@@ -20,6 +21,7 @@ object PropertiesSetup {
     private const val APP_NAME_VALUE = "Novel"
     private const val APP_VERSION_VALUE = "1.0.0-SNAPSHOT"
     private const val APP_COMPANY_VALUE = "MTSoftware"
+    private const val APP_DEVELOPER_VALUE = "myteer"
     private const val APP_BUILD_INFO_VALUE = "Built on 2021-09-17"
     private const val APP_FILE_EXTENSION_VALUE = "ndb"
     private val LOG_FILE_PATH_VALUE = FileUtils.getFile(FileUtils.getTempDirectory(), "novel").toString()
@@ -35,6 +37,7 @@ object PropertiesSetup {
         System.setProperty(APP_NAME, APP_NAME_VALUE)
         System.setProperty(APP_VERSION, APP_VERSION_VALUE)
         System.setProperty(APP_COMPANY, APP_COMPANY_VALUE)
+        System.setProperty(APP_DEVELOPER, APP_DEVELOPER_VALUE)
         System.setProperty(APP_BUILD_INFO, APP_BUILD_INFO_VALUE)
         System.setProperty(APP_FILE_EXTENSION, APP_FILE_EXTENSION_VALUE)
         System.setProperty(CONFIG_FILE_PATH, getConfigFilePath())
