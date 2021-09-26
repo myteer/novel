@@ -22,7 +22,7 @@ class LoginDataSerializer : JsonSerializer<LoginData> {
     private fun buildJsonObject(src: LoginData): JsonObject {
         val gson = buildGson()
         return JsonObject().apply {
-            add(SAVED_DATABASES, gson.toJsonTree(src.savedDatabases))
+            add(SAVED_DATABASES, gson.toJsonTree(src.getSavedDatabases()))
             addProperty(SELECTED_DATABASE_INDEX, src.getSelectedDatabaseIndex())
             addProperty(AUTO_LOGIN, src.isAutoLogin())
             if (src.isAutoLogin()) {

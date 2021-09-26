@@ -11,7 +11,7 @@ import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.base.BaseView
 import org.myteer.novel.gui.dbcreator.DatabaseCreatorActivity
 import org.myteer.novel.gui.entry.DatabaseTracker
-import org.myteer.novel.gui.utils.runInsideUIAsync
+import org.myteer.novel.gui.utils.runInsideUI
 import org.myteer.novel.i18n.i18n
 import org.slf4j.LoggerFactory
 
@@ -90,21 +90,21 @@ class LoginView(
         }
 
         override fun onDatabaseAdded(databaseMeta: DatabaseMeta) {
-            runInsideUIAsync {
+            runInsideUI {
                 loginBox?.addItem(databaseMeta)
-                loginData.savedDatabases.add(databaseMeta)
+                loginData.addSavedDatabase(databaseMeta)
             }
         }
 
         override fun onDatabaseRemoved(databaseMeta: DatabaseMeta) {
-            runInsideUIAsync {
+            runInsideUI {
                 loginBox?.removeItem(databaseMeta)
-                loginData.savedDatabases.remove(databaseMeta)
+                loginData.removeSavedDatabase(databaseMeta)
             }
         }
 
         override fun onDatabaseUsing(databaseMeta: DatabaseMeta) {
-            runInsideUIAsync {
+            runInsideUI {
                 loginBox?.refresh()
                 when (databaseMeta) {
                     loginBox?.selectedItem -> {
@@ -115,7 +115,7 @@ class LoginView(
         }
 
         override fun onDatabaseClosing(databaseMeta: DatabaseMeta) {
-            runInsideUIAsync {
+            runInsideUI {
                 loginBox?.refresh()
             }
         }

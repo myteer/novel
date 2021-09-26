@@ -5,7 +5,7 @@ import javafx.collections.ObservableList
 import org.myteer.novel.db.DatabaseMeta
 
 class LoginData(savedDatabases: List<DatabaseMeta> = listOf()) {
-    val savedDatabases: ObservableList<DatabaseMeta>
+    private val savedDatabases: ObservableList<DatabaseMeta>
     private var selectedDatabase: DatabaseMeta? = null
     private var autoLoginCredentials: Credentials? = null
     private var autoLogin: Boolean = false
@@ -14,10 +14,23 @@ class LoginData(savedDatabases: List<DatabaseMeta> = listOf()) {
         this.savedDatabases = FXCollections.observableArrayList(savedDatabases)
     }
 
-    fun setSelectedDatabase(database: DatabaseMeta) {
+    fun getSavedDatabases(): List<DatabaseMeta> {
+        return savedDatabases.toList()
+    }
+
+    @Synchronized
+    fun addSavedDatabase(database: DatabaseMeta) {
         if (!savedDatabases.contains(database)) {
             savedDatabases.add(database)
         }
+    }
+
+    fun removeSavedDatabase(database: DatabaseMeta) {
+        savedDatabases.remove(database)
+    }
+
+    fun setSelectedDatabase(database: DatabaseMeta) {
+        addSavedDatabase(database)
         selectedDatabase = database
     }
 

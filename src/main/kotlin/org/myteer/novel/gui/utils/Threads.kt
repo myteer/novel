@@ -9,6 +9,14 @@ private object ThreadManager {
 
     private fun isUIThread(): Boolean = Platform.isFxApplicationThread()
 
+    fun runInsideUI(runnable: Runnable) {
+        if (isUIThread()) {
+            runnable.run()
+        } else {
+            Platform.runLater(runnable)
+        }
+    }
+
     fun runInsideUIAsync(runnable: Runnable) {
         Platform.runLater(runnable)
     }
@@ -29,18 +37,24 @@ private object ThreadManager {
         if (!isUIThread()) {
             runnable.run()
         } else {
-            executorService.submit {
-                runnable.run()
-            }
+            executorService.submit(runnable)
         }
     }
 
     fun runOutsideUIAsync(runnable: Runnable) {
-        executorService.submit {
+        executorService.submit(runnable)
+    }
+
+    fun runOutsideUISync(runnable: Runnable) {
+        if (!isUIThread()) {
             runnable.run()
+        } else {
+            executorService.submit(runnable).get()
         }
     }
 }
+
+fun runInsideUI(runnable: Runnable) = ThreadManager.runInsideUI(runnable)
 
 fun runInsideUIAsync(runnable: Runnable) = ThreadManager.runInsideUIAsync(runnable)
 
@@ -49,3 +63,5 @@ fun runInsideUISync(runnable: Runnable) = ThreadManager.runInsideUISync(runnable
 fun runOutsideUI(runnable: Runnable) = ThreadManager.runOutsideUI(runnable)
 
 fun runOutsideUIAsync(runnable: Runnable) = ThreadManager.runOutsideUIAsync(runnable)
+
+fun runOutsideUISync(runnable: Runnable) = ThreadManager.runOutsideUISync(runnable)

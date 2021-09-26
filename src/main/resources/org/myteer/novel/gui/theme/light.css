@@ -2,6 +2,15 @@
 
 /*******************************************************************************
  *                                                                             *
+ *                                   ComboBox                                  *
+ *                                                                             *
+ ******************************************************************************/
+.combo-box-popup .list-view {
+    -fx-background-color: #f2f2f2;
+}
+
+/*******************************************************************************
+ *                                                                             *
  *                                  Glyph icons                                *
  *                                                                             *
  ******************************************************************************/
@@ -14,11 +23,32 @@
 
 /*******************************************************************************
  *                                                                             *
+ *                                  Base View                                  *
+ *                                                                             *
+ ******************************************************************************/
+* {
+    /* WorkbenchFX styles */
+    -primary-color: #E5E5E5;
+    -primary-variant-color: #9F9F9F;
+    -secondary-color: #6300FF;
+    -secondary-variant-color: #1E005F;
+    -background-color: #FFFFFF;
+    -surface-color: #FFFFFF;
+    -error-color: #B00020;
+    -on-primary-color: black;
+    -on-secondary-color: #FFFFFF;
+    -on-background-color: #000000;
+    -on-surface-color: #000000;
+    -on-error-color: #FFFFFF;
+}
+
+/*******************************************************************************
+ *                                                                             *
  *                                 NotificationNode                            *
  *                                                                             *
  ******************************************************************************/
 .notification-node {
-    -fx-background-color: #e5e5e5;
+    -fx-background-color: #E5E5E5;
     -fx-border-color: #565656;
 }
 .notification-node .glyph-icon {
@@ -47,5 +77,5 @@
  *                                                                             *
  ******************************************************************************/
 .header-toolbar {
-    -fx-background-color: #e5e5e5;
+    -fx-background-color: #E5E5E5;
 }

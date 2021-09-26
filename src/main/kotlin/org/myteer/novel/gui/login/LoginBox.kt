@@ -68,7 +68,7 @@ class LoginBox(private val controller: Controller) : VBox(10.0) {
 
     fun fillForm(loginData: LoginData) {
         databaseChooser.get().let { databaseChooser ->
-            databaseChooser.items.addAll(loginData.savedDatabases)
+            databaseChooser.items.addAll(loginData.getSavedDatabases())
             loginData.getSelectedDatabase()?.let(databaseChooser.selectionModel::select)
             loginData.getAutoLoginDatabase()?.let {
                 remember.set(true)

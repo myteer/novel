@@ -40,8 +40,8 @@ class MainApplication : BaseApplication() {
         notifyPreloader(Preloader.MessageNotification("2222", false))
         Thread.sleep(1000)
         applyBaseConfigurations(Preferences.global)
-        logger.info("locale: {}", Locale.getDefault())
-        logger.info("theme: {}", Theme.getDefault())
+        logger.debug("Locale: {}", Locale.getDefault())
+        logger.debug("Theme: {}", Theme.getDefault())
     }
 
     @Init
