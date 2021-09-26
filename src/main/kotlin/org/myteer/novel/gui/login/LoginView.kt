@@ -10,6 +10,7 @@ import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.base.BaseView
 import org.myteer.novel.gui.dbcreator.DatabaseCreatorActivity
+import org.myteer.novel.gui.dbcreator.DatabaseOpener
 import org.myteer.novel.gui.entry.DatabaseTracker
 import org.myteer.novel.gui.utils.runInsideUI
 import org.myteer.novel.i18n.i18n
@@ -63,7 +64,11 @@ class LoginView(
         }
 
         override fun openFile() {
-            TODO("Not yet implemented")
+            DatabaseOpener().showOpenMultipleDialog(context.getContextWindow())
+                .stream()
+                .peek(databaseTracker::saveDatabase)
+                .reduce { _, s -> s }
+                .ifPresent { loginBox?.select(it) }
         }
 
         override fun openDatabaseCreator() {

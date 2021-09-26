@@ -45,6 +45,7 @@ dependencies {
     implementation 'org.dizitart:nitrite:3.4.3'
 
     implementation 'commons-io:commons-io:2.11.0'
+    implementation 'org.apache.commons:commons-collections4:4.4'
     implementation 'com.github.Dansoftowner:jFileGoodies:1.2.6'
     implementation 'com.github.Dansoftowner:jUserDirectories:1.0'
     implementation 'com.github.Dansoftowner:jSystemThemeDetector:3.7'
