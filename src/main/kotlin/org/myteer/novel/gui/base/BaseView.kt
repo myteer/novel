@@ -283,14 +283,14 @@ open class BaseView(content: Node? = null) : StackPane(), Context {
             private const val DIALOG_STYLE_CLASS = "alertDialog"
         }
 
-        private val type: ContextDialog.Type
+        private val type: ContextDialog.Type?
 
         init {
             workbenchDialog.styleClass.add(DIALOG_STYLE_CLASS)
-            type = contextDialogType ?: ContextDialog.Type.valueOf(workbenchDialog.type.toString())
+            type = if (null != workbenchDialog.type) ContextDialog.Type.valueOf(workbenchDialog.type.toString()) else contextDialogType
         }
 
-        override fun getType(): ContextDialog.Type {
+        override fun getType(): ContextDialog.Type? {
             return type
         }
 

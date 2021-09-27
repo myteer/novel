@@ -11,6 +11,7 @@ import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.base.BaseView
 import org.myteer.novel.gui.dbcreator.DatabaseCreatorActivity
 import org.myteer.novel.gui.dbcreator.DatabaseOpener
+import org.myteer.novel.gui.dbmanager.DatabaseManagerActivity
 import org.myteer.novel.gui.entry.DatabaseTracker
 import org.myteer.novel.gui.utils.runInsideUI
 import org.myteer.novel.i18n.i18n
@@ -60,7 +61,7 @@ class LoginView(
         }
 
         override fun openDatabaseManager() {
-            TODO("Not yet implemented")
+            DatabaseManagerActivity().show(databaseTracker, context.getContextWindow())
         }
 
         override fun openFile() {

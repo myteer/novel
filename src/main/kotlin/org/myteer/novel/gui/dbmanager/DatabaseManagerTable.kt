@@ -6,15 +6,14 @@ import javafx.beans.binding.IntegerBinding
 import javafx.collections.ObservableList
 import javafx.scene.control.*
 import javafx.scene.control.cell.PropertyValueFactory
+import javafx.scene.layout.Priority
+import javafx.scene.layout.VBox
 import javafx.util.Callback
 import org.apache.commons.io.FileUtils
 import org.myteer.novel.db.DatabaseMeta
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.entry.DatabaseTracker
-import org.myteer.novel.gui.utils.I18NButtonType
-import org.myteer.novel.gui.utils.copy
-import org.myteer.novel.gui.utils.icon
-import org.myteer.novel.gui.utils.typeEquals
+import org.myteer.novel.gui.utils.*
 import org.myteer.novel.i18n.i18n
 
 class DatabaseManagerTable(
@@ -43,6 +42,31 @@ class DatabaseManagerTable(
             DeleteColumn()
         )
         items.addAll(databaseTracker.getSavedDatabases())
+        VBox.setVgrow(this, Priority.ALWAYS)
+    }
+
+    fun itemsCount(): IntegerBinding = itemsCount
+
+    fun selectedItemsCount(): IntegerBinding = selectedItemsCount
+
+    override fun onDatabaseAdded(databaseMeta: DatabaseMeta) {
+        runInsideUI {
+            items.add(databaseMeta)
+        }
+    }
+
+    override fun onDatabaseRemoved(databaseMeta: DatabaseMeta) {
+        runInsideUI {
+            items.remove(databaseMeta)
+        }
+    }
+
+    override fun onDatabaseUsing(databaseMeta: DatabaseMeta) {
+        runInsideUI(this::refresh)
+    }
+
+    override fun onDatabaseClosing(databaseMeta: DatabaseMeta) {
+        runInsideUI(this::refresh)
     }
 
     private inner class StateColumn : TableColumn<DatabaseMeta, String>(), Callback<TableColumn<DatabaseMeta, String>, TableCell<DatabaseMeta, String>> {

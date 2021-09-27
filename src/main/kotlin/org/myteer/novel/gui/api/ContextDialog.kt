@@ -20,7 +20,7 @@ interface ContextDialog {
         CONFIRMATION
     }
 
-    fun getType(): Type
+    fun getType(): Type?
 
     fun getButtonTypes(): ObservableList<ButtonType>
 
