@@ -66,6 +66,8 @@ object I18N {
     fun getCollator(locale: Locale): Collator? {
         return getLanguagePackForLocale(locale)?.getCollator()
     }
+
+    fun getAvailableLocales(): Set<Locale> = loadedLanguagePacks.keys
 }
 
 fun i18n(key: String, vararg args: Any) = I18N.getValue(key, *args)

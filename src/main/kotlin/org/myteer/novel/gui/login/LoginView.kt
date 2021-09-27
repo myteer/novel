@@ -61,7 +61,7 @@ class LoginView(
         }
 
         override fun openDatabaseManager() {
-            DatabaseManagerActivity().show(databaseTracker, context.getContextWindow())
+            DatabaseManagerActivity(databaseTracker).show(context.getContextWindow())
         }
 
         override fun openFile() {
@@ -73,7 +73,7 @@ class LoginView(
         }
 
         override fun openDatabaseCreator() {
-            DatabaseCreatorActivity().show(databaseTracker, context.getContextWindow()).ifPresent {
+            DatabaseCreatorActivity(databaseTracker).show(context.getContextWindow()).ifPresent {
                 loginBox?.select(it)
             }
         }

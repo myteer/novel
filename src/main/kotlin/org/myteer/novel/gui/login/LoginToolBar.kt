@@ -7,6 +7,7 @@ import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.control.BiToolBar
 import org.myteer.novel.gui.entry.DatabaseTracker
 import org.myteer.novel.gui.info.InformationActivity
+import org.myteer.novel.gui.preferences.PreferencesActivity
 import org.myteer.novel.gui.utils.icon
 import org.myteer.novel.i18n.i18n
 
@@ -40,6 +41,7 @@ class LoginToolBar(
     private fun buildSettingsMenuItem() = MenuItem().apply {
         text = i18n("action.settings")
         graphic = icon("settings-icon")
+        setOnAction { PreferencesActivity(preferences).show(context.getContextWindow()) }
     }
 
     private fun buildInfoItem() = Button().apply {

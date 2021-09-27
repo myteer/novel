@@ -5,8 +5,8 @@ import org.myteer.novel.db.DatabaseMeta
 import org.myteer.novel.gui.entry.DatabaseTracker
 import java.util.*
 
-class DatabaseCreatorActivity {
-    fun show(databaseTracker: DatabaseTracker, owner: Window?): Optional<DatabaseMeta> {
+class DatabaseCreatorActivity(private val databaseTracker: DatabaseTracker) {
+    fun show(owner: Window?): Optional<DatabaseMeta> {
         val view = DatabaseCreatorView(databaseTracker)
         val window = DatabaseCreatorWindow(view, owner)
         window.showAndWait()

@@ -5,7 +5,11 @@ import java.util.concurrent.Executors
 import java.util.concurrent.FutureTask
 
 private object ThreadManager {
-    private val executorService = Executors.newFixedThreadPool(5)
+    private val executorService = Executors.newCachedThreadPool {
+        Thread(it).apply {
+            isDaemon = true
+        }
+    }
 
     private fun isUIThread(): Boolean = Platform.isFxApplicationThread()
 
