@@ -8,6 +8,7 @@ import org.myteer.novel.config.login.LoginData
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.entry.DatabaseTracker
 import java.lang.ref.WeakReference
+import java.util.*
 import java.util.stream.Collectors
 
 class LoginActivity(
@@ -17,12 +18,12 @@ class LoginActivity(
     databaseLoginListener: DatabaseLoginListener
 ) {
     companion object {
-        private val instances: MutableList<WeakReference<LoginActivity>> = mutableListOf()
+        private val instances: MutableList<WeakReference<LoginActivity>> = Collections.synchronizedList(mutableListOf())
 
         fun getActiveLoginActivities(): List<LoginActivity> {
             return instances.stream()
                 .map { it.get() }
-                .filter { null != it && it.isShowing() }
+                .filter { it?.isShowing() ?: false }
                 .map { it!! }
                 .collect(Collectors.toList())
         }

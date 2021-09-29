@@ -3,10 +3,22 @@ package org.myteer.novel.config
 import org.myteer.novel.config.source.ConfigSource
 import org.myteer.novel.config.source.DefaultConfigSource
 import org.myteer.novel.config.source.InMemoryConfigResource
+import org.slf4j.LoggerFactory
 
 class Preferences(val source: ConfigSource) {
     companion object {
-        val global = Preferences(DefaultConfigSource())
+        private val logger = LoggerFactory.getLogger(Preferences::class.java)
+        private var default: Preferences? = null
+
+        @Synchronized
+        fun getPreferences(): Preferences {
+            if (null == default) {
+                default = Preferences(DefaultConfigSource())
+                logger.debug("Default preferences/config source set: '${default!!.source.javaClass.name}'")
+            }
+            return default!!
+        }
+
         fun empty() = Preferences(InMemoryConfigResource())
     }
 

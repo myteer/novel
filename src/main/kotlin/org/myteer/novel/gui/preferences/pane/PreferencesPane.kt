@@ -25,7 +25,7 @@ abstract class PreferencesPane(val preferences: Preferences) {
 
     fun getContent(): Content {
         return cachedContent ?: buildContent().apply {
-            logger.debug("Building content for ${javaClass.simpleName}...")
+            logger.debug("Building content for ${this@PreferencesPane.javaClass.simpleName}...")
             cachedContent = this
         }
     }

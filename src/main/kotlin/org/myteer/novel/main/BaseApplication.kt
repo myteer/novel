@@ -10,8 +10,8 @@ abstract class BaseApplication : Application() {
 
     override fun start(primaryStage: Stage?) { }
 
-    protected fun notifyPreloader(i18n: String) {
-        notifyPreloader(Preloader.MessageNotification(i18n))
+    protected fun notifyPreloader(i18n: String, vararg args: String) {
+        notifyPreloader(Preloader.MessageNotification(i18n, true, *args))
     }
 
     protected fun showPreloader() {

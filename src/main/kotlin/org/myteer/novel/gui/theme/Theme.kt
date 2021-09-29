@@ -65,20 +65,6 @@ abstract class Theme {
         }
 
         fun empty(): Theme = EmptyTheme()
-
-        private class EmptyTheme : Theme() {
-            override fun revoke(scene: Scene) {
-            }
-
-            override fun revoke(parent: Parent) {
-            }
-
-            override fun apply(scene: Scene) {
-            }
-
-            override fun apply(parent: Parent) {
-            }
-        }
     }
 
     protected fun update(oldTheme: Theme = this) {
@@ -96,4 +82,18 @@ abstract class Theme {
     abstract fun apply(scene: Scene)
 
     abstract fun apply(parent: Parent)
+
+    private class EmptyTheme : Theme() {
+        override fun revoke(scene: Scene) {
+        }
+
+        override fun revoke(parent: Parent) {
+        }
+
+        override fun apply(scene: Scene) {
+        }
+
+        override fun apply(parent: Parent) {
+        }
+    }
 }

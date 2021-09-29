@@ -47,21 +47,21 @@ class OsSynchronizedTheme : Theme() {
         currentTheme.apply(parent)
     }
 
-    companion object {
-        fun getMeta() = ThemeMeta(OsSynchronizedTheme::class.java) { i18n("app.ui.theme.sync") }
-
-        private class SyncFunction(private val syncTheme: OsSynchronizedTheme) : Consumer<Boolean> {
-            override fun accept(isDark: Boolean) {
-                Platform.runLater {
-                    if (isDark) {
-                        syncTheme.currentTheme = syncTheme.darkTheme
-                        syncTheme.update(syncTheme.lightTheme)
-                    } else {
-                        syncTheme.currentTheme = syncTheme.lightTheme
-                        syncTheme.update(syncTheme.darkTheme)
-                    }
+    private class SyncFunction(private val syncTheme: OsSynchronizedTheme) : Consumer<Boolean> {
+        override fun accept(isDark: Boolean) {
+            Platform.runLater {
+                if (isDark) {
+                    syncTheme.currentTheme = syncTheme.darkTheme
+                    syncTheme.update(syncTheme.lightTheme)
+                } else {
+                    syncTheme.currentTheme = syncTheme.lightTheme
+                    syncTheme.update(syncTheme.darkTheme)
                 }
             }
         }
+    }
+
+    companion object {
+        fun getMeta() = ThemeMeta(OsSynchronizedTheme::class.java) { i18n("app.ui.theme.sync") }
     }
 }

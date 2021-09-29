@@ -19,9 +19,11 @@ class LoginData(savedDatabases: List<DatabaseMeta> = listOf()) {
     }
 
     @Synchronized
-    fun addSavedDatabase(database: DatabaseMeta) {
-        if (!savedDatabases.contains(database)) {
+    fun addSavedDatabase(database: DatabaseMeta): Boolean {
+        return if (!savedDatabases.contains(database)) {
             savedDatabases.add(database)
+        } else {
+            false
         }
     }
 
@@ -29,8 +31,8 @@ class LoginData(savedDatabases: List<DatabaseMeta> = listOf()) {
         savedDatabases.remove(database)
     }
 
-    fun setSelectedDatabase(database: DatabaseMeta) {
-        addSavedDatabase(database)
+    fun setSelectedDatabase(database: DatabaseMeta?) {
+        database?.let { addSavedDatabase(it) }
         selectedDatabase = database
     }
 

@@ -1,79 +1,148 @@
 package org.myteer.novel.main
 
-import com.sun.javafx.application.LauncherImpl
-import javafx.application.Application
-import javafx.geometry.Pos
-import javafx.scene.Node
-import javafx.scene.Scene
-import javafx.scene.control.Button
-import javafx.scene.layout.VBox
-import javafx.stage.Stage
-import javafx.util.Duration
-import jfxtras.styles.jmetro.JMetro
-import jfxtras.styles.jmetro.JMetroStyleClass
-import jfxtras.styles.jmetro.Style
-import org.myteer.novel.gui.base.BaseView
+import org.myteer.novel.config.PreferenceKey
+import org.myteer.novel.config.Preferences
+import org.myteer.novel.config.login.LoginData
+import org.myteer.novel.exception.UncaughtExceptionHandler
+import org.myteer.novel.gui.entry.DatabaseTracker
+import org.myteer.novel.gui.theme.Theme
+import org.myteer.novel.gui.window.BaseWindow
+import org.myteer.novel.i18n.i18n
+import org.myteer.novel.instance.ApplicationInstanceService
+import org.myteer.novel.launcher.ActivityLauncher
+import org.slf4j.LoggerFactory
+import java.util.*
+import kotlin.system.exitProcess
 
-class Main : Application() {
-    override fun start(stage: Stage) {
-        stage.scene = Scene(MainView()).apply {
-            stylesheets.add(Main::class.java.getResource("/org/myteer/novel/gui/theme/light.css")?.toExternalForm())
-            JMetro(Style.LIGHT).scene = this
+class Main : BaseApplication() {
+    companion object {
+        private val logger = LoggerFactory.getLogger(Main::class.java)
+
+        fun main(vararg args: String) {
+            // 设置系统参数
+            PropertiesSetup.setupSystemProperties()
+            // 设置未捕获异常处理器
+            Thread.setDefaultUncaughtExceptionHandler(UncaughtExceptionHandler())
+            // 单应用实例控制
+            ApplicationInstanceService.open(args.toList())
+            // 启动应用程序
+            launchApp(Main::class.java, *args)
         }
-        //stage.width = 700.0
-        //stage.height = 450.0
-        stage.show()
     }
 
+    override fun init() {
+        val queue = ActivityLauncher.PostLaunchQueue()
+
+        handleApplicationArgument(queue)
+
+        val preferences = readConfigurations(queue)
+        applyBaseConfigurations(preferences)
+        applyAdditionalConfigurations(preferences)
+
+        logger.debug("Locale is: ${Locale.getDefault()}")
+        logger.debug("Theme is: ${Theme.getDefault()}")
+
+        val databaseTracker = DatabaseTracker.global
+        val loginData = readLoginData(preferences, databaseTracker)
+
+        launchGUI(preferences, loginData, databaseTracker, queue)
+    }
+
+    @Init
+    private fun handleApplicationArgument(queue: ActivityLauncher.PostLaunchQueue) {
+        getFormattedApplicationArg(ArgumentTransformer::transform).ifPresent { file ->
+            notifyPreloader("preloader.file.open", file.name)
+            queue.pushItem { context, launchedDatabase ->
+                launchedDatabase?.let {
+                    context.showInformationNotification(i18n("database.file.launched", it.name), "")
+                }
+            }
+        }
+    }
+
+    @Init
+    private fun readConfigurations(queue: ActivityLauncher.PostLaunchQueue): Preferences {
+        notifyPreloader("preloader.preferences.read")
+        try {
+            val preferences = Preferences.getPreferences()
+            logger.info("Configurations has been read successfully!")
+            return preferences
+        } catch (e: Exception) {
+            logger.error("Couldn't read configurations", e)
+            queue.pushItem { context, _ ->
+                context.showErrorNotification(i18n("preferences.read.failed.title"), "") {
+                    context.showErrorDialog(
+                        i18n("preferences.read.failed.title"),
+                        i18n("preferences.read.failed.message"),
+                        e
+                    )
+                }
+            }
+            return Preferences.empty()
+        }
+    }
+
+    @Init
+    private fun applyBaseConfigurations(preferences: Preferences) {
+        notifyPreloader("preloader.lang")
+        Locale.setDefault(preferences.get(PreferenceKey.LOCALE))
+        notifyPreloader("preloader.theme")
+        Theme.setDefault(preferences.get(PreferenceKey.THEME))
+    }
+
+    @Init
+    private fun applyAdditionalConfigurations(preferences: Preferences) {
+        val opacity = preferences.get(BaseWindow.GLOBAL_OPACITY_CONFIG_KEY)
+        logger.debug("Global window opacity read: $opacity")
+        BaseWindow.globalOpacity.set(opacity)
+    }
+
+    @Init
+    private fun readLoginData(preferences: Preferences, databaseTracker: DatabaseTracker): LoginData {
+        notifyPreloader("preloader.login_data.read")
+        return preferences.get(PreferenceKey.LOGIN_DATA).also {
+            it.getSavedDatabases().forEach(databaseTracker::saveDatabase)
+        }
+    }
+
+    @Init
+    private fun launchGUI(preferences: Preferences,
+                          loginData: LoginData,
+                          databaseTracker: DatabaseTracker,
+                          queue: ActivityLauncher.PostLaunchQueue) {
+        notifyPreloader("preloader.gui.build")
+        InitActivityLauncher(preferences, loginData, databaseTracker, getApplicationArgs(), queue).run()
+    }
+
+    override fun stop() {
+        logger.info("Saving configurations")
+        Preferences.getPreferences().editor().tryCommit()
+
+        logger.info("Shutting down application instance service")
+        ApplicationInstanceService.release()
+
+        exitProcess(0)
+    }
+
+    private class InitActivityLauncher(
+        private val preferences: Preferences,
+        private val loginData: LoginData,
+        databaseTracker: DatabaseTracker,
+        params: List<String>,
+        postLaunchQueue: PostLaunchQueue
+    ) : ActivityLauncher(preferences, databaseTracker, params = params, postLaunchQueue = postLaunchQueue) {
+        override fun getLoginData(): LoginData = loginData
+
+        override fun saveLoginData(loginData: LoginData) {
+            preferences.editor().put(PreferenceKey.LOGIN_DATA, loginData).tryCommit()
+        }
+    }
+
+    @Target(AnnotationTarget.FUNCTION)
+    @Retention(AnnotationRetention.SOURCE)
+    annotation class Init()
 }
 
-class MainView : BaseView() {
-    init {
-        setContent(buildUI())
-        styleClass.add(JMetroStyleClass.BACKGROUND)
-    }
-
-    private fun buildUI(): Node {
-        val btn1 = Button("Show Information Dialog").apply {
-            setOnAction {
-                showInformationDialog("标题", "消息") {
-                    println("information btn $it")
-                }
-            }
-        }
-        val btn2 = Button("Show Confirmation Dialog").apply {
-            setOnAction {
-                showConfirmationDialog("标题", "消息") {
-                    println("confirmation btn $it")
-                }
-            }
-        }
-        val btn3 = Button("Show Error Dialog").apply {
-            setOnAction {
-                showErrorDialog("标题", "消息", RuntimeException("test")) {
-                    println("error btn $it")
-                }
-            }
-        }
-        val btn4 = Button("Show Information Notification").apply {
-            setOnAction {
-                showInformationNotification("标题", "消息", Duration.millis(1000.0))
-            }
-        }
-        val btn5 = Button("Show Error Notification").apply {
-            setOnAction {
-                showErrorNotification("标题", "消息", Duration.millis(5000.0))
-            }
-        }
-        return VBox(10.0).apply {
-            children.addAll(btn1, btn2, btn3, btn4, btn5)
-            alignment = Pos.CENTER
-        }
-    }
-}
-
-
-fun main() {
-    PropertiesSetup.setupSystemProperties()
-    LauncherImpl.launchApplication(Main::class.java, Preloader::class.java, null)
+fun main(vararg args: String) {
+    Main.main(*args)
 }
