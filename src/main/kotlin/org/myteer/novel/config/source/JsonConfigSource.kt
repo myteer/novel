@@ -62,6 +62,7 @@ abstract class JsonConfigSource : ConfigSource {
 
     override fun reset() {
         val json = getJsonBase()
-        json.keySet().forEach(json::remove)
+        val keys = HashSet(json.keySet())
+        keys.forEach(json::remove)
     }
 }
