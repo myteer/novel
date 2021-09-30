@@ -55,9 +55,14 @@ dependencies {
 
     implementation 'com.dlsc.workbenchfx:workbenchfx-core:11.1.0'
     implementation 'io.github.typhon0:AnimateFX:1.2.2'
-    implementation 'com.github.Dansoftowner:FXTaskbarProgressBar:v11.4'
+    implementation('com.github.Dansoftowner:FXTaskbarProgressBar:v11.4') {
+        exclude group: "org.openjfx"
+    }
     implementation 'org.fxmisc.richtext:richtextfx:0.10.6'
-    implementation 'org.jfxtras:jmetro:11.6.15'
+    implementation('org.jfxtras:jmetro:11.6.15') {
+        exclude group: "org.openjfx"
+    }
     implementation 'com.jfoenix:jfoenix:9.0.10'
     implementation 'org.controlsfx:controlsfx:11.1.0'
+
 }
