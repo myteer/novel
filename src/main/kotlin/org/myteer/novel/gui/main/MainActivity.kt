@@ -4,6 +4,7 @@ import org.myteer.novel.config.Preferences
 import org.myteer.novel.db.DatabaseMeta
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.gui.api.Context
+import org.myteer.novel.gui.control.tabview.TabItem
 import org.myteer.novel.gui.entry.DatabaseTracker
 import java.lang.ref.WeakReference
 import java.util.*
