@@ -1,11 +1,14 @@
 package org.myteer.novel.gui.main
 
+import javafx.beans.property.BooleanProperty
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.stage.WindowEvent
 import org.myteer.novel.config.Preferences
 import org.myteer.novel.db.DatabaseMeta
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.gui.api.Context
-import org.myteer.novel.gui.control.tabview.TabItem
 import org.myteer.novel.gui.entry.DatabaseTracker
+import org.myteer.novel.gui.menubar.AppMenuBar
 import java.lang.ref.WeakReference
 import java.util.*
 
@@ -27,16 +30,26 @@ class MainActivity(
                 .findAny()
         }
     }
+    private val showing: BooleanProperty = SimpleBooleanProperty()
+    private val mainView = MainView(preferences, database, databaseTracker)
 
     init {
         instances.add(WeakReference(this))
+        databaseTracker.registerUsedDatabase(database.meta)
     }
 
     fun show() {
-
+        val window = MainWindow(mainView, AppMenuBar(mainView, preferences, databaseTracker))
+        window.show()
+        window.addEventHandler(WindowEvent.WINDOW_HIDDEN) {
+            database.close()
+            databaseTracker.registerClosedDatabase(database.meta)
+            showing.set(false)
+        }
+        showing.set(true)
     }
 
-    fun getContext(): Context {
-        TODO("待实现")
-    }
+    fun isShowing(): Boolean = showing.get()
+
+    fun getContext(): Context = mainView
 }

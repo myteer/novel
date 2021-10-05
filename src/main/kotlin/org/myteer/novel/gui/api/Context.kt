@@ -79,6 +79,10 @@ interface Context {
         }
     }
 
+    fun sendRequest(request: Request) { }
+
+    interface Request
+
     companion object {
         fun empty() = object : EmptyContext {}
     }

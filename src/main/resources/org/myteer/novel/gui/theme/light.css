@@ -32,6 +32,30 @@
 
 /*******************************************************************************
  *                                                                             *
+ *                                  TabView                                    *
+ *                                                                             *
+ ******************************************************************************/
+.tab-view > .tab-pane > .tab-header-area > .tab-header-background {
+    /* -fx-background-color: #F0EEF2; */
+}
+.tab-view > .tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: #FFFEFE;
+}
+.tab-view > .tab-pane > .tab-header-area > .headers-region {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 10, 0.12, -1, 2);
+}
+.tab-view > .tab-pane > .tab-header-area > .headers-region > .tab:hover > .tab-container > .tab-label {
+    -fx-text-fill: #2F2F2F;
+}
+.tab-view > .tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-label {
+    -fx-text-fill: #2F2F2F;
+}
+.tab-view > .tab-pane > .tab-header-area > .headers-region > .tab:selected:hover > .tab-container > .tab-label {
+    -fx-text-fill: #2F2F2F;
+}
+
+/*******************************************************************************
+ *                                                                             *
  *                                  Base View                                  *
  *                                                                             *
  ******************************************************************************/
@@ -81,6 +105,18 @@
 }
 .login-box .header .label {
     -fx-text-fill: #797979;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                 Main View                                   *
+ *                                                                             *
+ ******************************************************************************/
+.main-view-toolbar {
+    -fx-border-color: #D4D4D4;
+}
+.tile:hover {
+    -fx-background-color: #ECECEE;
 }
 
 /*******************************************************************************

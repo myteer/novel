@@ -12,16 +12,16 @@ import org.myteer.novel.gui.utils.onScenePresent
 import org.myteer.novel.i18n.i18n
 import org.myteer.novel.main.PropertiesSetup
 
-class ModuleView(private val mainView: MainView) : StackPane() {
+class ModuleView(private val view: MainView) : StackPane() {
     companion object {
         private const val TILES_PER_ROW = 3
         private const val ROWS_PER_PAGE = 3
 
-        fun getTabItem(mainView: MainView) = TabItem(
+        fun getTabItem(view: MainView) = TabItem(
             "moduleview",
             i18n("main_view.home"),
             { icon("home-icon") },
-            { ModuleView(mainView) }
+            { ModuleView(view) }
         )
     }
 
@@ -77,9 +77,9 @@ class ModuleView(private val mainView: MainView) : StackPane() {
             }
         }
 
-    private fun buildTiles(): List<Tile> = mainView.modules.map(::buildTile)
+    private fun buildTiles(): List<Tile> = view.modules.map(::buildTile)
 
-    private fun buildTile(module: Module) = Tile(mainView, module)
+    private fun buildTile(module: Module) = Tile(view, module)
 
     private fun playAnimation() {
         onScenePresent {
@@ -87,7 +87,7 @@ class ModuleView(private val mainView: MainView) : StackPane() {
         }
     }
 
-    private class Tile(val mainView: MainView, val module: Module) : VBox() {
+    private class Tile(val view: MainView, val module: Module) : VBox() {
         init {
             styleClass.add("tile")
             id = "tile-${module.id}"
@@ -105,7 +105,7 @@ class ModuleView(private val mainView: MainView) : StackPane() {
             graphic = module.icon
             tooltip = Tooltip(module.name)
             setOnAction {
-                mainView.openTab(module.getTabItem())
+                view.openTab(module.getTabItem())
             }
         }
 
