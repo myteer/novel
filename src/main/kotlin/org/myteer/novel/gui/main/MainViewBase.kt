@@ -1,5 +1,6 @@
 package org.myteer.novel.gui.main
 
+import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
 import org.myteer.novel.config.Preferences
 import org.myteer.novel.gui.control.tabview.TabItem
@@ -19,6 +20,7 @@ class MainViewBase(
     }
 
     private fun buildUI() {
+        setVgrow(tabView, Priority.ALWAYS)
         children.add(toolBar)
         children.add(tabView)
     }

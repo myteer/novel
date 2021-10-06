@@ -36,10 +36,10 @@ class ModuleView(private val view: MainView) : StackPane() {
     }
 
     private fun buildCenterBox() = Group(
-        VBox(20.0).apply {
-            children.add(buildLabelArea())
-            children.add(buildPagination())
-        }
+        VBox(20.0,
+            buildLabelArea(),
+            buildPagination()
+        )
     )
 
     private fun buildLabelArea() = StackPane(

@@ -14,9 +14,12 @@ class BookShelf2(
     private val preferences: Preferences,
     private val database: NitriteDatabase
 ) : Module() {
-    override val id: String = "bookshelf-module2"
-    override val name: String = i18n("preferences.tab.appearance")
-    override val icon: Node = icon("google-icon")
+    override val id: String
+        get() = "bookshelf-module2"
+    override val name: String
+        get() = i18n("preferences.tab.appearance")
+    override val icon: Node
+        get() = icon("google-icon")
 
     override fun buildContent(): Node {
         return Button("测试")

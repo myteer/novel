@@ -163,7 +163,7 @@ class TabView(
 
         private fun buildCloseToRightItem() = MenuItem().apply {
             text = i18n("tab_view.tab_menu.close_right")
-            disableProperty().bind(indexProperty.isEqualTo(tabView.tabPane.tabs.size - 1))
+            disableProperty().bind(Bindings.valueAt(tabView.tabPane.tabs, indexProperty.add(1)).isNull)
             setOnAction {
                 val tabs = tabView.tabPane.tabs.filterIsInstance<TabImpl>()
                 val currentIndex = tabs.indexOf(this@TabImpl)
