@@ -7,12 +7,15 @@ import javafx.event.EventHandler
 import javafx.stage.WindowEvent
 import org.myteer.novel.config.PreferenceKey
 import org.myteer.novel.config.Preferences
+import org.myteer.novel.gui.action.GlobalActions
+import org.myteer.novel.gui.entry.DatabaseTracker
 import org.myteer.novel.gui.window.BaseWindow
 import org.myteer.novel.i18n.i18n
 
 class LoginWindow(
     private val root: LoginView,
-    private val preferences: Preferences
+    private val preferences: Preferences,
+    private val databaseTracker: DatabaseTracker
 ) : BaseWindow<LoginView>(TitleProperty("window.login.title", " - ", root.titleProperty()), root), EventHandler<WindowEvent> {
     init {
         minWidth = 530.0
@@ -20,6 +23,11 @@ class LoginWindow(
         isMaximized = true
         showExitDialog = true
         addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, this)
+        initKeyBindings()
+    }
+
+    private fun initKeyBindings() {
+        GlobalActions.applyOnScene(scene, root, preferences, databaseTracker)
     }
 
     override fun handle(event: WindowEvent?) {

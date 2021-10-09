@@ -7,10 +7,7 @@ import javafx.scene.control.Tab
 import javafx.scene.control.TabPane
 import org.myteer.novel.config.Preferences
 import org.myteer.novel.gui.base.BaseView
-import org.myteer.novel.gui.preferences.pane.AdvancedPane
-import org.myteer.novel.gui.preferences.pane.AppearancePane
-import org.myteer.novel.gui.preferences.pane.LanguagePane
-import org.myteer.novel.gui.preferences.pane.PreferencesPane
+import org.myteer.novel.gui.preferences.pane.*
 
 class PreferencesView(private val preferences: Preferences) : BaseView() {
     private val tabPane: TabPane = TabPane()
@@ -24,6 +21,7 @@ class PreferencesView(private val preferences: Preferences) : BaseView() {
     private fun initPanes() {
         listOf(
             AppearancePane(preferences),
+            KeyBindingPane(preferences),
             LanguagePane(this, preferences),
             AdvancedPane(this, preferences)
         ).forEach(this::addPane)

@@ -45,7 +45,7 @@ class LoginActivity(
     }
 
     private fun buildLoginWindow(): LoginWindow {
-        return LoginWindow(loginView!!, preferences).apply {
+        return LoginWindow(loginView!!, preferences, databaseTracker).apply {
             addEventHandler(WindowEvent.WINDOW_HIDDEN) {
                 loginView = null
                 showing.unbind()

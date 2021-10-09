@@ -5,6 +5,7 @@ import org.myteer.novel.config.Preferences
 import org.myteer.novel.config.login.LoginData
 import org.myteer.novel.exception.UncaughtExceptionHandler
 import org.myteer.novel.gui.entry.DatabaseTracker
+import org.myteer.novel.gui.keybinding.KeyBindings
 import org.myteer.novel.gui.theme.Theme
 import org.myteer.novel.gui.window.BaseWindow
 import org.myteer.novel.i18n.i18n
@@ -39,8 +40,8 @@ class Main : BaseApplication() {
         applyBaseConfigurations(preferences)
         applyAdditionalConfigurations(preferences)
 
-        logger.debug("Locale is: ${Locale.getDefault()}")
-        logger.debug("Theme is: ${Theme.getDefault()}")
+        logger.debug("Locale is: {}", Locale.getDefault())
+        logger.debug("Theme is: {}", Theme.getDefault())
 
         val databaseTracker = DatabaseTracker.global
         val loginData = readLoginData(preferences, databaseTracker)
@@ -92,9 +93,18 @@ class Main : BaseApplication() {
 
     @Init
     private fun applyAdditionalConfigurations(preferences: Preferences) {
+        applyWindowsOpacity(preferences)
+        loadDefaultKeyBindings(preferences)
+    }
+
+    private fun applyWindowsOpacity(preferences: Preferences) {
         val opacity = preferences.get(BaseWindow.GLOBAL_OPACITY_CONFIG_KEY)
-        logger.debug("Global window opacity read: $opacity")
+        logger.debug("Global window opacity read: {}", opacity)
         BaseWindow.globalOpacity.set(opacity)
+    }
+
+    private fun loadDefaultKeyBindings(preferences: Preferences) {
+        KeyBindings.loadFrom(preferences)
     }
 
     @Init
