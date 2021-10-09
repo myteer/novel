@@ -274,6 +274,10 @@ open class BaseView(content: Node? = null) : StackPane(), Context {
         return taskbarProgressbarCache!!
     }
 
+    fun getBlockingOverlaysShown(): ObservableList<Region> = workbench.blockingOverlaysShown
+
+    fun getNonBlockingOverlaysShown(): ObservableList<Region> = workbench.nonBlockingOverlaysShown
+
     companion object {
         private val logger: Logger = LoggerFactory.getLogger(BaseView::class.java)
     }

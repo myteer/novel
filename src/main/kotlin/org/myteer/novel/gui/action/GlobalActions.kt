@@ -125,9 +125,9 @@ object GlobalActions {
     private fun submitTask(context: Context, runnable: Runnable) {
         runOutsideUIAsync(object : Task<Unit>() {
             init {
-                setOnRunning { context.showIndeterminateProgress() }
-                setOnFailed { context.stopProgress() }
-                setOnSucceeded { context.stopProgress() }
+                setOnRunning { context.takeIf(Context::isShowing)?.showIndeterminateProgress()  }
+                setOnFailed { context.takeIf(Context::isShowing)?.stopProgress() }
+                setOnSucceeded { context.takeIf(Context::isShowing)?.stopProgress() }
             }
 
             override fun call() {

@@ -9,6 +9,7 @@ import javafx.scene.layout.StackPane
 import org.apache.commons.io.FileUtils
 import org.myteer.novel.config.PreferenceKey
 import org.myteer.novel.config.Preferences
+import org.myteer.novel.gui.action.GlobalActions
 import org.myteer.novel.gui.control.BiToolBar
 import org.myteer.novel.gui.entry.DatabaseTracker
 import org.myteer.novel.gui.utils.icon
@@ -84,6 +85,7 @@ class MainViewToolBar(
                     setAutoLoginCredentials(null)
                 })
                 .tryCommit()
+            GlobalActions.NEW_ENTRY.invoke(view, preferences, databaseTracker)
             view.close()
         }
     }
