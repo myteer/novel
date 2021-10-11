@@ -93,7 +93,7 @@ class DatabaseManagerTable(
                             graphic = icon("warning-icon").apply { styleClass.add(NOT_EXISTS_CLASS) }
                             tableRow.tooltip = Tooltip(i18n("file.not.exists"))
                         } else if(databaseTracker.isDatabaseUsed(databaseMeta)) {
-                            graphic = icon("pay-icon").apply { styleClass.add(USED_CLASS) }
+                            graphic = icon("play-icon").apply { styleClass.add(USED_CLASS) }
                             tableRow.tooltip = Tooltip(i18n("database.currently.used"))
                         } else {
                             graphic = null

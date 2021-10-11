@@ -42,7 +42,8 @@ class AppMenuBar(
             FileMenu(view, view.databaseMeta, preferences, databaseTracker),
             ModuleMenu(view),
             PreferencesMenu(view, preferences, databaseTracker),
-            WindowMenu(view, preferences, databaseTracker)
+            WindowMenu(view, preferences, databaseTracker),
+            HelpMenu(view, preferences, databaseTracker)
         )
     }
 
@@ -315,6 +316,18 @@ class AppMenuBar(
                 weakReference.get()?.onChanged(c) ?: Window.getWindows().removeListener(this)
             }
         }
+    }
+
+    private class HelpMenu(
+        private val context: Context,
+        private val preferences: Preferences,
+        private val databaseTracker: DatabaseTracker
+    ) : Menu(i18n("menubar.menu.help")) {
+        init {
+            menuItem(info())
+        }
+
+        private fun info(): MenuItem = MenuItems.of(GlobalActions.OPEN_APP_INFO, context, preferences, databaseTracker)
     }
 
     companion object {
