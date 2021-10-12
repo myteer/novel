@@ -5,11 +5,12 @@ import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.login.DatabaseLoginListener
 
 class QuickLoginActivity(private val databaseMeta: DatabaseMeta, databaseLoginListener: DatabaseLoginListener) {
+    private val view = QuickLoginView(databaseMeta, databaseLoginListener)
+
     fun show() {
-
+        val window = QuickLoginWindow(view, databaseMeta)
+        window.show()
     }
 
-    fun getContext(): Context {
-        TODO("待实现")
-    }
+    fun getContext(): Context = view
 }

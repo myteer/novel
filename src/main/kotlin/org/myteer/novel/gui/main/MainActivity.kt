@@ -27,6 +27,7 @@ class MainActivity(
                     it?.database?.meta?.equals(databaseMeta) ?: false
                 }
                 .map { it!! }
+                .filter(MainActivity::isShowing)
                 .findAny()
         }
     }

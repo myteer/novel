@@ -1,5 +1,6 @@
 package org.myteer.novel.gui.window
 
+import de.jangassen.MenuToolkit
 import javafx.beans.property.DoubleProperty
 import javafx.beans.property.SimpleDoubleProperty
 import javafx.beans.property.StringProperty
@@ -18,6 +19,8 @@ import org.myteer.novel.gui.theme.Themeable
 import org.myteer.novel.gui.utils.loadImage
 import org.myteer.novel.gui.utils.typeEquals
 import org.myteer.novel.i18n.i18n
+import org.myteer.novel.utils.os.OsInfo
+import org.slf4j.LoggerFactory
 
 open class BaseWindow<C> : Stage, Themeable where C : Parent, C : Context {
     private var content: C? = null
@@ -55,11 +58,17 @@ open class BaseWindow<C> : Stage, Themeable where C : Parent, C : Context {
         this.titleProperty().bind(titleProperty)
     }
 
-    private fun buildMenuBarContent(menuBar: MenuBar, content: C): Parent {
-        return BorderPane(content).apply {
-            top = menuBar
+    private fun buildMenuBarContent(menuBar: MenuBar, content: C): Parent =
+        when {
+            OsInfo.isMac() -> content.also {
+                logger.debug("MacOS detected: building native menu-bar...")
+                MenuToolkit.toolkit().setMenuBar(this, menuBar)
+            }
+            else -> {
+                logger.debug("MacOS is not detected: building JavaFX based menu-bar...")
+                BorderPane(content).apply { top = menuBar }
+            }
         }
-    }
 
     fun makeFocused() {
         isIconified = false
@@ -132,5 +141,7 @@ open class BaseWindow<C> : Stage, Themeable where C : Parent, C : Context {
         private const val LOGO_128 = "/org/myteer/novel/image/logo/bookshelf_128.png"
         private const val LOGO_256 = "/org/myteer/novel/image/logo/bookshelf_256.png"
         private const val LOGO_512 = "/org/myteer/novel/image/logo/bookshelf_512.png"
+
+        private val logger = LoggerFactory.getLogger(BaseWindow::class.java)
     }
 }

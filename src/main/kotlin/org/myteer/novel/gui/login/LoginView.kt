@@ -13,6 +13,7 @@ import org.myteer.novel.gui.dbcreator.DatabaseCreatorActivity
 import org.myteer.novel.gui.dbcreator.DatabaseOpener
 import org.myteer.novel.gui.dbmanager.DatabaseManagerActivity
 import org.myteer.novel.gui.entry.DatabaseTracker
+import org.myteer.novel.gui.main.MainActivity
 import org.myteer.novel.gui.utils.runInsideUI
 import org.myteer.novel.i18n.i18n
 import org.slf4j.LoggerFactory
@@ -79,20 +80,26 @@ class LoginView(
         }
 
         override fun login(databaseMeta: DatabaseMeta, credentials: Credentials, remember: Boolean) {
-            loginData.setAutoLogin(remember)
-            loginData.setAutoLoginCredentials(credentials.takeIf { remember })
+            if (databaseTracker.isDatabaseUsed(databaseMeta)) {
+                MainActivity.getByDatabase(databaseMeta).map(MainActivity::getContext).ifPresent(Context::toFrontRequest)
+                context.close()
+            } else {
+                loginData.setAutoLogin(remember)
+                loginData.setAutoLoginCredentials(credentials.takeIf { remember })
 
-            NitriteDatabase.builder()
-                .databaseMeta(databaseMeta)
-                .onFailed { message, t ->
-                    context.showErrorDialog(i18n("login.failed"), message, t as Exception?)
-                    logger.error("failed to create/open the database", t)
-                }.build(credentials)?.let {
-                    logger.info("login success, close the LoginWindow")
-                    preferences.editor().put(PreferenceKey.LOGIN_DATA, loginData)
-                    databaseLoginListener.onDatabaseOpened(it)
-                    context.close()
-                }
+                NitriteDatabase.builder()
+                    .databaseMeta(databaseMeta)
+                    .onFailed { message, t ->
+                        context.showErrorDialog(i18n("login.failed"), message, t as Exception?)
+                        logger.error("Failed to create/open the database", t)
+                    }.build(credentials)?.let {
+                        logger.debug("Login was successful, closing the LoginWindow")
+                        preferences.editor().put(PreferenceKey.LOGIN_DATA, loginData)
+                        databaseLoginListener.onDatabaseOpened(it)
+                        context.close()
+                    }
+            }
+
         }
 
         override fun onDatabaseAdded(databaseMeta: DatabaseMeta) {

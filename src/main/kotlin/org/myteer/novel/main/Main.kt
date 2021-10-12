@@ -20,8 +20,6 @@ class Main : BaseApplication() {
         private val logger = LoggerFactory.getLogger(Main::class.java)
 
         fun main(vararg args: String) {
-            // 设置系统参数
-            PropertiesSetup.setupSystemProperties()
             // 设置未捕获异常处理器
             Thread.setDefaultUncaughtExceptionHandler(UncaughtExceptionHandler())
             // 单应用实例控制
@@ -154,5 +152,8 @@ class Main : BaseApplication() {
 }
 
 fun main(vararg args: String) {
+    // 设置系统参数
+    PropertiesSetup.setupSystemProperties()
+    // 启动应用
     Main.main(*args)
 }

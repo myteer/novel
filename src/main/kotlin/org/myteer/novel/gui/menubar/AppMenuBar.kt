@@ -260,6 +260,7 @@ class AppMenuBar(
                             if (!it.isSelected) {
                                 it.isSelected = true
                             } else {
+                                window.isIconified = false
                                 window.toFront()
                             }
                         }
