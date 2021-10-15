@@ -6,8 +6,8 @@ import org.myteer.novel.db.DatabaseMeta
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.base.BaseView
+import org.myteer.novel.gui.book.BookImportModule
 import org.myteer.novel.gui.bookshelf.BookShelf
-import org.myteer.novel.gui.bookshelf.BookShelf2
 import org.myteer.novel.gui.control.tabview.TabItem
 import org.myteer.novel.gui.entry.DatabaseTracker
 import org.slf4j.LoggerFactory
@@ -19,7 +19,7 @@ class MainView(
 ) : BaseView() {
     val modules: List<Module> = listOf(
         BookShelf(this, preferences, database),
-        BookShelf2(this, preferences, database)
+        BookImportModule(this)
     )
 
     val databaseMeta: DatabaseMeta

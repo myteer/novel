@@ -4,12 +4,15 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView
+import javafx.scene.Node
+import javafx.scene.image.Image
+import javafx.scene.image.ImageView
 import javafx.scene.text.Text
 import org.slf4j.LoggerFactory
 
 private val logger = LoggerFactory.getLogger("Icons")
 
-private val iconPack = mapOf<String, () -> Text>(
+private val iconPack: Map<String, () -> Node> = mapOf(
     "info-icon" to fun() = MaterialDesignIconView(MaterialDesignIcon.INFORMATION),
     "info-outline-icon" to fun() = MaterialDesignIconView(MaterialDesignIcon.INFORMATION_OUTLINE),
     "warning-icon" to fun() = MaterialDesignIconView(MaterialDesignIcon.ALERT),
@@ -88,10 +91,11 @@ private val iconPack = mapOf<String, () -> Text>(
     "italic-icon" to fun() = MaterialDesignIconView(MaterialDesignIcon.FORMAT_ITALIC),
     "strikethrough-icon" to fun() = MaterialDesignIconView(MaterialDesignIcon.FORMAT_STRIKETHROUGH),
     "pause-icon" to fun() = MaterialDesignIconView(MaterialDesignIcon.PAUSE),
-    "stop-icon" to fun() = MaterialDesignIconView(MaterialDesignIcon.STOP)
+    "stop-icon" to fun() = MaterialDesignIconView(MaterialDesignIcon.STOP),
+    "biquge-icon" to fun() = ImageView(Image("/org/myteer/novel/image/other/biquge_16.png"))
 )
 
-fun icon(identifier: String): Text = (iconPack[identifier]?.invoke() ?: Text().apply {
+fun icon(identifier: String): Node = (iconPack[identifier]?.invoke() ?: Text().apply {
     logger.error("couldn't find icon for '{}'", identifier)
 }).styleClass(identifier)
 

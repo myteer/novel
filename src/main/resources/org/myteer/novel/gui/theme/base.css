@@ -250,15 +250,16 @@
     -fx-background-radius: 7;
     -fx-padding: 15 10 0 10;
     -fx-pref-width: 9em;
-    -fx-pref-height: 9.3434588481230382312016806204436em;
+    -fx-pref-height: 9.34em;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 10, 0.12, -1, 2);
 }
 .main-view .module-view .tile .button {
-    -fx-pref-width: 6.3em;
+    -fx-pref-width: 64px;
+    -fx-pref-height: 64px;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
     -fx-cursor: HAND;
-    -fx-border-radius: 7;
-    -fx-background-radius: 7;
-    -fx-padding: 20;
+    -fx-padding: 0;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 10, 0.12, -1, 2);
 }
 .main-view .module-view .tile .button .glyph-icon {
@@ -266,7 +267,26 @@
 }
 .main-view .module-view .tile .label {
     -fx-padding: inherit 5 inherit 5;
-    -fx-font-size: 0.8em;
+    -fx-font-size: 1em;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                               Book import view                              *
+ *                                                                             *
+ ******************************************************************************/
+.book-search-form .title-label {
+    -fx-font-size: 2em;
+    -fx-opacity: .7;
+}
+.book-search-form .text-field {
+    -fx-padding: 5 10 5 5;
+}
+.google-books-pagination {
+    -fx-padding: 0 0 5 0;
+}
+.google-books-table .thumbnail-place-holder {
+    -fx-font-size: 80 !important;
 }
 
 /*******************************************************************************

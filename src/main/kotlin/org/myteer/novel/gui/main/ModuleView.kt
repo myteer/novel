@@ -102,7 +102,7 @@ class ModuleView(private val view: MainView) : StackPane() {
 
         private fun buildButton() = Button().apply {
             contentDisplay = ContentDisplay.GRAPHIC_ONLY
-            graphic = module.icon
+            graphic = module.preview
             tooltip = Tooltip(module.name)
             setOnAction {
                 view.openTab(module.getTabItem())

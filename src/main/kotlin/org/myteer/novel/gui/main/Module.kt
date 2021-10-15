@@ -6,6 +6,7 @@ abstract class Module {
     abstract val id: String
     abstract val name: String
     abstract val icon: Node
+    abstract val preview: Node
 
     var isOpened: Boolean = false
         private set
