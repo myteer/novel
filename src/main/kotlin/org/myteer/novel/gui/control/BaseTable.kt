@@ -10,7 +10,6 @@ import javafx.scene.control.TableRow
 import javafx.scene.control.TableView
 import javafx.scene.input.ContextMenuEvent
 import javafx.scene.input.MouseButton
-import org.myteer.novel.i18n.i18n
 import java.util.function.Consumer
 
 abstract class BaseTable<S> : TableView<S>() {
@@ -43,7 +42,7 @@ abstract class BaseTable<S> : TableView<S>() {
         }
     }
 
-    fun isColumnShown(columnType: ColumnType): Boolean {
+    fun isColumnShowing(columnType: ColumnType): Boolean {
         return columns.map { it as Column }.map { it.columnType }.any { it == columnType }
     }
 
@@ -69,23 +68,13 @@ abstract class BaseTable<S> : TableView<S>() {
 
     fun removeAllColumns() = columns.clear()
 
-    fun getSortingComparator(): Comparator<String> = sortingComparator.get()
+    fun onItemDoubleClickedProperty(): ObjectProperty<Consumer<S>> = onItemDoubleClicked
 
-    fun sortingComparatorProperty(): ObjectProperty<Comparator<String>> = sortingComparator
-
-    fun setSortingComparator(comparator: Comparator<String>) {
-        sortingComparator.set(comparator)
+    fun setOnItemDoubleClicked(consumer: Consumer<S>) {
+        onItemDoubleClicked.set(consumer)
     }
 
-    fun getRowContextMenu(): ContextMenu = rowContextMenu.get()
-
-    fun rowContextMenuProperty(): ObjectProperty<ContextMenu> = rowContextMenu
-
-    fun setRowContextMenu(contextMenu: ContextMenu) {
-        rowContextMenu.set(contextMenu)
-    }
-
-    fun getOnItemSecondaryDoubleClicked(): Consumer<S> = onItemSecondaryDoubleClicked.get()
+    fun getOnItemDoubleClicked(): Consumer<S> = onItemDoubleClicked.get()
 
     fun onItemSecondaryDoubleClickedProperty(): ObjectProperty<Consumer<S>> = onItemSecondaryDoubleClicked
 
@@ -93,32 +82,42 @@ abstract class BaseTable<S> : TableView<S>() {
         onItemSecondaryDoubleClicked.set(consumer)
     }
 
-    fun getOnItemDoubleClicked(): Consumer<S> = onItemDoubleClicked.get()
+    fun getOnItemSecondaryDoubleClicked(): Consumer<S> = onItemSecondaryDoubleClicked.get()
 
-    fun onItemDoubleClickedProperty(): ObjectProperty<Consumer<S>> = onItemDoubleClicked
+    fun rowContextMenuProperty(): ObjectProperty<ContextMenu> = rowContextMenu
 
-    fun setOnItemDoubleClicked(consumer: Consumer<S>) {
-        onItemDoubleClicked.set(consumer)
+    fun setRowContextMenu(contextMenu: ContextMenu) {
+        rowContextMenu.set(contextMenu)
     }
+
+    fun getRowContextMenu(): ContextMenu = rowContextMenu.get()
+
+    fun sortingComparatorProperty(): ObjectProperty<Comparator<String>> = sortingComparator
+
+    fun setSortingComparator(comparator: Comparator<String>) {
+        sortingComparator.set(comparator)
+    }
+
+    fun getSortingComparator(): Comparator<String> = sortingComparator.get()
 
     class ColumnType(
         val id: String,
-        val text: String,
+        val title: String,
         val columnFactory: (ColumnType, BaseTable<*>) -> Column<*, *>,
         vararg options: Option
     ) {
         companion object {
             val DEFAULT_VISIBLE = Option()
-            val TEXT_GUI_VISIBLE = Option()
+            val TITLE_VISIBLE = Option()
         }
 
         private val options: List<Option> = options.toList()
 
         fun isDefaultVisible(): Boolean = options.contains(DEFAULT_VISIBLE)
 
-        fun isTextOnUIVisible(): Boolean = options.contains(TEXT_GUI_VISIBLE)
+        fun isTitleVisible(): Boolean = options.contains(TITLE_VISIBLE)
 
-        override fun toString(): String = i18n(text)
+        override fun toString(): String = title
 
         class Option
     }
@@ -130,11 +129,9 @@ abstract class BaseTable<S> : TableView<S>() {
         }
 
         private fun initToColumnType(columnType: ColumnType) {
-            text = getTextFor(columnType)
-        }
-
-        private fun getTextFor(columnType: ColumnType): String? {
-            return if (columnType.isTextOnUIVisible()) columnType.text else null
+            when {
+                columnType.isTitleVisible() -> text = columnType.title
+            }
         }
     }
 
