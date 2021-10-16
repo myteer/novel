@@ -1,9 +1,8 @@
 package org.myteer.novel.gui.book
 
 import javafx.scene.control.Pagination
-import javafx.scene.control.TableView
 import org.myteer.novel.crawl.model.Book
-import org.myteer.novel.crawl.task.BooksSearchTask
+import org.myteer.novel.crawl.task.BookSearchTask
 import org.myteer.novel.crawl.vo.BookSearchRequest
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.utils.I18NButtonType
@@ -35,7 +34,7 @@ class BookSearchPagination(
         table.clearCache()
     }
 
-    private inner class SearchTask(request: BookSearchRequest) : BooksSearchTask(request) {
+    private inner class SearchTask(request: BookSearchRequest) : BookSearchTask(request) {
         init {
             setOnRunning { onRunning() }
             setOnFailed { onFailed(it.source.exception) }
