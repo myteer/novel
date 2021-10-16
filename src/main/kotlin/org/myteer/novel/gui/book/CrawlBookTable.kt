@@ -46,8 +46,6 @@ class CrawlBookTable(
             LastChapterNameColumn(),
             LastUpdateTimeColumn(),
         )
-        isCache = true
-        cacheHint = CacheHint.SCALE_AND_ROTATE
     }
 
     fun clearCache() {
