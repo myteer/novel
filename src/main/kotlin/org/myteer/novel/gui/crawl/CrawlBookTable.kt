@@ -50,7 +50,7 @@ class CrawlBookTable : BaseTable<Book>() {
         )
         private val CATEGORY_NAME_COLUMN: ColumnType = ColumnType(
             "category_name",
-            i18n("crawl.book.table.column.category_name"),
+            i18n("crawl.book.table.column.category"),
             { _, _ -> CategoryNameColumn() },
             DEFAULT_VISIBLE,
             TITLE_VISIBLE
