@@ -2,30 +2,28 @@ package org.myteer.novel.gui.crawl
 
 import javafx.beans.property.BooleanProperty
 import javafx.beans.property.SimpleBooleanProperty
+import javafx.scene.control.Button
 import javafx.scene.control.ContextMenu
-import javafx.scene.control.Label
 import javafx.scene.control.MenuItem
-import javafx.scene.layout.Priority
-import javafx.scene.layout.VBox
+import javafx.scene.image.ImageView
+import javafx.scene.layout.Region
+import javafx.scene.layout.StackPane
 import org.myteer.novel.crawl.model.Book
 import org.myteer.novel.crawl.task.BookSearchTask
 import org.myteer.novel.crawl.vo.BookSearchRequest
 import org.myteer.novel.gui.api.Context
-import org.myteer.novel.gui.utils.I18NButtonType
-import org.myteer.novel.gui.utils.icon
-import org.myteer.novel.gui.utils.runOutsideUIAsync
-import org.myteer.novel.gui.utils.setOnScrolledToBottom
+import org.myteer.novel.gui.utils.*
 import org.myteer.novel.i18n.i18n
 import org.slf4j.LoggerFactory
 
 class CrawlBookTableExtendPane(
     private val context: Context,
     private val request: BookSearchRequest
-) : VBox() {
+) : StackPane() {
     private val loading: BooleanProperty = SimpleBooleanProperty(false)
     private val hasMore: BooleanProperty = SimpleBooleanProperty(true)
     private val table: CrawlBookTable = buildTable()
-    private val loadingIcon = buildLoadingIcon()
+    private val loadingPane: Region = buildLoadingPane()
 
     init {
         buildUI()
@@ -34,12 +32,17 @@ class CrawlBookTableExtendPane(
 
     private fun buildUI() {
         children.add(table)
-        children.add(loadingIcon)
+        loading.addListener { _, _, value ->
+            if (value) {
+                context.showOverlay(loadingPane, true)
+            } else {
+                context.hideOverlay(loadingPane)
+            }
+        }
     }
 
-    private fun buildLoadingIcon() = Label("正在加载...").apply {
-        visibleProperty().bind(loading)
-        managedProperty().bind(visibleProperty())
+    private fun buildLoadingPane() = StackPane(ImageView("/org/myteer/novel/image/other/loading.gif")).apply {
+        isPickOnBounds = false
     }
 
     private fun buildTable() = CrawlBookTable().apply {
@@ -53,10 +56,7 @@ class CrawlBookTableExtendPane(
             }
         ))
         setOnItemDoubleClicked(::showBookInfo)
-        setOnScrolledToBottom {
-            println("******")
-        }
-        setVgrow(this, Priority.ALWAYS)
+        setOnScrolledToBottom { loadData() }
     }
 
     private fun showSelectedBookInfo() {
@@ -64,7 +64,9 @@ class CrawlBookTableExtendPane(
     }
 
     private fun showBookInfo(book: Book) {
-        context.showOverlay(Label(book.name))
+        context.showOverlay(StackPane(Button(book.name)).apply {
+            isPickOnBounds = false
+        })
     }
 
     @Synchronized
@@ -111,7 +113,9 @@ class CrawlBookTableExtendPane(
             loading.set(false)
             context.stopProgress()
             if (books.isNotEmpty()) {
+                val targetValue = (table.verticalScrollValueProperty?.value ?: 0.0) * table.items.size
                 table.items.addAll(books)
+                table.verticalScrollValueProperty?.value = targetValue / table.items.size
                 request.apply { page += 1 }
             } else {
                 hasMore.set(false)

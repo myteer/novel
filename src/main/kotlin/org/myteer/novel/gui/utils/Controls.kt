@@ -1,5 +1,6 @@
 package org.myteer.novel.gui.utils
 
+import javafx.beans.property.DoubleProperty
 import javafx.geometry.Orientation
 import javafx.scene.Node
 import javafx.scene.control.ButtonType
@@ -21,17 +22,36 @@ fun <T> ComboBox<T>.refresh() {
     this.selectionModel.select(selected)
 }
 
-fun <S> TableView<S>.setOnScrolledToBottom(action: () -> Unit): TableView<S> = also {
-    lookupAll(".scroll-bar")
+val <S> TableView<S>.verticalScrollValueProperty: DoubleProperty?
+    get() = lookupAll(".scroll-bar")
         .filterIsInstance<ScrollBar>()
         .find { Orientation.VERTICAL == it.orientation }
-        ?.let {
-            it.valueProperty().addListener { _, _, value ->
-                println("scrolled to $value")
-                if (value == it.max) {
-                    println("scrolled to bottom")
-                    action.invoke()
+        ?.valueProperty()
+
+fun <S> TableView<S>.setOnScrolledToBottom(action: () -> Unit): TableView<S> = apply {
+    onScenePresent {
+        runOutsideUIAsync {
+            var verticalScrollBar: ScrollBar? = null
+            while (null == verticalScrollBar) {
+                verticalScrollBar = lookupAll(".scroll-bar")
+                    .filterIsInstance<ScrollBar>()
+                    .find { Orientation.VERTICAL == it.orientation }
+                if (null == verticalScrollBar) {
+                    Thread.sleep(100)
+                }
+            }
+            verticalScrollBar.let {
+                it.valueProperty().addListener { _, _, value ->
+                    if (value == it.max) {
+                        action.invoke()
+                    }
+                }
+                it.visibleProperty().addListener { _, _, visible ->
+                    if (!visible) {
+                        action.invoke()
+                    }
                 }
             }
         }
+    }
 }

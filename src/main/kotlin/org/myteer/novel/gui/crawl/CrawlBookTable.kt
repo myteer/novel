@@ -59,7 +59,6 @@ class CrawlBookTable : BaseTable<Book>() {
             "score",
             i18n("crawl.book.table.column.score"),
             { _, _ -> ScoreColumn() },
-            DEFAULT_VISIBLE,
             TITLE_VISIBLE
         )
         private val STATUS_COLUMN: ColumnType = ColumnType(
@@ -87,7 +86,6 @@ class CrawlBookTable : BaseTable<Book>() {
             "description",
             i18n("crawl.book.table.column.description"),
             { _, _ -> DescriptionColumn() },
-            DEFAULT_VISIBLE,
             TITLE_VISIBLE
         )
         private val COLUMN_LIST: List<ColumnType> = listOf(
@@ -234,7 +232,7 @@ class CrawlBookTable : BaseTable<Book>() {
     }
 
     private class LastUpdateTimeColumn : SimpleBookColumn(LAST_UPDATE_TIME_COLUMN) {
-        override fun getValue(book: Book): Any? = book.lastUpdateTime
+        override fun getValue(book: Book): Any? = book.lastUpdateTime?.removeSuffix(" 00:00:00")
     }
 
     private class DescriptionColumn : SimpleBookColumn(DESCRIPTION_COLUMN) {
