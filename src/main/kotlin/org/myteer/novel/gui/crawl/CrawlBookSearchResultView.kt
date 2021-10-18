@@ -10,7 +10,7 @@ class CrawlBookSearchResultView(
     onPreviousPageRequest: () -> Unit
 ) : BorderPane() {
     private val content = CrawlBookTableExtendPane(context, request)
-    private val toolBar = CrawlBookSearchToolBar(this, onPreviousPageRequest)
+    val toolBar = CrawlBookSearchToolBar(this, onPreviousPageRequest)
     val table: CrawlBookTable
         get() = content.table
 

@@ -16,11 +16,11 @@ class CrawlBookImportModule(private val context: Context) : Module() {
     override val icon = icon("biquge-icon")
     override val preview = ImageView(Image("/org/myteer/novel/image/other/biquge_64.png"))
 
-    private val content: ObjectProperty<CrawlBookSearchView> = SimpleObjectProperty()
+    private val content: ObjectProperty<CrawlBookImportView> = SimpleObjectProperty()
 
     override fun buildContent(): Node {
         if (null == content.get()) {
-            content.set(CrawlBookSearchView(context))
+            content.set(CrawlBookImportView(context))
         }
         return content.get()
     }

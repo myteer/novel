@@ -2,9 +2,10 @@ package org.myteer.novel.gui.crawl
 
 import javafx.scene.Node
 import javafx.scene.layout.StackPane
+import org.myteer.novel.crawl.vo.BookSearchRequest
 import org.myteer.novel.gui.api.Context
 
-class CrawlBookSearchView(private val context: Context) : StackPane() {
+open class CrawlBookSearchView(private val context: Context) : StackPane() {
     private val searchForm: CrawlBookSearchForm = buildSearchForm()
 
     private var content: Node?
@@ -24,11 +25,15 @@ class CrawlBookSearchView(private val context: Context) : StackPane() {
     }
 
     private fun buildSearchForm() = CrawlBookSearchForm {
-        content = CrawlBookSearchResultView(context, it) { home() }
+        content = buildSearchResultView(it)
     }
 
-    private fun home() {
+    protected fun home() {
         content = searchForm
+    }
+
+    open fun buildSearchResultView(request: BookSearchRequest): CrawlBookSearchResultView {
+        return CrawlBookSearchResultView(context, request) { home() }
     }
 
     fun clearCache() {
