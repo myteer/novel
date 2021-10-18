@@ -22,8 +22,8 @@ class CrawlBookTableExtendPane(
 ) : StackPane() {
     private val loading: BooleanProperty = SimpleBooleanProperty(false)
     private val hasMore: BooleanProperty = SimpleBooleanProperty(true)
-    private val table: CrawlBookTable = buildTable()
     private val loadingPane: Region = buildLoadingPane()
+    val table: CrawlBookTable = buildTable()
 
     init {
         buildUI()
@@ -59,7 +59,7 @@ class CrawlBookTableExtendPane(
         setOnScrolledToBottom { loadData() }
     }
 
-    private fun showSelectedBookInfo() {
+    fun showSelectedBookInfo() {
         showBookInfo(table.selectionModel.selectedItem)
     }
 
