@@ -288,6 +288,45 @@
 
 /*******************************************************************************
  *                                                                             *
+ *                           Crawl book details view                           *
+ *                                                                             *
+ ******************************************************************************/
+.crawl-book-details-pane {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+}
+.crawl-book-details-pane .crawl-book-details-group {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 10, 0.12, -1, 2);
+}
+.crawl-book-details-pane .crawl-book-details-group .thumbnail-place-holder {
+    -fx-font-size: 120 !important;
+}
+.crawl-book-details-pane .crawl-book-details-group .label {
+    -fx-font-size: 1em;
+    -fx-opacity: .5;
+    -fx-wrap-text: true;
+}
+.crawl-book-details-pane .crawl-book-details-group .label.book-name-label {
+    -fx-font-size: 1.2em;
+    -fx-font-weight: BOLD;
+    -fx-opacity: 1;
+}
+.crawl-book-details-pane .crawl-book-details-group .label.title-label {
+    -fx-font-size: 1.1em;
+    -fx-font-weight: BOLD;
+    -fx-opacity: 1;
+}
+.crawl-book-details-pane .crawl-book-details-group .glyph-icon {
+    -fx-font-size: 20 !important;
+    -fx-opacity: .5;
+}
+
+/*******************************************************************************
+ *                                                                             *
  *                                    Other                                    *
  *                                                                             *
  ******************************************************************************/

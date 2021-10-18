@@ -28,7 +28,7 @@ class CrawlBookImportView(private val context: Context) : CrawlBookSearchView(co
                 icon("plus-icon")
             ).apply {
                 disableProperty().bind(Bindings.isEmpty(table.selectionModel.selectedItems))
-                setOnAction { sendImportRequest(table.selectionModel.selectedItem) }
+                setOnAction { sendBookImportRequest(table.selectionModel.selectedItem) }
             }
         )
     }
@@ -38,10 +38,10 @@ class CrawlBookImportView(private val context: Context) : CrawlBookSearchView(co
         contentDisplay = ContentDisplay.GRAPHIC_ONLY
         graphic = icon("plus-icon")
         tooltip = Tooltip(i18n("crawl.book.import.title"))
-        setOnAction { sendImportRequest(table.selectionModel.selectedItem) }
+        setOnAction { sendBookImportRequest(table.selectionModel.selectedItem) }
     }
 
-    private fun sendImportRequest(book: Book) {
+    private fun sendBookImportRequest(book: Book) {
         TODO()
     }
 }
