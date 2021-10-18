@@ -13,6 +13,7 @@ import org.myteer.novel.crawl.model.Book
 import org.myteer.novel.crawl.task.BookSearchTask
 import org.myteer.novel.crawl.vo.BookSearchRequest
 import org.myteer.novel.gui.api.Context
+import org.myteer.novel.gui.crawl.details.CrawlBookDetailsOverlay
 import org.myteer.novel.gui.crawl.details.CrawlBookDetailsPane
 import org.myteer.novel.gui.utils.*
 import org.myteer.novel.i18n.i18n
@@ -66,9 +67,7 @@ class CrawlBookTableExtendPane(
     }
 
     private fun showBookInfo(book: Book) {
-        context.showOverlay(StackPane(Group(CrawlBookDetailsPane(book))).apply {
-            isPickOnBounds = false
-        })
+        context.showOverlay(CrawlBookDetailsOverlay(context, book.id!!))
     }
 
     @Synchronized

@@ -139,6 +139,9 @@
 .crawl-book-details-pane .crawl-book-details-group {
     -fx-background-color: white;
 }
+.crawl-book-details-loading-pane {
+    -fx-background-color: #7A7A7A;
+}
 
 /*******************************************************************************
  *                                                                             *

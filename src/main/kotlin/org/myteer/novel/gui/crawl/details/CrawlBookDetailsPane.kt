@@ -1,5 +1,6 @@
 package org.myteer.novel.gui.crawl.details
 
+import javafx.scene.control.ContentDisplay
 import javafx.scene.control.Label
 import javafx.scene.control.Tooltip
 import javafx.scene.image.ImageView
@@ -7,7 +8,9 @@ import javafx.scene.layout.GridPane
 import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
 import org.myteer.novel.crawl.model.Book
+import org.myteer.novel.gui.utils.asyncLoadImage
 import org.myteer.novel.gui.utils.icon
+import org.myteer.novel.gui.utils.styleClass
 import org.myteer.novel.i18n.i18n
 
 class CrawlBookDetailsPane(private val book: Book) : VBox() {
@@ -36,15 +39,19 @@ class CrawlBookDetailsPane(private val book: Book) : VBox() {
             )
         }
 
-        private fun buildThumbnail() = book.thumbnail?.let {
-            ImageView(it).apply {
-                fitWidth = 120.0
-                fitHeight = 150.0
-                isPreserveRatio = true
-                setConstraints(this, 0, 0, 1, 5)
+        private fun buildThumbnail() = Label().apply {
+            styleClass.add("book-thumbnail-label")
+            contentDisplay = ContentDisplay.GRAPHIC_ONLY
+            graphic = icon("image-icon").styleClass("thumbnail-place-holder")
+            book.thumbnail?.let { url ->
+                asyncLoadImage(url) {
+                    graphic = ImageView(it).apply {
+                        fitWidth = 120.0
+                        fitHeight = 150.0
+                        isPreserveRatio = true
+                    }
+                }
             }
-        } ?: icon("image-icon").apply {
-            styleClass.add("thumbnail-place-holder")
             setConstraints(this, 0, 0, 1, 5)
         }
 
@@ -117,7 +124,7 @@ class CrawlBookDetailsPane(private val book: Book) : VBox() {
         }
 
         private fun buildLastUpdate() = Label().apply {
-            text = i18n("crawl.book.details.last_update", book.lastUpdateTime?.removeSuffix(" 00:00:00") ?: "")
+            text = i18n("crawl.book.details.last_update", book.lastUpdateTime ?: "")
             setConstraints(this, 1, 1)
             setHgrow(this, Priority.ALWAYS)
         }
