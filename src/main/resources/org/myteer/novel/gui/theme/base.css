@@ -283,7 +283,7 @@
     -fx-padding: 5 10 5 5;
 }
 .crawl-book-table .thumbnail-place-holder {
-    -fx-font-size: 80 !important;
+    -fx-font-size: 120 !important;
 }
 
 /*******************************************************************************
