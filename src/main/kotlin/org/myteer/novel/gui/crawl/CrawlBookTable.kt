@@ -164,7 +164,7 @@ class CrawlBookTable : BaseTable<Book>() {
                             graphic = null
                             prefHeight = USE_COMPUTED_SIZE
                         } else {
-                            prefHeight = prefHeightValue
+                            prefHeight = prefHeightValue + 20
                             val book = tableView.items[index]
                             if (null == book.thumbnail) {
                                 text = i18n("crawl.book.table.thumbnail.not.available")

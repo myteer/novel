@@ -6,7 +6,6 @@ import org.myteer.novel.db.DatabaseMeta
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.base.BaseView
-import org.myteer.novel.gui.book.BookImportModule
 import org.myteer.novel.gui.bookshelf.BookShelf
 import org.myteer.novel.gui.control.tabview.TabItem
 import org.myteer.novel.gui.crawl.CrawlBookImportModule
@@ -20,7 +19,6 @@ class MainView(
 ) : BaseView() {
     val modules: List<Module> = listOf(
         BookShelf(this, preferences, database),
-        BookImportModule(this),
         CrawlBookImportModule(this)
     )
 
@@ -50,7 +48,7 @@ class MainView(
     }
 
     override fun sendRequest(request: Context.Request) {
-        when(request) {
+        when (request) {
             is ModuleOpenRequest<*> -> {
                 modules.find { it.javaClass == request.clazz }?.let {
                     openModule(it)
@@ -100,7 +98,8 @@ class MainView(
 
     class TabItemCloseRequest(val tabItem: TabItem) : Context.Request
 
-    class ModuleOpenRequest<M : Module>(val clazz: Class<M>, val moduleMessage: Module.Message? = null) : Context.Request
+    class ModuleOpenRequest<M : Module>(val clazz: Class<M>, val moduleMessage: Module.Message? = null) :
+        Context.Request
 
     companion object {
         private val logger = LoggerFactory.getLogger(MainView::class.java)

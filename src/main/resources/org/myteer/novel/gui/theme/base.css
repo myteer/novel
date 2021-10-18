@@ -272,20 +272,17 @@
 
 /*******************************************************************************
  *                                                                             *
- *                               Book import view                              *
+ *                           Crawl book import view                            *
  *                                                                             *
  ******************************************************************************/
-.book-search-form .title-label {
+.crawl-book-search-form .title-label {
     -fx-font-size: 2em;
     -fx-opacity: .7;
 }
-.book-search-form .text-field {
+.crawl-book-search-form .text-field {
     -fx-padding: 5 10 5 5;
 }
-.google-books-pagination {
-    -fx-padding: 0 0 5 0;
-}
-.google-books-table .thumbnail-place-holder {
+.crawl-book-table .thumbnail-place-holder {
     -fx-font-size: 80 !important;
 }
 
