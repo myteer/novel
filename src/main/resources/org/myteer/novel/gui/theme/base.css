@@ -17,14 +17,16 @@
 .spinner, .spinner .text-field,
 .spinner .increment-arrow-button, .spinner .decrement-arrow-button,
 .context-menu,
-.combo-box-popup .list-view ,
+.combo-box-popup .list-view,
 .color-picker, .color-picker:focused {
     -fx-border-radius: 3;
     -fx-background-radius: 3;
 }
+
 .combo-box-popup .list-view {
     -fx-padding: 3 0 3 0;
 }
+
 /* In the menu bar, we don't want rounded corners */
 .menu-bar .menu-button, .menu-bar .context-menu {
     -fx-border-radius: 0;
@@ -39,6 +41,7 @@
 .text-field:readonly {
     -right-button-visible: false;
 }
+
 .text-field .right-button {
     -fx-background-color: transparent;
     -fx-padding: 5;
@@ -79,22 +82,27 @@
     -fx-tab-max-height: 2.4em;
     -fx-tab-max-width: 17em;
 }
-.tab-view > .tab-pane > .tab-header-area  {
+
+.tab-view > .tab-pane > .tab-header-area {
     -fx-background-insets: 0, 0 0 1 0;
     -fx-padding: 0.0em 0.166667em 0.0em 0.3em;
 }
-.tab-view > .tab-pane > .tab-header-area > .headers-region  {
+
+.tab-view > .tab-pane > .tab-header-area > .headers-region {
     -fx-padding: 4 5 5 4;
 }
+
 .tab-view > .tab-pane > .tab-header-area > .headers-region > .tab {
     -fx-padding: 0.083333em 0.8em 0.0769em 0.8em;
     -fx-border-radius: 3;
     -fx-background-radius: 3;
     -fx-background-color: transparent;
 }
+
 .tab-view > .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
     -fx-padding: 0 5 0 0;
 }
+
 .tab-view > .tab-pane > .tab-header-area > .headers-region > .tab .tab-close-button {
     -fx-opacity: 0.65;
 }
@@ -116,13 +124,16 @@
 .overlay-box {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.26), 20, 0.19, -1, 6);
 }
+
 .overlay-box .title-bar {
     -fx-padding: 5;
     -fx-background-radius: 5 5 0 0;
 }
+
 .overlay-box .content {
     -fx-background-radius: 0 0 5 5;
 }
+
 .alertDialog .button {
     -fx-padding: 5;
 }
@@ -139,18 +150,22 @@
     -fx-padding: 10;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .26), 20, 0.19, -1, 6);
 }
+
 .notification-node .content-panel {
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-padding: 0 25 0 0;
 }
+
 .notification-node .glyph-icon {
     -fx-font-size: 20 !important;
 }
+
 .notification-node .content-panel .title {
     -fx-font-size: 1.1em;
     -fx-font-weight: bold;
 }
+
 .notification-node .content-panel .message {
     -fx-font-size: 1em;
 }
@@ -163,17 +178,21 @@
 .login-form {
     -fx-background-size: stretch;
 }
+
 .login-box {
     -fx-border-radius: 0 0 0 0;
     -fx-background-radius: 0 0 0 0;
 }
+
 .login-box .header .label {
     -fx-font-family: "JetBrains Mono Bold";
     -fx-font-size: 35px;
 }
+
 .login-box .header .logo {
     -fx-image: url("/org/myteer/novel/image/logo/bookshelf_64.png");
 }
+
 .login-box .source-adder {
     -fx-border-radius: 0 0 0 0;
     -fx-background-radius: 0 0 0 0;
@@ -187,6 +206,7 @@
 .state-indicator-file-not-exists {
     -fx-fill: #B00020 !important;
 }
+
 .state-indicator-used {
     -fx-fill: green !important;
 }
@@ -200,6 +220,7 @@
     -fx-font-size: 13px;
     -fx-font-weight: bold;
 }
+
 .preferences-view .entry-description {
     -fx-font-size: 13px;
     -fx-opacity: 0.75;
@@ -213,38 +234,47 @@
 .main-view {
     -fx-font-size: 14px;
 }
+
 .main-view-toolbar {
     -fx-border-width: 1 0 1 0;
     -fx-pref-height: 25;
     -fx-font-size: 12px;
 }
+
 .main-view .module-view .label-area .image-view {
     -fx-image: url("/org/myteer/novel/image/logo/bookshelf_64.png");
 }
+
 .main-view .module-view .label-area * {
     -fx-font-family: "Jetbrains Mono";
     -fx-font-size: 40;
 }
+
 .main-view .module-view .tile-pagination {
     -fx-padding: 0 0 4em 0;
     -fx-arrows-visible: false;
     -fx-page-information-visible: false;
     -fx-tooltip-visible: false;
 }
+
 .main-view .module-view .tile-pagination:one-page {
     -fx-padding: 0;
 }
+
 .main-view .module-view .tile-pagination:one-page > .pagination-control {
     -fx-opacity: 0;
 }
+
 .main-view .module-view .tile-pagination > .pagination-control > .control-box {
     -fx-spacing: .25em;
 }
+
 .main-view .module-view .tile-grid {
     -fx-background-color: transparent;
     -fx-hgap: 10;
     -fx-vgap: 20;
 }
+
 .main-view .module-view .tile {
     -fx-border-radius: 7;
     -fx-background-radius: 7;
@@ -253,6 +283,7 @@
     -fx-pref-height: 9.34em;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 10, 0.12, -1, 2);
 }
+
 .main-view .module-view .tile .button {
     -fx-pref-width: 64px;
     -fx-pref-height: 64px;
@@ -262,9 +293,11 @@
     -fx-padding: 0;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 10, 0.12, -1, 2);
 }
+
 .main-view .module-view .tile .button .glyph-icon {
     -fx-font-size: 25 !important;
 }
+
 .main-view .module-view .tile .label {
     -fx-padding: inherit 5 inherit 5;
     -fx-font-size: 1em;
@@ -279,9 +312,11 @@
     -fx-font-size: 2em;
     -fx-opacity: .7;
 }
+
 .crawl-book-search-form .text-field {
     -fx-padding: 5 10 5 5;
 }
+
 .crawl-book-table .thumbnail-place-holder {
     -fx-font-size: 120 !important;
 }
@@ -295,6 +330,7 @@
     -fx-padding: 10;
     -fx-spacing: 10;
 }
+
 .crawl-book-details-pane .crawl-book-details-group {
     -fx-padding: 10;
     -fx-spacing: 10;
@@ -302,24 +338,37 @@
     -fx-vgap: 10;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 10, 0.12, -1, 2);
 }
+
 .crawl-book-details-pane .crawl-book-details-group .thumbnail-place-holder {
     -fx-font-size: 120 !important;
 }
+
 .crawl-book-details-pane .crawl-book-details-group .label {
     -fx-font-size: 1em;
     -fx-opacity: .5;
     -fx-wrap-text: true;
 }
+
+.crawl-book-details-pane .crawl-book-details-group .label.book-thumbnail-label {
+    -fx-opacity: 1;
+}
+
+.crawl-book-details-pane .crawl-book-details-group .label.book-thumbnail-label .thumbnail-place-holder {
+    -fx-font-size: 120 !important;
+}
+
 .crawl-book-details-pane .crawl-book-details-group .label.book-name-label {
     -fx-font-size: 1.2em;
     -fx-font-weight: BOLD;
     -fx-opacity: 1;
 }
+
 .crawl-book-details-pane .crawl-book-details-group .label.title-label {
     -fx-font-size: 1.1em;
     -fx-font-weight: BOLD;
     -fx-opacity: 1;
 }
+
 .crawl-book-details-pane .crawl-book-details-group .glyph-icon {
     -fx-font-size: 20 !important;
     -fx-opacity: .5;
