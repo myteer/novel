@@ -16,8 +16,8 @@ class BookShelf(
 ) : Module() {
     override val id = "bookshelf-module"
     override val name = i18n("action.settings")
-    override val icon = icon("library-icon")
-    override val preview = icon("library-icon")
+    override val icon: Node get() = icon("library-icon")
+    override val preview: Node get() = icon("library-icon")
 
     override fun buildContent(): Node {
         return Button("测试")

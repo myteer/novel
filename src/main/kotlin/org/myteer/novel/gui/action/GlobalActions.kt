@@ -44,7 +44,7 @@ object GlobalActions {
 
     val OPEN_DATABASE_MANAGER = Action(
         "action.open_database_manager",
-        "database-icon",
+        "database-manager-icon",
         KeyBindings.openDatabaseManager
     ) { context, _, databaseTracker ->
         DatabaseManagerActivity(databaseTracker).show(context.getContextWindow())
@@ -68,7 +68,7 @@ object GlobalActions {
 
     val NEW_ENTRY = Action(
         "action.new_entry",
-        "database-icon",
+        "window-icon",
         KeyBindings.newEntry
     ) { context, preferences, databaseTracker ->
         submitTask(context, ActivityLauncher(preferences, databaseTracker, LauncherMode.INTERNAL))

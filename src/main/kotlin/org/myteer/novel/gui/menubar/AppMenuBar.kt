@@ -162,7 +162,7 @@ class AppMenuBar(
     private class ModuleMenu(view: MainView) : Menu(i18n("menubar.menu.modules")) {
         init {
             view.modules.forEach {
-                menuItem(MenuItem(it.name, it.icon)).action { _ -> view.openModule(it) }
+                menuItem(MenuItem(it.name, it.icon).action { _ -> view.openModule(it) })
             }
         }
     }

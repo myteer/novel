@@ -2,7 +2,6 @@ package org.myteer.novel.gui.crawl.details
 
 import javafx.scene.control.ContentDisplay
 import javafx.scene.control.Label
-import javafx.scene.control.Tooltip
 import javafx.scene.image.ImageView
 import javafx.scene.layout.GridPane
 import javafx.scene.layout.Priority
@@ -96,9 +95,7 @@ class CrawlBookDetailsPane(private val book: Book) : VBox() {
             text = i18n("crawl.book.details.description")
         }
 
-        private fun buildDescription() = Label(book.description ?: "").apply {
-            tooltip = Tooltip(book.description)
-        }
+        private fun buildDescription() = Label(book.description ?: "")
     }
 
     private fun buildIndexPane(book: Book): GridPane = object : GridPane() {
@@ -135,7 +132,7 @@ class CrawlBookDetailsPane(private val book: Book) : VBox() {
             setHgrow(this, Priority.ALWAYS)
         }
 
-        private fun buildRightIcon() = icon("arrow-right-icon").apply {
+        private fun buildRightIcon() = icon("arrow-forward-icon").apply {
             setConstraints(this, 2, 1, 1, 2)
         }
     }

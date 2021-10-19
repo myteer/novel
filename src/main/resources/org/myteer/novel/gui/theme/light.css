@@ -11,14 +11,15 @@
 
 /*******************************************************************************
  *                                                                             *
- *                                  Glyph icons                                *
+ *                                   Ikonli                                    *
  *                                                                             *
  ******************************************************************************/
-.button .glyph-icon {
-    -fx-fill: black;
+.ikonli-font-icon {
+    -fx-icon-color: black;
 }
-.button:default .glyph-icon {
-    -fx-fill: white;
+
+.button:default .ikonli-font-icon {
+    -fx-icon-color: white;
 }
 
 /*******************************************************************************
@@ -38,18 +39,23 @@
 .tab-view > .tab-pane > .tab-header-area > .tab-header-background {
     /* -fx-background-color: #F0EEF2; */
 }
+
 .tab-view > .tab-pane > .tab-header-area > .headers-region > .tab:selected {
     -fx-background-color: #FFFEFE;
 }
+
 .tab-view > .tab-pane > .tab-header-area > .headers-region {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 10, 0.12, -1, 2);
 }
+
 .tab-view > .tab-pane > .tab-header-area > .headers-region > .tab:hover > .tab-container > .tab-label {
     -fx-text-fill: #2F2F2F;
 }
+
 .tab-view > .tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-label {
     -fx-text-fill: #2F2F2F;
 }
+
 .tab-view > .tab-pane > .tab-header-area > .headers-region > .tab:selected:hover > .tab-container > .tab-label {
     -fx-text-fill: #2F2F2F;
 }
@@ -83,6 +89,7 @@
     -on-surface-color: #000000;
     -on-error-color: #FFFFFF;
 }
+
 .overlay-box .title-bar {
     -fx-background-color: #D9D9D9;
 }
@@ -96,8 +103,9 @@
     -fx-background-color: #E5E5E5;
     -fx-border-color: #565656;
 }
-.notification-node .glyph-icon {
-    -fx-fill: #565656;
+
+.notification-node .ikonli-font-icon {
+    -fx-icon-color: #565656;
 }
 
 /*******************************************************************************
@@ -108,10 +116,12 @@
 .login-form {
     -fx-background-image: url("/org/myteer/novel/image/background/background-light.jpg");
 }
+
 .login-box {
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, #000000, 10.0, 0, 0, 0);
 }
+
 .login-box .header .label {
     -fx-text-fill: #797979;
 }
@@ -124,6 +134,7 @@
 .main-view-toolbar {
     -fx-border-color: #D4D4D4;
 }
+
 .tile:hover {
     -fx-background-color: #ECECEE;
 }
@@ -136,9 +147,11 @@
 .crawl-book-details-pane {
     -fx-background-color: #F0F0F0;
 }
+
 .crawl-book-details-pane .crawl-book-details-group {
     -fx-background-color: white;
 }
+
 .crawl-book-details-loading-pane {
     -fx-background-color: #7A7A7A;
 }

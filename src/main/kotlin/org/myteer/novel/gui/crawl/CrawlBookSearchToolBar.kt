@@ -25,7 +25,7 @@ class CrawlBookSearchToolBar(
 
     private fun buildHomeButton() = Button().apply {
         contentDisplay = ContentDisplay.GRAPHIC_ONLY
-        graphic = icon("arrow-left-icon")
+        graphic = icon("arrow-back-icon")
         tooltip = Tooltip(i18n("crawl.book.search.back"))
         setOnAction { onPreviousPageRequest() }
     }

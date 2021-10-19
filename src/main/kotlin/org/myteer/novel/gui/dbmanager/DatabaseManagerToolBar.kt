@@ -22,7 +22,7 @@ class DatabaseManagerToolBar(private val view: DatabaseManagerView) : BiToolBar(
         rightItems.add(buildRefreshButton())
     }
 
-    private fun buildIcon() = icon("database-icon")
+    private fun buildIcon() = icon("database-manager-icon")
 
     private fun buildLabel() = Label(i18n("database.manager.title"))
 
