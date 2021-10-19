@@ -209,19 +209,6 @@
 
 /*******************************************************************************
  *                                                                             *
- *                                  Database manager                           *
- *                                                                             *
- ******************************************************************************/
-.state-indicator-file-not-exists {
-    -fx-icon-color: #B00020;
-}
-
-.state-indicator-used {
-    -fx-icon-color: green;
-}
-
-/*******************************************************************************
- *                                                                             *
  *                                 Preferences view                            *
  *                                                                             *
  ******************************************************************************/
@@ -248,6 +235,10 @@
     -fx-border-width: 1 0 1 0;
     -fx-pref-height: 25;
     -fx-font-size: 12px;
+}
+
+.main-view-toolbar .ikonli-font-icon {
+    -fx-icon-size: 14;
 }
 
 .main-view .module-view .label-area .image-view {

@@ -134,7 +134,7 @@ class LoginBox(private val controller: Controller) : VBox(10.0) {
 
     private fun buildDatabaseManagerButton() = Button().apply {
         tooltip = Tooltip(i18n("login.db.manager.open"))
-        graphic = icon("database-icon")
+        graphic = icon("database-manager-icon")
         contentDisplay = ContentDisplay.GRAPHIC_ONLY
         minHeight = 35.0
         minWidth = 40.0
