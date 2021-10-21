@@ -439,6 +439,7 @@
 
 .crawl-book-details-pane > .same-author-books-group > .same-author-book .label.thumbnail-label {
     -fx-opacity: 1;
+    -fx-cursor: hand;
 }
 
 .crawl-book-details-pane > .same-author-books-group > .same-author-book .label.thumbnail-label > .thumbnail-place-holder {
@@ -462,12 +463,24 @@
     -fx-font-weight: BOLD;
 }
 
-.crawl-book-details-pane > .same-category-books-group .name-label {
-    -fx-font-size: 1em;
-    -fx-opacity: .8;
+.crawl-book-details-pane > .same-category-books-group .refresh-button {
+    -fx-background-color: transparent;
 }
 
-.crawl-book-details-pane > .same-category-books-group .thumbnail-place-holder {
+.crawl-book-details-pane > .same-category-books-group .same-category-book {
+    -fx-spacing: 10;
+}
+
+.crawl-book-details-pane > .same-category-books-group .same-category-book .thumbnail-label {
+    -fx-cursor: hand;
+}
+
+.crawl-book-details-pane > .same-category-books-group .same-category-book .name-label {
+    -fx-font-size: 1em;
+    -fx-opacity: .5;
+}
+
+.crawl-book-details-pane > .same-category-books-group .same-category-book .thumbnail-place-holder {
     -fx-icon-size: 96;
 }
 

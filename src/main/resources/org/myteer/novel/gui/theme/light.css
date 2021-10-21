@@ -177,7 +177,8 @@
 .crawl-book-details-pane .top-group,
 .crawl-book-details-pane .description-group,
 .crawl-book-details-pane .index-group,
-.crawl-book-details-pane .same-author-books-group {
+.crawl-book-details-pane .same-author-books-group,
+.crawl-book-details-pane .same-category-books-group {
     -fx-background-color: white;
 }
 

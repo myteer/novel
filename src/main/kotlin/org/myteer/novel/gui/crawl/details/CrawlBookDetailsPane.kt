@@ -1,15 +1,10 @@
 package org.myteer.novel.gui.crawl.details
 
+import animatefx.animation.RotateIn
 import javafx.geometry.Pos
-import javafx.scene.control.Button
-import javafx.scene.control.ContentDisplay
-import javafx.scene.control.Label
-import javafx.scene.control.Separator
+import javafx.scene.control.*
 import javafx.scene.image.ImageView
-import javafx.scene.layout.GridPane
-import javafx.scene.layout.HBox
-import javafx.scene.layout.Priority
-import javafx.scene.layout.VBox
+import javafx.scene.layout.*
 import org.myteer.novel.crawl.model.Book
 import org.myteer.novel.gui.control.WrapLabel
 import org.myteer.novel.gui.utils.asyncLoadImage
@@ -17,7 +12,7 @@ import org.myteer.novel.gui.utils.icon
 import org.myteer.novel.gui.utils.styleClass
 import org.myteer.novel.i18n.i18n
 
-class CrawlBookDetailsPane(private val book: Book) : VBox() {
+class CrawlBookDetailsPane(private val view: CrawlBookQueryPane, private val book: Book) : VBox() {
     init {
         styleClass.add("crawl-book-details-pane")
         buildUI()
@@ -191,7 +186,10 @@ class CrawlBookDetailsPane(private val book: Book) : VBox() {
         }
 
         private fun buildUI() {
-            children.add(HBox(titleLabel, refreshButton).also { it.style = "-fx-background-color:red" })
+            children.add(BorderPane().apply {
+                left = titleLabel
+                right = refreshButton
+            })
             children.add(contentPane)
             refresh()
         }
@@ -199,13 +197,17 @@ class CrawlBookDetailsPane(private val book: Book) : VBox() {
         private fun buildTitle() = Label().apply {
             styleClass.add("title-label")
             text = i18n("crawl.book.details.same_category_books")
-            HBox.setHgrow(this, Priority.ALWAYS)
         }
 
         private fun buildRefreshButton() = Button().apply {
-            text = i18n("crawl.book.details.same_category_books.refresh")
+            styleClass.add("refresh-button")
+            contentDisplay = ContentDisplay.GRAPHIC_ONLY
             graphic = icon("reload-icon")
-            setOnAction { refresh() }
+            tooltip = Tooltip(i18n("crawl.book.details.same_category_books.refresh"))
+            setOnAction {
+                refresh()
+                RotateIn(graphic).play()
+            }
         }
 
         private fun refresh() {
@@ -216,7 +218,7 @@ class CrawlBookDetailsPane(private val book: Book) : VBox() {
         }
     }
 
-    private class SameAuthorBook(private val book: Book) : HBox() {
+    private inner class SameAuthorBook(private val book: Book) : HBox() {
         private val thumbnail = buildThumbnail()
         private val infoPane = buildInfoPane()
 
@@ -239,6 +241,7 @@ class CrawlBookDetailsPane(private val book: Book) : VBox() {
                     }
                 }
             }
+            setOnMouseClicked { view.loadData(book.id!!) }
             setMinSize(96.0, 120.0)
             setMaxSize(96.0, 120.0)
         }
@@ -260,17 +263,19 @@ class CrawlBookDetailsPane(private val book: Book) : VBox() {
         private fun buildCategoryLabel() = Label(book.lastChapterName.orEmpty())
     }
 
-    private class SameCategoryBook(private val book: Book) : VBox() {
+    private inner class SameCategoryBook(private val book: Book) : VBox() {
         private val thumbnail = buildThumbnail()
         private val nameLabel = buildNameLabel()
 
         init {
             styleClass.add("same-category-book")
+            alignment = Pos.BOTTOM_CENTER
             children.add(thumbnail)
             children.add(nameLabel)
         }
 
         private fun buildThumbnail() = Label().apply {
+            styleClass.add("thumbnail-label")
             contentDisplay = ContentDisplay.GRAPHIC_ONLY
             graphic = icon("image-icon").styleClass("thumbnail-place-holder")
             book.thumbnail?.let { url ->
@@ -282,6 +287,7 @@ class CrawlBookDetailsPane(private val book: Book) : VBox() {
                     }
                 }
             }
+            setOnMouseClicked { view.loadData(book.id!!) }
             setMinSize(96.0, 120.0)
             setMaxSize(96.0, 120.0)
         }

@@ -15,7 +15,7 @@ import org.myteer.novel.gui.utils.runOutsideUIAsync
 import org.myteer.novel.i18n.i18n
 import org.slf4j.LoggerFactory
 
-class CrawlBookQueryPane(private val context: Context, private val bookId: String) : StackPane() {
+class CrawlBookQueryPane(private val context: Context, bookId: String) : StackPane() {
     private val loading: BooleanProperty = SimpleBooleanProperty(false)
     private val containerPane: StackPane = StackPane()
     private val loadingPane: StackPane = buildLoadingPane()
@@ -25,7 +25,7 @@ class CrawlBookQueryPane(private val context: Context, private val bookId: Strin
         setMinSize(300.0, 300.0)
         setPrefSize(600.0, 300.0)
         buildUI()
-        loadData()
+        loadData(bookId)
     }
 
     private fun buildUI() {
@@ -35,7 +35,7 @@ class CrawlBookQueryPane(private val context: Context, private val bookId: Strin
     }
 
     @Synchronized
-    private fun loadData() {
+    fun loadData(bookId: String) {
         when {
             loading.get().not() -> {
                 loading.set(true)
@@ -48,7 +48,7 @@ class CrawlBookQueryPane(private val context: Context, private val bookId: Strin
         styleClass.add("crawl-book-details-loading-pane")
     }
 
-    private inner class QueryTask(bookId: String) : BookQueryTask(bookId) {
+    private inner class QueryTask(private val bookId: String) : BookQueryTask(bookId) {
         init {
             setOnRunning { onRunning() }
             setOnFailed { onFailed(it.source.exception) }
@@ -69,7 +69,7 @@ class CrawlBookQueryPane(private val context: Context, private val bookId: Strin
                 t as Exception?
             ) {
                 when (it) {
-                    I18NButtonType.RETRY -> loadData()
+                    I18NButtonType.RETRY -> loadData(bookId)
                 }
             }.apply { getButtonTypes().add(I18NButtonType.RETRY) }
         }
@@ -92,7 +92,7 @@ class CrawlBookQueryPane(private val context: Context, private val bookId: Strin
     private fun buildCrawlBookDetailsPane(book: Book) = ScrollPane().also { s ->
         s.isFitToWidth = true
         s.isFitToHeight = true
-        s.content = CrawlBookDetailsPane(book).also { c ->
+        s.content = CrawlBookDetailsPane(this, book).also { c ->
             c.heightProperty().addListener(object : ChangeListener<Double> {
                 override fun changed(observable: ObservableValue<out Double>?, oldValue: Double?, newValue: Double?) {
                     newValue?.let { h ->
