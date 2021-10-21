@@ -417,6 +417,60 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 10, 0.12, -1, 2);
 }
 
+.crawl-book-details-pane > .same-author-books-group > .label.title-label {
+    -fx-font-size: 1.1em;
+    -fx-font-weight: BOLD;
+    -fx-padding: 0 0 10 0;
+}
+
+.crawl-book-details-pane > .same-author-books-group > .separator {
+    -fx-opacity: .5;
+}
+
+.crawl-book-details-pane > .same-author-books-group > .same-author-book {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+}
+
+.crawl-book-details-pane > .same-author-books-group > .same-author-book .label {
+    -fx-font-size: 1em;
+    -fx-opacity: .5;
+}
+
+.crawl-book-details-pane > .same-author-books-group > .same-author-book .label.thumbnail-label {
+    -fx-opacity: 1;
+}
+
+.crawl-book-details-pane > .same-author-books-group > .same-author-book .label.thumbnail-label > .thumbnail-place-holder {
+    -fx-icon-size: 96;
+}
+
+.crawl-book-details-pane > .same-author-books-group > .same-author-book .label.name-label {
+    -fx-font-size: 1.2em;
+    -fx-font-weight: BOLD;
+    -fx-opacity: 1;
+}
+
+.crawl-book-details-pane > .same-category-books-group {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 10, 0.12, -1, 2);
+}
+
+.crawl-book-details-pane > .same-category-books-group .title-label {
+    -fx-font-size: 1.1em;
+    -fx-font-weight: BOLD;
+}
+
+.crawl-book-details-pane > .same-category-books-group .name-label {
+    -fx-font-size: 1em;
+    -fx-opacity: .8;
+}
+
+.crawl-book-details-pane > .same-category-books-group .thumbnail-place-holder {
+    -fx-icon-size: 96;
+}
+
 /*******************************************************************************
  *                                                                             *
  *                                    Other                                    *

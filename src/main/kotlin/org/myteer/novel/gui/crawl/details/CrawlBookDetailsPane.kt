@@ -1,5 +1,7 @@
 package org.myteer.novel.gui.crawl.details
 
+import javafx.geometry.Pos
+import javafx.scene.control.Button
 import javafx.scene.control.ContentDisplay
 import javafx.scene.control.Label
 import javafx.scene.control.Separator
@@ -29,6 +31,9 @@ class CrawlBookDetailsPane(private val book: Book) : VBox() {
         )
         book.sameAuthorBooks.takeIf { it?.isNotEmpty() ?: false }?.let {
             children.add(buildSameAuthorBooksPane(it))
+        }
+        book.sameCategoryBooks.takeIf { it?.isNotEmpty() ?: false }?.let {
+            children.add(buildSameCategoryBooksPane(it))
         }
     }
 
@@ -154,11 +159,59 @@ class CrawlBookDetailsPane(private val book: Book) : VBox() {
         }
 
         private fun buildUI() {
+            children.add(buildTitle())
             books.forEachIndexed { index, book ->
                 children.add(SameAuthorBook(book))
                 if (index != books.size - 1) {
                     children.add(Separator())
                 }
+            }
+        }
+
+        private fun buildTitle() = Label().apply {
+            styleClass.add("title-label")
+            text = i18n("crawl.book.details.same_author_books", book.author.orEmpty())
+        }
+    }
+
+    private fun buildSameCategoryBooksPane(books: List<Book>): VBox = object : VBox() {
+        private val items: MutableList<SameCategoryBook> = mutableListOf()
+        private val titleLabel = buildTitle()
+        private val refreshButton = buildRefreshButton()
+        private val contentPane = HBox(10.0)
+
+        init {
+            styleClass.add("same-category-books-group")
+            initItems()
+            buildUI()
+        }
+
+        private fun initItems() {
+            books.forEach { items.add(SameCategoryBook(it)) }
+        }
+
+        private fun buildUI() {
+            children.add(HBox(titleLabel, refreshButton).also { it.style = "-fx-background-color:red" })
+            children.add(contentPane)
+            refresh()
+        }
+
+        private fun buildTitle() = Label().apply {
+            styleClass.add("title-label")
+            text = i18n("crawl.book.details.same_category_books")
+            HBox.setHgrow(this, Priority.ALWAYS)
+        }
+
+        private fun buildRefreshButton() = Button().apply {
+            text = i18n("crawl.book.details.same_category_books.refresh")
+            graphic = icon("reload-icon")
+            setOnAction { refresh() }
+        }
+
+        private fun refresh() {
+            contentPane.children.clear()
+            items.shuffled().take(5).forEach {
+                contentPane.children.add(it)
             }
         }
     }
@@ -190,13 +243,14 @@ class CrawlBookDetailsPane(private val book: Book) : VBox() {
             setMaxSize(96.0, 120.0)
         }
 
-        private fun buildInfoPane() = VBox().apply {
+        private fun buildInfoPane() = VBox(10.0).apply {
             children.addAll(
                 buildNameLabel(),
                 buildAuthorLabel(),
                 buildCategoryLabel()
             )
             setHgrow(this, Priority.ALWAYS)
+            alignment = Pos.CENTER_LEFT
         }
 
         private fun buildNameLabel() = Label(book.name.orEmpty()).styleClass("name-label")
@@ -204,5 +258,34 @@ class CrawlBookDetailsPane(private val book: Book) : VBox() {
         private fun buildAuthorLabel() = Label(book.author.orEmpty())
 
         private fun buildCategoryLabel() = Label(book.lastChapterName.orEmpty())
+    }
+
+    private class SameCategoryBook(private val book: Book) : VBox() {
+        private val thumbnail = buildThumbnail()
+        private val nameLabel = buildNameLabel()
+
+        init {
+            styleClass.add("same-category-book")
+            children.add(thumbnail)
+            children.add(nameLabel)
+        }
+
+        private fun buildThumbnail() = Label().apply {
+            contentDisplay = ContentDisplay.GRAPHIC_ONLY
+            graphic = icon("image-icon").styleClass("thumbnail-place-holder")
+            book.thumbnail?.let { url ->
+                asyncLoadImage(url) {
+                    graphic = ImageView(it).apply {
+                        fitWidth = 96.0
+                        fitHeight = 120.0
+                        isPreserveRatio = true
+                    }
+                }
+            }
+            setMinSize(96.0, 120.0)
+            setMaxSize(96.0, 120.0)
+        }
+
+        private fun buildNameLabel() = Label(book.name.orEmpty()).styleClass("name-label")
     }
 }
