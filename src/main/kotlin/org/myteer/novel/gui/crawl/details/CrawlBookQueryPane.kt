@@ -2,6 +2,9 @@ package org.myteer.novel.gui.crawl.details
 
 import javafx.beans.property.BooleanProperty
 import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
+import javafx.scene.control.ScrollPane
 import javafx.scene.image.ImageView
 import javafx.scene.layout.StackPane
 import org.myteer.novel.crawl.model.Book
@@ -18,6 +21,9 @@ class CrawlBookQueryPane(private val context: Context, private val bookId: Strin
     private val loadingPane: StackPane = buildLoadingPane()
 
     init {
+        styleClass.add("crawl-book-query-pane")
+        setMinSize(300.0, 300.0)
+        setPrefSize(600.0, 300.0)
         buildUI()
         loadData()
     }
@@ -40,8 +46,6 @@ class CrawlBookQueryPane(private val context: Context, private val bookId: Strin
 
     private fun buildLoadingPane() = StackPane(ImageView("/org/myteer/novel/image/other/loading.gif")).apply {
         styleClass.add("crawl-book-details-loading-pane")
-        prefWidth = 600.0
-        prefHeight = 300.0
     }
 
     private inner class QueryTask(bookId: String) : BookQueryTask(bookId) {
@@ -74,13 +78,34 @@ class CrawlBookQueryPane(private val context: Context, private val bookId: Strin
             loading.set(false)
             context.stopProgress()
             if (null != book) {
-                containerPane.children.setAll(CrawlBookDetailsPane(book))
+                containerPane.children.setAll(buildCrawlBookDetailsPane(book))
             } else {
                 context.showErrorDialog(
                     i18n("crawl.book.search.failed.title"),
                     i18n("crawl.book.search.failed.message")
                 )
             }
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun buildCrawlBookDetailsPane(book: Book) = ScrollPane().also { s ->
+        s.isFitToWidth = true
+        s.isFitToHeight = true
+        s.content = CrawlBookDetailsPane(book).also { c ->
+            c.heightProperty().addListener(object : ChangeListener<Double> {
+                override fun changed(observable: ObservableValue<out Double>?, oldValue: Double?, newValue: Double?) {
+                    newValue?.let { h ->
+                        if (h > 0) {
+                            observable?.removeListener(this)
+                            runOutsideUIAsync {
+                                Thread.sleep(50)
+                                this@CrawlBookQueryPane.prefHeight = c.height.coerceAtMost(500.0) + s.padding.top + s.padding.bottom
+                            }
+                        }
+                    }
+                }
+            } as ChangeListener<in Number>)
         }
     }
 

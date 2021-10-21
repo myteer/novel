@@ -163,14 +163,21 @@
 
 /*******************************************************************************
  *                                                                             *
- *                           Crawl book details view                           *
+ *                         Crawl book details overlay                          *
  *                                                                             *
  ******************************************************************************/
+.crawl-book-query-pane {
+    -fx-background-color: #F0F0F0;
+}
+
 .crawl-book-details-pane {
     -fx-background-color: #F0F0F0;
 }
 
-.crawl-book-details-pane .crawl-book-details-group {
+.crawl-book-details-pane .top-group,
+.crawl-book-details-pane .description-group,
+.crawl-book-details-pane .index-group,
+.crawl-book-details-pane .same-author-books-group {
     -fx-background-color: white;
 }
 

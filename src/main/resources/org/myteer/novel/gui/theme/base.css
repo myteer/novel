@@ -118,6 +118,20 @@
 
 /*******************************************************************************
  *                                                                             *
+ *                                   WrapLabel                                    *
+ *                                                                             *
+ ******************************************************************************/
+.wrap-label {
+    -fx-spacing: 5;
+}
+
+.wrap-label .ikonli-font-icon {
+    -fx-icon-size: 20;
+    -fx-cursor: hand;
+}
+
+/*******************************************************************************
+ *                                                                             *
  *                                 Information view                            *
  *                                                                             *
  ******************************************************************************/
@@ -323,7 +337,7 @@
 
 /*******************************************************************************
  *                                                                             *
- *                           Crawl book details view                           *
+ *                         Crawl book details overlay                          *
  *                                                                             *
  ******************************************************************************/
 .crawl-book-details-pane {
@@ -331,47 +345,76 @@
     -fx-spacing: 10;
 }
 
-.crawl-book-details-pane .crawl-book-details-group {
+.crawl-book-details-pane > .top-group {
     -fx-padding: 10;
-    -fx-spacing: 10;
     -fx-hgap: 10;
     -fx-vgap: 10;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 10, 0.12, -1, 2);
 }
 
-.crawl-book-details-pane .crawl-book-details-group .thumbnail-place-holder {
-    -fx-icon-size: 120;
-}
-
-.crawl-book-details-pane .crawl-book-details-group .label {
+.crawl-book-details-pane > .top-group .label {
     -fx-font-size: 1em;
     -fx-opacity: .5;
-    -fx-wrap-text: true;
 }
 
-.crawl-book-details-pane .crawl-book-details-group .label.book-thumbnail-label {
+.crawl-book-details-pane > .top-group > .label.thumbnail-label {
     -fx-opacity: 1;
 }
 
-.crawl-book-details-pane .crawl-book-details-group .label.book-thumbnail-label .thumbnail-place-holder {
+.crawl-book-details-pane > .top-group > .label.thumbnail-label > .thumbnail-place-holder {
     -fx-icon-size: 120;
 }
 
-.crawl-book-details-pane .crawl-book-details-group .label.book-name-label {
+.crawl-book-details-pane > .top-group > .label.name-label {
     -fx-font-size: 1.2em;
     -fx-font-weight: BOLD;
     -fx-opacity: 1;
 }
 
-.crawl-book-details-pane .crawl-book-details-group .label.title-label {
-    -fx-font-size: 1.1em;
-    -fx-font-weight: BOLD;
-    -fx-opacity: 1;
+.crawl-book-details-pane > .description-group {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 10, 0.12, -1, 2);
 }
 
-.crawl-book-details-pane .crawl-book-details-group .ikonli-font-icon {
+.crawl-book-details-pane > .description-group > .title-label {
+    -fx-font-size: 1.1em;
+    -fx-font-weight: BOLD;
+}
+
+.crawl-book-details-pane > .description-group > .wrap-label > .label {
+    -fx-font-size: 1em;
+    -fx-opacity: .5;
+}
+
+.crawl-book-details-pane > .index-group {
+    -fx-padding: 10;
+    -fx-hgap: 30;
+    -fx-vgap: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 10, 0.12, -1, 2);
+}
+
+.crawl-book-details-pane > .index-group > .label {
+    -fx-font-size: 1em;
+}
+
+.crawl-book-details-pane > .index-group > .label.title-label {
+    -fx-font-size: 1.1em;
+    -fx-font-weight: BOLD;
+}
+
+.crawl-book-details-pane > .index-group > .label.last-update-label {
+    -fx-opacity: .5;
+}
+
+.crawl-book-details-pane > .index-group > .ikonli-font-icon {
     -fx-icon-size: 42;
     -fx-opacity: .5;
+}
+
+.crawl-book-details-pane > .same-author-books-group {
+    -fx-padding: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.07), 10, 0.12, -1, 2);
 }
 
 /*******************************************************************************

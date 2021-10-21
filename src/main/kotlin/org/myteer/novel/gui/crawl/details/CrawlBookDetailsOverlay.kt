@@ -9,5 +9,4 @@ class CrawlBookDetailsOverlay(context: Context, bookId: String) : TitledOverlayB
     i18n("crawl.book.details.title"),
     ImageView("/org/myteer/novel/image/other/biquge_16.png"),
     CrawlBookQueryPane(context, bookId)
-) {
-}
+)

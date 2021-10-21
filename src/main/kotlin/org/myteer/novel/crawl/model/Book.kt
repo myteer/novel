@@ -50,6 +50,12 @@ class Book {
     @JsonProperty("BookVote")
     var bookVote: BookVote? = null
 
+    @JsonProperty("SameUserBooks")
+    var sameAuthorBooks: List<Book>? = null
+
+    @JsonProperty("SameCategoryBooks")
+    var sameCategoryBooks: List<Book>? = null
+
     val lastUpdateTime: String?
         get() = updateTime ?: lastTime
 
