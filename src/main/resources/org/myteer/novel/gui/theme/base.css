@@ -310,6 +310,7 @@
 
 .main-view .module-view .tile .button .ikonli-font-icon {
     -fx-icon-size: 64;
+    -fx-opacity: .5;
 }
 
 .main-view .module-view .tile .label {
@@ -367,8 +368,19 @@
 
 .crawl-book-details-pane > .top-group > .label.name-label {
     -fx-font-size: 1.2em;
-    -fx-font-weight: BOLD;
+    -fx-font-weight: bold;
     -fx-opacity: 1;
+}
+
+.crawl-book-details-pane > .top-group > .label.score-label {
+    -fx-font-size: 2.5em;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-opacity: 1;
+}
+
+.crawl-book-details-pane > .top-group > .label.score-label > .ikonli-font-icon {
+    -fx-icon-size: 36;
 }
 
 .crawl-book-details-pane > .description-group {
@@ -379,7 +391,7 @@
 
 .crawl-book-details-pane > .description-group > .title-label {
     -fx-font-size: 1.1em;
-    -fx-font-weight: BOLD;
+    -fx-font-weight: bold;
 }
 
 .crawl-book-details-pane > .description-group > .wrap-label > .label {
@@ -400,7 +412,7 @@
 
 .crawl-book-details-pane > .index-group > .label.title-label {
     -fx-font-size: 1.1em;
-    -fx-font-weight: BOLD;
+    -fx-font-weight: bold;
 }
 
 .crawl-book-details-pane > .index-group > .label.last-update-label {
@@ -419,7 +431,7 @@
 
 .crawl-book-details-pane > .same-author-books-group > .label.title-label {
     -fx-font-size: 1.1em;
-    -fx-font-weight: BOLD;
+    -fx-font-weight: bold;
     -fx-padding: 0 0 10 0;
 }
 
@@ -448,7 +460,7 @@
 
 .crawl-book-details-pane > .same-author-books-group > .same-author-book .label.name-label {
     -fx-font-size: 1.2em;
-    -fx-font-weight: BOLD;
+    -fx-font-weight: bold;
     -fx-opacity: 1;
 }
 
@@ -460,7 +472,7 @@
 
 .crawl-book-details-pane > .same-category-books-group .title-label {
     -fx-font-size: 1.1em;
-    -fx-font-weight: BOLD;
+    -fx-font-weight: bold;
 }
 
 .crawl-book-details-pane > .same-category-books-group .refresh-button {

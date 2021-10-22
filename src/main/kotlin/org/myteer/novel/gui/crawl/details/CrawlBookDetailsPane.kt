@@ -1,7 +1,9 @@
 package org.myteer.novel.gui.crawl.details
 
 import animatefx.animation.RotateIn
+import javafx.geometry.HPos
 import javafx.geometry.Pos
+import javafx.geometry.VPos
 import javafx.scene.control.*
 import javafx.scene.image.ImageView
 import javafx.scene.layout.*
@@ -41,6 +43,7 @@ class CrawlBookDetailsPane(private val view: CrawlBookQueryPane, private val boo
                 buildAuthorLabel(),
                 buildCategoryLabel(),
                 buildStatusLabel(),
+                buildBookImportButton(),
                 buildScoreLabel()
             )
         }
@@ -60,7 +63,7 @@ class CrawlBookDetailsPane(private val view: CrawlBookQueryPane, private val boo
             }
             setMinSize(120.0, 150.0)
             setMaxSize(120.0, 150.0)
-            setConstraints(this, 0, 0, 1, 5)
+            setConstraints(this, 0, 0, 1, 4)
         }
 
         private fun buildNameLabel() = Label().apply {
@@ -82,13 +85,29 @@ class CrawlBookDetailsPane(private val view: CrawlBookQueryPane, private val boo
         private fun buildStatusLabel() = Label().apply {
             text = i18n("crawl.book.details.status", book.status.orEmpty())
             setConstraints(this, 1, 3)
+            setVgrow(this, Priority.ALWAYS)
+            setValignment(this, VPos.TOP)
         }
 
-        private fun buildScoreLabel() = Label().run {
-            text = i18n("crawl.book.details.score", book.score?.toString().orEmpty())
-            VBox(this).apply {
-                setConstraints(this, 1, 4)
+        private fun buildBookImportButton() = Button().apply {
+            text = i18n("crawl.book.import.title")
+            isDefaultButton = true
+            setOnAction {
+                TODO()
             }
+            setConstraints(this, 2, 0)
+            setHgrow(this, Priority.ALWAYS)
+            setHalignment(this, HPos.RIGHT)
+        }
+
+        private fun buildScoreLabel() = Label().apply {
+            styleClass.add("score-label")
+            text = book.score?.toString().orEmpty()
+            graphic = icon("star-face-icon")
+            contentDisplay = ContentDisplay.RIGHT
+            setConstraints(this, 2, 1, 1, 2)
+            setHgrow(this, Priority.ALWAYS)
+            setHalignment(this, HPos.RIGHT)
         }
     }
 

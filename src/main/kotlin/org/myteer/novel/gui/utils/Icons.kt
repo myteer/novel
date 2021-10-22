@@ -94,7 +94,8 @@ private val iconPack: Map<String, () -> Text> = mapOf(
     "strikethrough-icon" to fun() = FontIcon(MaterialDesignF.FORMAT_STRIKETHROUGH),
     "pause-icon" to fun() = FontIcon(MaterialDesignP.PAUSE),
     "stop-icon" to fun() = FontIcon(MaterialDesignS.STOP),
-    "spider-icon" to fun() = FontIcon(MaterialDesignS.SPIDER_WEB)
+    "spider-icon" to fun() = FontIcon(MaterialDesignS.SPIDER_WEB),
+    "star-face-icon" to fun() = FontIcon(MaterialDesignS.STAR_FACE)
 )
 
 fun icon(identifier: String): Text = (iconPack[identifier]?.invoke() ?: Text().apply {
