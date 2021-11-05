@@ -498,6 +498,40 @@
 
 /*******************************************************************************
  *                                                                             *
+ *                            Book Manager view                                *
+ *                                                                             *
+ ******************************************************************************/
+.book-manager-view-config-panel {
+    -fx-pref-width: 30em;
+    -fx-pref-height: 30em;
+}
+
+.book-manager-toolbar .options-item .arrow-button {
+    -fx-padding: 0;
+}
+
+.book-manager-toolbar .options-item .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+
+.book-table-place-holder .label {
+    -fx-font-size: 18;
+}
+
+.record-find-control .text-field {
+    -fx-padding: 5px;
+}
+
+.record-find-control .error-label {
+    -fx-text-fill: red;
+}
+
+.book-table .thumbnail-place-holder {
+    -fx-icon-size: 120;
+}
+
+/*******************************************************************************
+ *                                                                             *
  *                                    Other                                    *
  *                                                                             *
  ******************************************************************************/

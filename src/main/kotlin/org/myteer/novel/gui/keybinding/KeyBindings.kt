@@ -74,6 +74,28 @@ object KeyBindings {
         macKeyCombination = KeyCodeCombination(KeyCode.R, KeyCombination.SHIFT_DOWN, KeyCombination.META_DOWN)
     )
 
+    val findRecord: KeyBinding = KeyBinding(
+        id = "findRecordKeyBinding",
+        title = i18n("preferences.keybindings.find_record"),
+        description = { i18n("preferences.keybindings.find_record.desc") },
+        winLinuxKeyCombination = KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN),
+        macKeyCombination = KeyCodeCombination(KeyCode.F, KeyCombination.META_DOWN)
+    )
+
+    val deleteRecord: KeyBinding = KeyBinding(
+        id = "deleteRecordKeyBinding",
+        title = i18n("preferences.keybindings.delete_record"),
+        description = { i18n("preferences.keybindings.delete_record.desc") },
+        defaultKeyCombination = KeyCodeCombination(KeyCode.DELETE)
+    )
+
+    val refreshPage: KeyBinding = KeyBinding(
+        id = "refreshPageKeyBinding",
+        title = i18n("page.reload"),
+        description = { "" },
+        defaultKeyCombination = KeyCodeCombination(KeyCode.F5)
+    )
+
     fun allKeyBindings(): List<KeyBinding> = javaClass.declaredFields
             .filter { it.type == KeyBinding::class.java }
             .map { it.get(this) as KeyBinding }

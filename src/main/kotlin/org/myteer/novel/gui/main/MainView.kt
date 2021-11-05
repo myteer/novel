@@ -6,7 +6,7 @@ import org.myteer.novel.db.DatabaseMeta
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.base.BaseView
-import org.myteer.novel.gui.bookshelf.BookShelf
+import org.myteer.novel.gui.bookmanager.BookManagerModule
 import org.myteer.novel.gui.control.tabview.TabItem
 import org.myteer.novel.gui.crawl.CrawlBookImportModule
 import org.myteer.novel.gui.entry.DatabaseTracker
@@ -18,7 +18,7 @@ class MainView(
     databaseTracker: DatabaseTracker
 ) : BaseView() {
     val modules: List<Module> = listOf(
-        BookShelf(this, preferences, database),
+        BookManagerModule(this, preferences, database),
         CrawlBookImportModule(this)
     )
 

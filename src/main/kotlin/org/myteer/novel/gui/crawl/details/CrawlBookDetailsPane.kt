@@ -8,13 +8,20 @@ import javafx.scene.control.*
 import javafx.scene.image.ImageView
 import javafx.scene.layout.*
 import org.myteer.novel.crawl.model.Book
+import org.myteer.novel.gui.api.Context
+import org.myteer.novel.gui.bookmanager.BookManagerModule
 import org.myteer.novel.gui.control.WrapLabel
+import org.myteer.novel.gui.main.MainView
 import org.myteer.novel.gui.utils.asyncLoadImage
 import org.myteer.novel.gui.utils.icon
 import org.myteer.novel.gui.utils.styleClass
 import org.myteer.novel.i18n.i18n
 
-class CrawlBookDetailsPane(private val view: CrawlBookQueryPane, private val book: Book) : VBox() {
+class CrawlBookDetailsPane(
+    private val context: Context,
+    private val view: CrawlBookQueryPane,
+    private val book: Book
+) : VBox() {
     init {
         styleClass.add("crawl-book-details-pane")
         buildUI()
@@ -93,7 +100,12 @@ class CrawlBookDetailsPane(private val view: CrawlBookQueryPane, private val boo
             text = i18n("crawl.book.import.title")
             isDefaultButton = true
             setOnAction {
-                TODO()
+                context.sendRequest(
+                    MainView.ModuleOpenRequest(
+                        BookManagerModule::class.java,
+                        BookManagerModule.BookImportRequest(book.id!!)
+                    )
+                )
             }
             setConstraints(this, 2, 0)
             setHgrow(this, Priority.ALWAYS)

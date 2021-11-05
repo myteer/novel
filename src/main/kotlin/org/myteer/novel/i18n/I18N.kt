@@ -68,6 +68,24 @@ object I18N {
     }
 
     fun getAvailableLocales(): Set<Locale> = loadedLanguagePacks.keys
+
+    fun defaultLocale(): Locale {
+        val systemDefault = Locale.getDefault()
+        return when {
+            getAvailableLocales().contains(systemDefault) -> systemDefault
+            else -> Locale.ENGLISH
+        }
+    }
+
+    fun getAvailableCollators(): Map<Locale, Collator> {
+        val map: MutableMap<Locale, Collator> = mutableMapOf()
+        loadedLanguagePacks.forEach { (locale, languagePacks) ->
+            languagePacks.map(LanguagePack::getCollator).firstOrNull()?.let {
+                map[locale] = it
+            }
+        }
+        return map
+    }
 }
 
 fun i18n(key: String, vararg args: Any) = I18N.getValue(key, *args)

@@ -92,7 +92,7 @@ class CrawlBookQueryPane(private val context: Context, bookId: String) : StackPa
     private fun buildCrawlBookDetailsPane(book: Book) = ScrollPane().also { s ->
         s.isFitToWidth = true
         s.isFitToHeight = true
-        s.content = CrawlBookDetailsPane(this, book).also { c ->
+        s.content = CrawlBookDetailsPane(context, this, book).also { c ->
             c.heightProperty().addListener(object : ChangeListener<Double> {
                 override fun changed(observable: ObservableValue<out Double>?, oldValue: Double?, newValue: Double?) {
                     newValue?.let { h ->

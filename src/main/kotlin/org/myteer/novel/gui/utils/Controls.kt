@@ -1,12 +1,13 @@
 package org.myteer.novel.gui.utils
 
 import javafx.beans.property.DoubleProperty
+import javafx.beans.property.ReadOnlyObjectProperty
+import javafx.collections.ObservableList
 import javafx.geometry.Orientation
 import javafx.scene.Node
-import javafx.scene.control.ButtonType
-import javafx.scene.control.ComboBox
-import javafx.scene.control.ScrollBar
-import javafx.scene.control.TableView
+import javafx.scene.control.*
+import javafx.util.StringConverter
+import org.controlsfx.control.CheckListView
 
 fun <T : Node> T.styleClass(styleClass: String) = apply {
     getStyleClass().add(styleClass)
@@ -21,6 +22,39 @@ fun <T> ComboBox<T>.refresh() {
     this.items = items
     this.selectionModel.select(selected)
 }
+
+inline val <S> TableView<S>.selectedItems: ObservableList<S>
+    get() = selectionModel.selectedItems
+
+inline val <T> ListView<T>.selectedItems: ObservableList<T>
+    get() = selectionModel.selectedItems
+
+inline val <T> CheckListView<T>.checkedItems: ObservableList<T>
+    get() = checkModel.checkedItems
+
+inline var <T> ChoiceBox<T>.selectedItem: T
+    get() = selectionModel.selectedItem
+    set(value) {
+        selectionModel.select(value)
+    }
+
+inline var <T> ComboBox<T>.selectedItem: T
+    get() = selectionModel.selectedItem
+    set(value) {
+        selectionModel.select(value)
+    }
+
+inline fun <T> ChoiceBox<T>.valueConvertingPolicy(
+    crossinline toStringFun: (T) -> String?,
+    crossinline fromStringFun: (String?) -> T
+) {
+    converter = object : StringConverter<T>() {
+        override fun toString(obj: T) = toStringFun(obj)
+        override fun fromString(string: String) = fromStringFun(string)
+    }
+}
+
+fun <T> ChoiceBox<T>.selectedItemProperty(): ReadOnlyObjectProperty<T> = selectionModel.selectedItemProperty()
 
 val <S> TableView<S>.verticalScrollValueProperty: DoubleProperty?
     get() = lookupAll(".scroll-bar")

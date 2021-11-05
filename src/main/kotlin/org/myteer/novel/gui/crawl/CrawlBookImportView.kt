@@ -5,6 +5,8 @@ import javafx.scene.control.*
 import org.myteer.novel.crawl.model.Book
 import org.myteer.novel.crawl.vo.BookSearchRequest
 import org.myteer.novel.gui.api.Context
+import org.myteer.novel.gui.bookmanager.BookManagerModule
+import org.myteer.novel.gui.main.MainView
 import org.myteer.novel.gui.utils.icon
 import org.myteer.novel.i18n.i18n
 
@@ -42,6 +44,11 @@ class CrawlBookImportView(private val context: Context) : CrawlBookSearchView(co
     }
 
     private fun sendBookImportRequest(book: Book) {
-        TODO()
+        context.sendRequest(
+            MainView.ModuleOpenRequest(
+                BookManagerModule::class.java,
+                BookManagerModule.BookImportRequest(book.id!!)
+            )
+        )
     }
 }
