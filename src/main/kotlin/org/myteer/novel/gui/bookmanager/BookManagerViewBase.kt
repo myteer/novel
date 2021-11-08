@@ -13,7 +13,7 @@ import org.myteer.novel.config.Preferences
 import org.myteer.novel.db.data.Book
 import org.myteer.novel.gui.bookmanager.BookManagerView.Companion.COL_CONFIG_KEY
 import org.myteer.novel.gui.control.RecordFindControl
-import org.myteer.novel.gui.utils.runOutsideUI
+import org.myteer.novel.gui.utils.onScenePresent
 import org.slf4j.LoggerFactory
 
 class BookManagerViewBase(
@@ -52,7 +52,9 @@ class BookManagerViewBase(
 
     private fun buildBookTable() = BookTable().apply {
         items = baseItems
-        columns.addListener(ListChangeListener { updateTableColumnsConfiguration() })
+        onScenePresent {
+            columns.addListener(ListChangeListener { updateTableColumnsConfiguration() })
+        }
         VBox.setVgrow(this, Priority.ALWAYS)
     }
 
@@ -86,9 +88,7 @@ class BookManagerViewBase(
 
     private fun updateTableColumnsConfiguration() {
         val columns = table.getShowingColumnTypes()
-        runOutsideUI {
-            preferences.editor().put(COL_CONFIG_KEY, BookManagerView.TableColumnsInfo(columns))
-        }
+        preferences.editor().put(COL_CONFIG_KEY, BookManagerView.TableColumnsInfo(columns))
     }
 
     companion object {

@@ -152,8 +152,8 @@ class BookTable : BaseTable<Book>() {
 
     private class IndexColumn : Column<Book, Int>(INDEX_COLUMN) {
         init {
-            minWidth = 60.0
-            maxWidth = 60.0
+            minWidth = 70.0
+            maxWidth = 70.0
             isReorderable = false
             setCellValueFactory { cellData ->
                 return@setCellValueFactory constantObservable {

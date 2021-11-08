@@ -9,6 +9,7 @@ import javafx.beans.binding.IntegerBinding
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.concurrent.Task
+import javafx.concurrent.WorkerStateEvent
 import javafx.scene.layout.BorderPane
 import org.myteer.novel.config.ConfigAdapter
 import org.myteer.novel.config.PreferenceKey
@@ -92,7 +93,14 @@ class BookManagerView(
     }
 
     private fun loadRecords() {
-        runOutsideUI(BooksLoadTask(context, table, database))
+        val task = BooksLoadTask(context, table, database).apply {
+            addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED) {
+                synchronized(baseItems) {
+                    baseItems.setAll(value)
+                }
+            }
+        }
+        runOutsideUI(task)
     }
 
     private fun configureSort(locale: Locale) {
@@ -140,12 +148,6 @@ class BookManagerView(
     }
 
     fun importBook(bookId: String) {
-        baseItems.firstOrNull { bookId == it.id }?.let {
-            table.selectionModel.clearSelection()
-            table.selectionModel.select(it)
-            table.scrollTo(it)
-            return
-        }
         runOutsideUI(object : BookQueryTask(bookId) {
             init {
                 setOnRunning { context.showIndeterminateProgress() }
@@ -159,13 +161,21 @@ class BookManagerView(
                 }
                 setOnSucceeded {
                     context.stopProgress()
-                    value?.let {
-                        val book = it.toLocalBook()
-                        BookRepository(database).insert(book)
-                        baseItems.add(book)
-                        table.selectionModel.clearSelection()
-                        table.selectionModel.select(book)
-                        table.scrollTo(book)
+                    synchronized(baseItems) {
+                        baseItems.firstOrNull { bookId == it.id }?.let {
+                            table.selectionModel.clearSelection()
+                            table.selectionModel.select(it)
+                            table.scrollTo(it)
+                            return@synchronized
+                        }
+                        value?.let {
+                            val book = it.toLocalBook()
+                            BookRepository(database).insert(book)
+                            baseItems.add(book)
+                            table.selectionModel.clearSelection()
+                            table.selectionModel.select(book)
+                            table.scrollTo(book)
+                        }
                     }
                 }
             }
