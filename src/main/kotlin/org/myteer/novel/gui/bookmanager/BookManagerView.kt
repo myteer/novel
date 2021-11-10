@@ -49,10 +49,10 @@ class BookManagerView(
             bookManagerViewBase.isFindDialogVisible = value
         }
 
-    var sort: Locale = I18N.defaultLocale()
+    var sortLocale: Locale = I18N.defaultLocale()
         set(value) {
             field = value
-            configureSort(value)
+            configureSortLocal(value)
         }
 
     var columnsInfo: TableColumnsInfo
@@ -89,7 +89,7 @@ class BookManagerView(
 
     private fun readConfigurations() {
         columnsInfo = preferences.get(COL_CONFIG_KEY)
-        sort = preferences.get(SORT_CONFIG_KEY)
+        sortLocale = preferences.get(SORT_CONFIG_KEY)
     }
 
     private fun loadRecords() {
@@ -103,7 +103,7 @@ class BookManagerView(
         runOutsideUI(task)
     }
 
-    private fun configureSort(locale: Locale) {
+    private fun configureSortLocal(locale: Locale) {
         @Suppress("UNCHECKED_CAST")
         table.setSortingComparator((I18N.getCollator(locale) ?: Collator.getInstance()) as Comparator<String>)
         runOutsideUI {
@@ -221,7 +221,7 @@ class BookManagerView(
             ColumnsInfoAdapter()
         )
         val SORT_CONFIG_KEY = PreferenceKey(
-            "book.manager.view.table.sort",
+            "book.manager.view.table.sortLocale",
             Locale::class.java,
             Locale::getDefault
         )

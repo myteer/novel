@@ -31,19 +31,19 @@ class BookManagerViewConfigurationPanel(private val bookManagerView: BookManager
     }
 
     private fun buildUI() {
-        add(Label(i18n("book.table.sort")), 0, 0)
-        add(buildSortChooserMenu(), 0, 1)
+        add(Label(i18n("book.table.sort_locale")), 0, 0)
+        add(buildSortLocaleChooserMenu(), 0, 1)
         add(Label(i18n("book.table.preferred_columns")), 0, 2)
         add(buildColumnSelection(), 0, 3)
     }
 
-    private fun buildSortChooserMenu() = ChoiceBox<Locale>().apply {
+    private fun buildSortLocaleChooserMenu() = ChoiceBox<Locale>().apply {
         setHgrow(this, Priority.ALWAYS)
         maxWidth = Double.MAX_VALUE
         items.addAll(I18N.getAvailableCollators().keys)
-        selectedItem = bookManagerView.sort
+        selectedItem = bookManagerView.sortLocale
         valueConvertingPolicy(Locale::getDisplayLanguage, Locale::forLanguageTag)
-        selectedItemProperty().onValuePresent(::onSortSelection)
+        selectedItemProperty().onValuePresent(::onSortLocaleSelection)
     }
 
     private fun buildColumnSelection() = CheckListView<BaseTable.ColumnType>().run {
@@ -69,9 +69,9 @@ class BookManagerViewConfigurationPanel(private val bookManagerView: BookManager
         }
     }
 
-    private fun onSortSelection(locale: Locale) {
-        logger.debug("Sort selection detected")
-        bookManagerView.sort = locale
+    private fun onSortLocaleSelection(locale: Locale) {
+        logger.debug("SortLocale selection detected")
+        bookManagerView.sortLocale = locale
     }
 
     private fun onColumnSelection(items: List<BaseTable.ColumnType>) {
