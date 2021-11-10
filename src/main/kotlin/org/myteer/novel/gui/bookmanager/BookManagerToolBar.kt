@@ -6,12 +6,14 @@ import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.geometry.Insets
 import javafx.scene.control.*
+import org.myteer.novel.export.SupportedExporters
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.bookmanager.config.BookManagerViewConfigurationOverlay
 import org.myteer.novel.gui.control.BiToolBar
 import org.myteer.novel.gui.control.KeyBindingTooltip
 import org.myteer.novel.gui.keybinding.KeyBinding
 import org.myteer.novel.gui.keybinding.KeyBindings
+import org.myteer.novel.gui.utils.action
 import org.myteer.novel.gui.utils.emptyBinding
 import org.myteer.novel.gui.utils.icon
 import org.myteer.novel.gui.utils.selectedItems
@@ -64,6 +66,11 @@ class BookManagerToolBar(
         graphic = icon("file-export-icon")
         tooltip = Tooltip(i18n("record.export"))
         disableProperty().bind(bookManagerView.table.selectedItems.emptyBinding())
+        items.addAll(SupportedExporters.map {
+            MenuItem(it.name, it.icon).action { _ ->
+                bookManagerView.exportSelected(it)
+            }
+        })
     }
 
     private fun buildDeleteItem() = buildToolBarItem(

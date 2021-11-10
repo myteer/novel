@@ -5,11 +5,9 @@ import javafx.scene.control.ContextMenu
 import javafx.scene.control.Menu
 import javafx.scene.control.MenuItem
 import javafx.scene.control.SeparatorMenuItem
+import org.myteer.novel.export.SupportedExporters
 import org.myteer.novel.gui.keybinding.KeyBindings
-import org.myteer.novel.gui.utils.emptyBinding
-import org.myteer.novel.gui.utils.icon
-import org.myteer.novel.gui.utils.keyBinding
-import org.myteer.novel.gui.utils.selectedItems
+import org.myteer.novel.gui.utils.*
 import org.myteer.novel.i18n.i18n
 
 class BookContextMenu(private val bookManagerView: BookManagerView) : ContextMenu() {
@@ -42,6 +40,11 @@ class BookContextMenu(private val bookManagerView: BookManagerView) : ContextMen
         text = i18n("record.context_menu.export")
         graphic = icon("file-export-icon")
         disableProperty().bind(itemsEmpty)
+        items.addAll(SupportedExporters.map {
+            MenuItem(it.name, it.icon).action { _ ->
+                bookManagerView.exportSelected(it)
+            }
+        })
     }
 
     private fun buildReloadItem() = MenuItem().apply {

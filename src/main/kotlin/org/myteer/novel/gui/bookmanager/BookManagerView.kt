@@ -18,6 +18,8 @@ import org.myteer.novel.crawl.task.BookQueryTask
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.db.data.Book
 import org.myteer.novel.db.repository.BookRepository
+import org.myteer.novel.export.api.BookExportConfiguration
+import org.myteer.novel.export.api.BookExporter
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.control.BaseTable
 import org.myteer.novel.gui.keybinding.KeyBindings
@@ -145,6 +147,10 @@ class BookManagerView(
 
     fun clearCache() {
         table.clearCache()
+    }
+
+    fun <C : BookExportConfiguration> exportSelected(exporter: BookExporter<C>) {
+        TODO()
     }
 
     fun importBook(bookId: String) {

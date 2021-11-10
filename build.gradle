@@ -40,7 +40,7 @@ dependencies {
     // logging
     implementation 'ch.qos.logback:logback-classic:1.2.6'
     // json
-    implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'com.google.code.gson:gson:2.8.9'
     // database
     implementation 'org.dizitart:nitrite:3.4.3'
     // retry
@@ -51,6 +51,8 @@ dependencies {
     implementation 'org.kordamp.ikonli:ikonli-javafx:12.2.0'
     implementation 'org.kordamp.ikonli:ikonli-materialdesign2-pack:12.2.0'
     implementation 'org.kordamp.ikonli:ikonli-material2-pack:12.2.0'
+    // Microsoft Documents
+    implementation 'org.apache.poi:poi-ooxml:5.0.0'
 
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'org.apache.commons:commons-collections4:4.4'
@@ -58,7 +60,7 @@ dependencies {
     implementation 'com.github.Dansoftowner:jUserDirectories:1.0'
     implementation 'com.github.Dansoftowner:jSystemThemeDetector:3.7'
     implementation 'com.github.Dansoftowner:Restart4j:1.4.7'
-    implementation 'com.github.oshi:oshi-core:5.8.2'
+    implementation 'com.github.oshi:oshi-core:5.8.3'
     implementation 'it.sauronsoftware:junique:1.0.4'
 
     implementation 'com.dlsc.workbenchfx:workbenchfx-core:11.1.0'
@@ -66,7 +68,7 @@ dependencies {
     implementation('com.github.Dansoftowner:FXTaskbarProgressBar:v11.4') {
         exclude group: "org.openjfx"
     }
-    implementation 'org.fxmisc.richtext:richtextfx:0.10.6'
+    implementation 'org.fxmisc.richtext:richtextfx:0.10.7'
     implementation('org.jfxtras:jmetro:11.6.15') {
         exclude group: "org.openjfx"
     }
