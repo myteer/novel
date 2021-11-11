@@ -6,11 +6,23 @@ import javafx.collections.ObservableList
 import javafx.geometry.Orientation
 import javafx.scene.Node
 import javafx.scene.control.*
+import javafx.scene.layout.GridPane
+import javafx.scene.layout.HBox
+import javafx.scene.layout.Priority
 import javafx.util.StringConverter
 import org.controlsfx.control.CheckListView
 
 fun <T : Node> T.styleClass(styleClass: String) = apply {
     getStyleClass().add(styleClass)
+}
+
+fun <T : Node> T.colspan(value: Int) = apply {
+    GridPane.setColumnSpan(this, value)
+}
+
+fun <T : Node> T.hgrow(priority: Priority) = apply {
+    GridPane.setHgrow(this, priority)
+    HBox.setHgrow(this, priority)
 }
 
 fun ButtonType.typeEquals(other: ButtonType) = (buttonData == other.buttonData)
@@ -55,6 +67,20 @@ inline fun <T> ChoiceBox<T>.valueConvertingPolicy(
 }
 
 fun <T> ChoiceBox<T>.selectedItemProperty(): ReadOnlyObjectProperty<T> = selectionModel.selectedItemProperty()
+
+inline fun hyperlink(text: String, graphic: Node? = null, crossinline onAction: () -> Unit) =
+    Hyperlink(text, graphic).apply {
+        setOnAction { onAction() }
+    }
+
+fun scrollPane(content: Node, fitToWidth: Boolean = false, fitToHeight: Boolean = false) = ScrollPane(content).apply {
+    isFitToWidth = fitToWidth
+    isFitToHeight = fitToHeight
+}
+
+fun GridPane.addRow(vararg elements: Node) = apply {
+    addRow(rowCount, *elements)
+}
 
 val <S> TableView<S>.verticalScrollValueProperty: DoubleProperty?
     get() = lookupAll(".scroll-bar")

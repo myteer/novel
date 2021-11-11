@@ -17,3 +17,9 @@ fun File.revealInExplorer() {
     }
 }
 
+fun File.open() {
+    runOutsideUIAsync {
+        desktop.open(this)
+    }
+}
+

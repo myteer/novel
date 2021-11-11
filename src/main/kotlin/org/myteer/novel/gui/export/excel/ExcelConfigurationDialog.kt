@@ -6,6 +6,11 @@ import org.myteer.novel.gui.export.ConfigurationDialog
 
 class ExcelConfigurationDialog : ConfigurationDialog<ExcelExportConfiguration> {
     override fun show(context: Context, onFinished: (ExcelExportConfiguration) -> Unit) {
-        TODO("Not yet implemented")
+        var overlay: ExcelConfigurationOverlay? = null
+        overlay = ExcelConfigurationOverlay {
+            context.hideOverlay(overlay!!)
+            onFinished(it)
+        }
+        context.showOverlay(overlay)
     }
 }

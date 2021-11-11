@@ -10,7 +10,9 @@ import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.concurrent.Task
 import javafx.concurrent.WorkerStateEvent
+import javafx.event.Event
 import javafx.scene.layout.BorderPane
+import javafx.stage.FileChooser
 import org.myteer.novel.config.ConfigAdapter
 import org.myteer.novel.config.PreferenceKey
 import org.myteer.novel.config.Preferences
@@ -23,9 +25,7 @@ import org.myteer.novel.export.api.BookExporter
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.control.BaseTable
 import org.myteer.novel.gui.keybinding.KeyBindings
-import org.myteer.novel.gui.utils.addKeyBindingDetection
-import org.myteer.novel.gui.utils.runOutsideUI
-import org.myteer.novel.gui.utils.selectedItems
+import org.myteer.novel.gui.utils.*
 import org.myteer.novel.i18n.I18N
 import org.myteer.novel.i18n.i18n
 import org.slf4j.LoggerFactory
@@ -150,7 +150,46 @@ class BookManagerView(
     }
 
     fun <C : BookExportConfiguration> exportSelected(exporter: BookExporter<C>) {
-        TODO()
+        export(exporter, table.selectedItems.map(Book::copy))
+    }
+
+    private fun <C : BookExportConfiguration> export(exporter: BookExporter<C>, items: List<Book>) {
+        exporter.configurationDialog.show(context) { config ->
+            val fileChooser = FileChooser().apply {
+                extensionFilters.add(
+                    FileChooser.ExtensionFilter(
+                        exporter.contentTypeDescription,
+                        "*.${exporter.contentType}"
+                    )
+                )
+            }
+            fileChooser.showSaveDialog(context.getContextWindow())?.let { file ->
+                val task = exporter.task(items, file.outputStream(), config).apply {
+                    setOnRunning { context.showIndeterminateProgress() }
+                    setOnFailed {
+                        context.stopProgress()
+                        logger.error("Couldn't export books to '{}'", exporter.contentType, it.source.exception)
+                        context.showErrorDialog(
+                            i18n("book.export.error.title"),
+                            i18n("book.export.error.message", items.size, exporter.contentType),
+                            it.source.exception as Exception?
+                        )
+                    }
+                    setOnSucceeded {
+                        context.stopProgress()
+                        context.showInformationNotification(
+                            i18n("book.export.successful.title"),
+                            i18n("book.export.successful.message", items.size, exporter.contentType, file.name),
+                            null,
+                            Event::consume,
+                            hyperlink(i18n("file.open_in_app")) { file.open() },
+                            hyperlink(i18n("file.open_in_explorer")) { file.revealInExplorer() }
+                        )
+                    }
+                }
+                runOutsideUI(task)
+            }
+        }
     }
 
     fun importBook(bookId: String) {
