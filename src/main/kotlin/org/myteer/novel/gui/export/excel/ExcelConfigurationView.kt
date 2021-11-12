@@ -7,7 +7,7 @@ import javafx.scene.layout.*
 import javafx.scene.paint.Color
 import jfxtras.styles.jmetro.JMetroStyleClass
 import org.myteer.novel.export.excel.ExcelExportConfiguration
-import org.myteer.novel.gui.control.FontNamePicker
+import org.myteer.novel.gui.control.FontPicker
 import org.myteer.novel.gui.export.control.BaseConfigurationView
 import org.myteer.novel.gui.utils.*
 import org.myteer.novel.i18n.i18n
@@ -111,11 +111,11 @@ class ExcelConfigurationView(private val onFinished: (ExcelExportConfiguration) 
                 children.add(buildStrikeThroughToggle())
             }
 
-            private fun buildFontPicker() = FontNamePicker().apply {
+            private fun buildFontPicker() = FontPicker().apply {
                 setHgrow(this, Priority.ALWAYS)
                 maxWidth = Double.MAX_VALUE
                 valueProperty().onValuePresent {
-                    cellStyle.fontName = it
+                    cellStyle.fontName = it.family
                 }
             }
 
