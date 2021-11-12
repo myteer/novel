@@ -9,7 +9,7 @@ import java.util.*
 
 class FontPicker : ComboBox<Font>() {
     init {
-        items.addAll(GraphicsEnvironment.getLocalGraphicsEnvironment().allFonts.distinctBy(Font::getFamily))
+        items.addAll(AVAILABLE_FONTS)
         buttonCell = FontCell()
         setCellFactory { FontCell() }
     }
@@ -27,5 +27,9 @@ class FontPicker : ComboBox<Font>() {
                 }
             }
         }
+    }
+
+    private companion object {
+        val AVAILABLE_FONTS = GraphicsEnvironment.getLocalGraphicsEnvironment().allFonts.distinctBy(Font::getFamily)
     }
 }
