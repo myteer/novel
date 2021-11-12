@@ -10,7 +10,7 @@ import org.myteer.novel.gui.utils.addRow
 import org.myteer.novel.i18n.i18n
 
 open class BaseConfigurationView<C : BookExportConfiguration>(
-    private val exportConfiguration: C
+    protected val exportConfiguration: C
 ) : GridPane() {
     init {
         padding = Insets(20.0)
