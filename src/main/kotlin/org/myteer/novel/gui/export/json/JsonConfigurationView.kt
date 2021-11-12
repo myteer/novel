@@ -5,8 +5,8 @@ import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.layout.Priority
 import jfxtras.styles.jmetro.JMetroStyleClass
-import org.controlsfx.control.CheckListView
 import org.myteer.novel.export.json.JsonExportConfiguration
+import org.myteer.novel.gui.control.CheckListView
 import org.myteer.novel.gui.export.control.BaseConfigurationView
 import org.myteer.novel.gui.utils.addRow
 import org.myteer.novel.gui.utils.checkedItems

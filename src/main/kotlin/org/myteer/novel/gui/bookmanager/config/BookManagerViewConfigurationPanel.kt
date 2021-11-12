@@ -10,10 +10,10 @@ import javafx.scene.layout.GridPane
 import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
 import jfxtras.styles.jmetro.JMetroStyleClass
-import org.controlsfx.control.CheckListView
 import org.myteer.novel.gui.bookmanager.BookManagerView
 import org.myteer.novel.gui.bookmanager.BookTable
 import org.myteer.novel.gui.control.BaseTable
+import org.myteer.novel.gui.control.CheckListView
 import org.myteer.novel.gui.utils.*
 import org.myteer.novel.i18n.I18N
 import org.myteer.novel.i18n.i18n
