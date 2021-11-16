@@ -2,8 +2,6 @@ package org.myteer.novel.gui.crawl
 
 import javafx.beans.property.BooleanProperty
 import javafx.beans.property.SimpleBooleanProperty
-import javafx.scene.Group
-import javafx.scene.control.Button
 import javafx.scene.control.ContextMenu
 import javafx.scene.control.MenuItem
 import javafx.scene.image.ImageView
@@ -14,7 +12,6 @@ import org.myteer.novel.crawl.task.BookSearchTask
 import org.myteer.novel.crawl.vo.BookSearchRequest
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.crawl.details.CrawlBookDetailsOverlay
-import org.myteer.novel.gui.crawl.details.CrawlBookDetailsPane
 import org.myteer.novel.gui.utils.*
 import org.myteer.novel.i18n.i18n
 import org.slf4j.LoggerFactory
@@ -67,7 +64,11 @@ class CrawlBookTableExtendPane(
     }
 
     private fun showBookInfo(book: Book) {
-        context.showOverlay(CrawlBookDetailsOverlay(context, book.id!!))
+        var overlay: CrawlBookDetailsOverlay? = null
+        overlay = CrawlBookDetailsOverlay(context, book.id!!) {
+            context.hideOverlay(overlay!!)
+        }
+        context.showOverlay(overlay)
     }
 
     @Synchronized

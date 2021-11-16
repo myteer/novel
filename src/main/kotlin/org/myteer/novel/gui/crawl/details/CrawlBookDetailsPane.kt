@@ -106,6 +106,7 @@ class CrawlBookDetailsPane(
                         BookManagerModule.BookImportRequest(book.id!!)
                     )
                 )
+                view.onFinished()
             }
             setConstraints(this, 2, 0)
             setHgrow(this, Priority.ALWAYS)

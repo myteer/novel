@@ -15,7 +15,7 @@ import org.myteer.novel.gui.utils.runOutsideUIAsync
 import org.myteer.novel.i18n.i18n
 import org.slf4j.LoggerFactory
 
-class CrawlBookQueryPane(private val context: Context, bookId: String) : StackPane() {
+class CrawlBookQueryPane(private val context: Context, bookId: String, val onFinished: () -> Unit) : StackPane() {
     private val loading: BooleanProperty = SimpleBooleanProperty(false)
     private val containerPane: StackPane = StackPane()
     private val loadingPane: StackPane = buildLoadingPane()
