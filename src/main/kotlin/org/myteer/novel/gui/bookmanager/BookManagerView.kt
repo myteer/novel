@@ -23,6 +23,7 @@ import org.myteer.novel.db.repository.BookRepository
 import org.myteer.novel.export.api.BookExportConfiguration
 import org.myteer.novel.export.api.BookExporter
 import org.myteer.novel.gui.api.Context
+import org.myteer.novel.gui.bookmanager.task.ChapterListRefreshTask
 import org.myteer.novel.gui.control.BaseTable
 import org.myteer.novel.gui.keybinding.KeyBindings
 import org.myteer.novel.gui.utils.*
@@ -216,6 +217,7 @@ class BookManagerView(
                         value?.let {
                             val book = it.toLocalBook()
                             BookRepository(database).insert(book)
+                            runOutsideUIAsync(ChapterListRefreshTask(database, bookId))
                             baseItems.add(book)
                             table.selectionModel.clearSelection()
                             table.selectionModel.select(book)

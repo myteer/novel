@@ -23,9 +23,19 @@ class Chapter {
 
     var hasContent: Int? = null
 
-    var content: String? = null
-
     var volumeIndex: Int? = null
 
     var volumeName: String? = null
+
+    fun toLocalChapter() = org.myteer.novel.db.data.Chapter().also {
+        it.bookId = bookId
+        it.bookName = bookName
+        it.id = id
+        it.name = name
+        it.previousId = previousId
+        it.nextId = nextId
+        it.hasContent = hasContent
+        it.volumeIndex = volumeIndex
+        it.volumeName = volumeName
+    }
 }
