@@ -37,8 +37,9 @@ class ChapterRepository(database: NitriteDatabase) {
             chapter.previousId?.let { doc["previousId"] = it }
             chapter.nextId?.let { doc["nextId"] = it }
             chapter.content?.let { doc["content"] = it }
-            chapter.volumeIndex.let { doc["volumeIndex"] = it }
+            doc["volumeIndex"] = chapter.volumeIndex
             chapter.volumeName?.let { doc["volumeName"] = it }
+            doc["orderNo"] = chapter.orderNo
         }
     }
 }

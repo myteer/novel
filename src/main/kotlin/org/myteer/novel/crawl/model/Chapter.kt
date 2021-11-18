@@ -27,6 +27,8 @@ class Chapter {
 
     var volumeName: String? = null
 
+    var orderNo: Int = 0
+
     fun toLocalChapter() = org.myteer.novel.db.data.Chapter().also {
         it.bookId = bookId
         it.bookName = bookName
@@ -37,5 +39,6 @@ class Chapter {
         it.hasContent = hasContent
         it.volumeIndex = volumeIndex
         it.volumeName = volumeName
+        it.orderNo = orderNo
     }
 }

@@ -23,6 +23,7 @@ open class ChapterListQueryTask(private val bookId: String) : Task<List<Chapter>
                 executeWithRetryStrategy { HttpUtils.get(requestUrl) }.takeIf { it.isNotBlank() }?.let { content ->
                     val value = content.replace(",]", "]")
                     JsonUtils.fromJsonForGeneric(value, object : TypeReference<ResultVO<Book>>() {}).data?.let { book ->
+                        var orderNo = 0
                         book.list?.forEachIndexed { index, volume ->
                             volume.list?.forEach { chapter ->
                                 Chapter().also { c ->
@@ -33,6 +34,7 @@ open class ChapterListQueryTask(private val bookId: String) : Task<List<Chapter>
                                     c.id = chapter.id
                                     c.name = chapter.name
                                     c.hasContent = chapter.hasContent
+                                    c.orderNo = orderNo++
                                     list.add(c)
                                 }
                             }

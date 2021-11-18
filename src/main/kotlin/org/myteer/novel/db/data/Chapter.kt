@@ -16,13 +16,14 @@ class Chapter(
     var hasContent: Int? = null,
     var content: String? = null,
     var volumeIndex: Int = 0,
-    var volumeName: String? = null
+    var volumeName: String? = null,
+    var orderNo: Int = 0
 ) : Comparable<Chapter> {
     override fun compareTo(other: Chapter): Int {
         return if (volumeIndex != other.volumeIndex) {
             volumeIndex.compareTo(other.volumeIndex)
         } else {
-            other.id?.let { id?.compareTo(it) } ?: 0
+            orderNo.compareTo(other.orderNo)
         }
     }
 }
