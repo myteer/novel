@@ -23,6 +23,8 @@ class Chapter {
 
     var hasContent: Int? = null
 
+    var content: String? = null
+
     var volumeIndex: Int = 0
 
     var volumeName: String? = null
@@ -37,6 +39,7 @@ class Chapter {
         it.previousId = previousId
         it.nextId = nextId
         it.hasContent = hasContent
+        it.content = content
         it.volumeIndex = volumeIndex
         it.volumeName = volumeName
         it.orderNo = orderNo

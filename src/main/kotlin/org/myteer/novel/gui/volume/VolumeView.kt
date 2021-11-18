@@ -50,8 +50,8 @@ class VolumeView(
                 context.stopProgress()
                 logger.error("Failed to load chapters", it.source.exception)
                 context.showErrorDialog(
-                    i18n("chapter.load.failed.title"),
-                    i18n("chapter.load.failed.message"),
+                    i18n("chapters.load.failed.title"),
+                    i18n("chapters.load.failed.message"),
                     it.source.exception as? Exception
                 )
             }

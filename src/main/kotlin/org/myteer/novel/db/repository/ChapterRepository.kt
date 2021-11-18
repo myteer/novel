@@ -14,6 +14,10 @@ class ChapterRepository(database: NitriteDatabase) {
         return repository.find(eq("bookId", bookId)).toList()
     }
 
+    fun selectById(id: String): Chapter? {
+        return repository.find(eq("id", id)).firstOrDefault()
+    }
+
     fun save(chapter: Chapter) {
         chapter.id?.let {
             if (null == selectById(it)) {
@@ -28,14 +32,11 @@ class ChapterRepository(database: NitriteDatabase) {
         repository.remove(`in`("bookId", *bookId))
     }
 
-    private fun selectById(id: String): Chapter? {
-        return repository.find(eq("id", id)).firstOrDefault()
-    }
-
     private fun createUpdateDocument(chapter: Chapter): Document {
         return Document().also { doc ->
             chapter.previousId?.let { doc["previousId"] = it }
             chapter.nextId?.let { doc["nextId"] = it }
+            chapter.hasContent?.let { doc["hasContent"] = it }
             chapter.content?.let { doc["content"] = it }
             doc["volumeIndex"] = chapter.volumeIndex
             chapter.volumeName?.let { doc["volumeName"] = it }

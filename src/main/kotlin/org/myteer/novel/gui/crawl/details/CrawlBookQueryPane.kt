@@ -45,7 +45,7 @@ class CrawlBookQueryPane(private val context: Context, bookId: String, val onFin
     }
 
     private fun buildLoadingPane() = StackPane(ImageView("/org/myteer/novel/image/other/loading.gif")).apply {
-        styleClass.add("crawl-book-details-loading-pane")
+        styleClass.add("loading-pane")
     }
 
     private inner class QueryTask(private val bookId: String) : BookQueryTask(bookId) {
