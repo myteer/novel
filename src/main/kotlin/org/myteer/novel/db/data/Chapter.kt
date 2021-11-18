@@ -14,7 +14,15 @@ class Chapter(
     var previousId: String? = null,
     var nextId: String? = null,
     var hasContent: Int? = null,
-    var contentCached: Boolean = false,
-    var volumeIndex: Int? = null,
+    var content: String? = null,
+    var volumeIndex: Int = 0,
     var volumeName: String? = null
-)
+) : Comparable<Chapter> {
+    override fun compareTo(other: Chapter): Int {
+        return if (volumeIndex != other.volumeIndex) {
+            volumeIndex.compareTo(other.volumeIndex)
+        } else {
+            other.id?.let { id?.compareTo(it) } ?: 0
+        }
+    }
+}

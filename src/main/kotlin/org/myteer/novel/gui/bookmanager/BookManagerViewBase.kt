@@ -10,14 +10,21 @@ import javafx.scene.control.SplitPane
 import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
 import org.myteer.novel.config.Preferences
+import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.db.data.Book
+import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.bookmanager.BookManagerView.Companion.COL_CONFIG_KEY
 import org.myteer.novel.gui.control.RecordFindControl
+import org.myteer.novel.gui.main.MainView
+import org.myteer.novel.gui.main.getTabItem
 import org.myteer.novel.gui.utils.onScenePresent
+import org.myteer.novel.gui.volume.VolumeTab
 import org.slf4j.LoggerFactory
 
 class BookManagerViewBase(
+    private val context: Context,
     private val preferences: Preferences,
+    private val database: NitriteDatabase,
     private val baseItems: ObservableList<Book>
 ) : SplitPane() {
     val table: BookTable = buildBookTable()
@@ -54,6 +61,13 @@ class BookManagerViewBase(
         items = baseItems
         onScenePresent {
             columns.addListener(ListChangeListener { updateTableColumnsConfiguration() })
+        }
+        setOnItemDoubleClicked {
+            context.sendRequest(
+                MainView.TabItemOpenRequest(
+                    VolumeTab(context, database, it).getTabItem()
+                )
+            )
         }
         VBox.setVgrow(this, Priority.ALWAYS)
     }

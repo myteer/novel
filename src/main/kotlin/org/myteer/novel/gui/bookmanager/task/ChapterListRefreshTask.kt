@@ -4,12 +4,16 @@ import org.myteer.novel.crawl.model.Chapter
 import org.myteer.novel.crawl.task.ChapterListQueryTask
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.db.repository.ChapterRepository
+import org.myteer.novel.gui.utils.runOutsideUI
 
 class ChapterListRefreshTask(database: NitriteDatabase, bookId: String) : ChapterListQueryTask(bookId) {
     init {
         setOnSucceeded {
-            ChapterRepository(database).also { chapterRepository ->
-                value.map(Chapter::toLocalChapter).forEach(chapterRepository::save)
+            val chapters = value
+            runOutsideUI {
+                ChapterRepository(database).also { chapterRepository ->
+                    chapters.map(Chapter::toLocalChapter).forEach(chapterRepository::save)
+                }
             }
         }
     }

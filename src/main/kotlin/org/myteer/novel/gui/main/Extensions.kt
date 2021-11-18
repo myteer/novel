@@ -9,3 +9,11 @@ fun Module.getTabItem() = TabItem(
     { this@getTabItem.activate() },
     { this@getTabItem.close() }
 )
+
+fun BaseTab.getTabItem() = TabItem(
+    this@getTabItem.id,
+    this@getTabItem.name,
+    { this@getTabItem.icon },
+    { this@getTabItem.activate() },
+    { this@getTabItem.close() }
+)

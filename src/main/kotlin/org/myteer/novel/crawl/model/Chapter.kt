@@ -23,7 +23,7 @@ class Chapter {
 
     var hasContent: Int? = null
 
-    var volumeIndex: Int? = null
+    var volumeIndex: Int = 0
 
     var volumeName: String? = null
 
