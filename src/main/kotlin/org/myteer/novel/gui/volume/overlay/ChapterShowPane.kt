@@ -1,23 +1,31 @@
 package org.myteer.novel.gui.volume.overlay
 
-import javafx.scene.layout.BorderPane
+import javafx.beans.binding.Bindings
+import javafx.geometry.Insets
+import javafx.scene.control.ScrollPane
+import javafx.scene.text.Font
 import javafx.scene.text.Text
 import org.myteer.novel.db.data.Chapter
-import org.myteer.novel.gui.control.BiToolBar
-import org.myteer.novel.gui.utils.scrollPane
 
-class ChapterShowPane(private val chapter: Chapter, view: ChapterLoadPane) : BorderPane() {
-    private val toolBar = BiToolBar()
-    private val contentText = buildContentText()
+class ChapterShowPane(
+    private val configuration: ChapterShowConfiguration,
+    private val chapter: Chapter
+) : ScrollPane() {
     init {
         styleClass.add("chapter-show-pane")
+        padding = Insets(10.0)
         buildUI()
     }
 
     private fun buildUI() {
-        top = toolBar
-        center = scrollPane(contentText)
+        content = buildContentText()
     }
 
-    private fun buildContentText() = Text(chapter.content)
+    private fun buildContentText() = Text(chapter.content).also {
+        it.fontProperty().bind(Bindings.createObjectBinding({
+            Font.font(configuration.fontFamilyProperty.value, configuration.fontSizeProperty.doubleValue())
+        }, configuration.fontFamilyProperty, configuration.fontSizeProperty))
+        it.fillProperty().bind(configuration.fontColorProperty)
+        it.wrappingWidthProperty().bind(widthProperty().subtract(40))
+    }
 }

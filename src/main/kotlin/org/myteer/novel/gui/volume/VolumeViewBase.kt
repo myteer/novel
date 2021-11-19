@@ -9,6 +9,7 @@ import javafx.scene.control.Label
 import javafx.scene.layout.TilePane
 import javafx.scene.layout.VBox
 import jfxtras.styles.jmetro.JMetroStyleClass
+import org.myteer.novel.config.Preferences
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.db.data.Chapter
 import org.myteer.novel.gui.api.Context
@@ -17,6 +18,7 @@ import org.myteer.novel.gui.volume.overlay.ChapterOverlay
 
 class VolumeViewBase(
     private val context: Context,
+    private val preferences: Preferences,
     private val database: NitriteDatabase,
     private val baseItems: ObservableList<Chapter>
 ) : VBox() {
@@ -42,7 +44,7 @@ class VolumeViewBase(
                 Hyperlink(chapter.name).apply {
                     styleClass.add("chapter-item")
                     setOnAction {
-                        context.showOverlay(ChapterOverlay(context, database, chapter.bookId!!, chapter.id!!))
+                        context.showOverlay(ChapterOverlay(context, preferences, database, chapter.bookId!!, chapter.id!!))
                     }
                 }
             }.forEach(pane.children::add)

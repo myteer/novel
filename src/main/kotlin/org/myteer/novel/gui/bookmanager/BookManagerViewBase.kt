@@ -65,7 +65,7 @@ class BookManagerViewBase(
         setOnItemDoubleClicked {
             context.sendRequest(
                 MainView.TabItemOpenRequest(
-                    VolumeTab(context, database, it).getTabItem()
+                    VolumeTab(context, preferences, database, it).getTabItem()
                 )
             )
         }

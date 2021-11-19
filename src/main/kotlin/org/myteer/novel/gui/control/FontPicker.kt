@@ -3,6 +3,7 @@ package org.myteer.novel.gui.control
 import javafx.scene.control.ComboBox
 import javafx.scene.control.Label
 import javafx.scene.control.ListCell
+import org.myteer.novel.gui.utils.selectedItem
 import java.awt.Font
 import java.awt.GraphicsEnvironment
 import java.util.*
@@ -12,6 +13,10 @@ class FontPicker : ComboBox<Font>() {
         items.addAll(AVAILABLE_FONTS)
         buttonCell = FontCell()
         setCellFactory { FontCell() }
+    }
+
+    fun selectByFamily(family: String) {
+        items.find { it.getFamily(Locale.ENGLISH) == family }?.let { selectedItem = it }
     }
 
     private class FontCell : ListCell<Font>() {

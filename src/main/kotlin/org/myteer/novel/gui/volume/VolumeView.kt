@@ -4,6 +4,7 @@ import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.concurrent.Task
 import javafx.scene.layout.BorderPane
+import org.myteer.novel.config.Preferences
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.db.data.Chapter
 import org.myteer.novel.db.repository.ChapterRepository
@@ -16,11 +17,12 @@ import org.slf4j.LoggerFactory
 
 class VolumeView(
     private val context: Context,
+    preferences: Preferences,
     private val database: NitriteDatabase,
     private val bookId: String
 ) : BorderPane() {
     private val baseItems: ObservableList<Chapter> = FXCollections.observableArrayList()
-    private val volumeViewBase = VolumeViewBase(context, database, baseItems)
+    private val volumeViewBase = VolumeViewBase(context, preferences, database, baseItems)
     private val toolBar = BiToolBar()
 
     init {
