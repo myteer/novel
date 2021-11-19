@@ -36,7 +36,7 @@ class ChapterLoadPane(
         styleClass.add(JMetroStyleClass.BACKGROUND)
         styleClass.add("chapter-load-pane")
         setMinSize(300.0, 300.0)
-        setPrefSize(600.0, 600.0)
+        setPrefSize(800.0, 600.0)
         buildUI()
         loadData(bookId, chapterId)
     }

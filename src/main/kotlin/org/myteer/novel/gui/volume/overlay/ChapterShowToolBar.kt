@@ -69,6 +69,8 @@ class ChapterShowToolBar(
     }
 
     private fun buildFontSizeSpinner() = Spinner<Int>(8, 30, configuration.fontSizeProperty.value).apply {
+        minWidth = 70.0
+        maxWidth = 70.0
         valueProperty().onValuePresent {
             configuration.fontSizeProperty.set(it)
             preferences.editor().put(CHAPTER_SHOW_CONFIG_KEY, configuration)
