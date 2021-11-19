@@ -1,5 +1,7 @@
 package org.myteer.novel.gui.base
 
+import javafx.beans.property.SimpleStringProperty
+import javafx.beans.property.StringProperty
 import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.geometry.Insets
@@ -15,13 +17,21 @@ import javafx.scene.layout.*
 import org.myteer.novel.gui.utils.icon
 
 open class TitledOverlayBox(
-    title: String,
+    titleProperty: StringProperty,
     graphic: Node,
     content: Node,
     resizableH: Boolean = true,
     resizableV: Boolean = true,
     vararg customTitleBarItems: Node
-) : StackPane(Group(ResizablePane(InnerVBox(title, graphic, content, resizableH, resizableV, customTitleBarItems)))) {
+) : StackPane(Group(ResizablePane(InnerVBox(titleProperty, graphic, content, resizableH, resizableV, customTitleBarItems)))) {
+    constructor(
+        title: String,
+        graphic: Node,
+        content: Node,
+        resizableH: Boolean = true,
+        resizableV: Boolean = true,
+        vararg customTitleBarItems: Node
+    ) : this(SimpleStringProperty(title), graphic, content, resizableH, resizableV, *customTitleBarItems)
 
     init {
         isPickOnBounds = false
@@ -110,7 +120,7 @@ open class TitledOverlayBox(
     }
 
     private class InnerVBox(
-        title: String,
+        titleProperty: StringProperty,
         graphic: Node,
         content: Node,
         val resizableH: Boolean,
@@ -119,7 +129,7 @@ open class TitledOverlayBox(
     ) : VBox() {
         init {
             styleClass.add("overlay-box")
-            children.add(TitleBar(title, graphic, this, resizableH, resizableV, customTitleBarItems))
+            children.add(TitleBar(titleProperty, graphic, this, resizableH, resizableV, customTitleBarItems))
             children.add(content.apply {
                 styleClass.add("content")
                 setVgrow(this, Priority.ALWAYS)
@@ -128,7 +138,7 @@ open class TitledOverlayBox(
     }
 
     private class TitleBar(
-        title: String,
+        titleProperty: StringProperty,
         graphic: Node,
         content: VBox,
         resizableH: Boolean,
@@ -145,11 +155,12 @@ open class TitledOverlayBox(
                 setAlignment(this, Pos.CENTER)
                 setMargin(this, Insets(0.0, 0.0, 0.0, 5.0))
             }
-            center = buildTitleLabel(title)
+            center = buildTitleLabel(titleProperty)
             right = buildRightBox(content, resizableH, resizableV, customTitleBarItems)
         }
 
-        private fun buildTitleLabel(title: String) = Label(title).apply {
+        private fun buildTitleLabel(titleProperty: StringProperty) = Label().apply {
+            textProperty().bind(titleProperty)
             setAlignment(this, Pos.CENTER_LEFT)
             setMargin(this, Insets(0.0, 0.0, 0.0, 5.0))
         }

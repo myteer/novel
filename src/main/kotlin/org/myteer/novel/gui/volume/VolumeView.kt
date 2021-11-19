@@ -20,7 +20,7 @@ class VolumeView(
     private val bookId: String
 ) : BorderPane() {
     private val baseItems: ObservableList<Chapter> = FXCollections.observableArrayList()
-    private val volumeViewBase = VolumeViewBase(baseItems)
+    private val volumeViewBase = VolumeViewBase(context, database, baseItems)
     private val toolBar = BiToolBar()
 
     init {

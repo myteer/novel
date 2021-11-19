@@ -2,6 +2,7 @@ package org.myteer.novel.gui.volume.overlay
 
 import javafx.beans.property.BooleanProperty
 import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.property.StringProperty
 import javafx.concurrent.Task
 import javafx.scene.image.ImageView
 import javafx.scene.layout.StackPane
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory
 class ChapterLoadPane(
     private val context: Context,
     private val database: NitriteDatabase,
+    private val overlayTitle: StringProperty,
     bookId: String,
     chapterId: String
 ) : StackPane() {
@@ -81,6 +83,7 @@ class ChapterLoadPane(
         private fun onSucceeded(chapter: Chapter) {
             loading.set(false)
             context.stopProgress()
+            overlayTitle.set(chapter.name)
             containerPane.children.setAll(buildChapterShowPane(chapter))
         }
 
