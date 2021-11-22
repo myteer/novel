@@ -1,9 +1,9 @@
 package org.myteer.novel.db.repository
 
 import org.dizitart.no2.Document
+import org.dizitart.no2.Document.createDocument
 import org.dizitart.no2.objects.ObjectRepository
-import org.dizitart.no2.objects.filters.ObjectFilters.`in`
-import org.dizitart.no2.objects.filters.ObjectFilters.eq
+import org.dizitart.no2.objects.filters.ObjectFilters.*
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.db.data.Chapter
 
@@ -30,6 +30,10 @@ class ChapterRepository(database: NitriteDatabase) {
 
     fun deleteByBookId(vararg bookId: String) {
         repository.remove(`in`("bookId", *bookId))
+    }
+
+    fun clearContentCacheByBookId(bookId: String) {
+        repository.update(and(eq("bookId", bookId), not(eq("content", null))), createDocument("content", null))
     }
 
     private fun createUpdateDocument(chapter: Chapter): Document {

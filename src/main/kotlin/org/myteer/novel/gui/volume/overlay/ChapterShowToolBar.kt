@@ -38,7 +38,7 @@ class ChapterShowToolBar(
     }
 
     private fun buildPreviousChapterButton() = Button().apply {
-        text = i18n("chapter.previous.title")
+        text = i18n("chapter.previous")
         disableProperty().bind(Bindings.createBooleanBinding({
             chapterProperty.value?.previousId?.let {
                 it.isEmpty() || "-1" == it
@@ -50,7 +50,7 @@ class ChapterShowToolBar(
     }
 
     private fun buildNextChapterButton() = Button().apply {
-        text = i18n("chapter.next.title")
+        text = i18n("chapter.next")
         disableProperty().bind(Bindings.createBooleanBinding({
             chapterProperty.value?.nextId?.let {
                 it.isEmpty() || "-1" == it

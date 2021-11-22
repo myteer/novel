@@ -21,6 +21,7 @@ class VolumeToolBar(private val volumeView: VolumeView) : BiToolBar() {
     }
 
     private fun buildRefreshItem() = Button().apply {
+        contentDisplay = ContentDisplay.GRAPHIC_ONLY
         graphic = icon("reload-icon")
         tooltip = Tooltip(i18n("page.reload"))
         setOnAction {
@@ -31,6 +32,7 @@ class VolumeToolBar(private val volumeView: VolumeView) : BiToolBar() {
     private fun buildCacheItem() = Button().apply {
         contentDisplay = ContentDisplay.GRAPHIC_ONLY
         graphic = icon("download-icon")
+        tooltip = Tooltip(i18n("chapters.cache.all"))
         setOnAction {
             volumeView.cacheAll()
         }
@@ -39,6 +41,7 @@ class VolumeToolBar(private val volumeView: VolumeView) : BiToolBar() {
     private fun buildCleanItem() = Button().apply {
         contentDisplay = ContentDisplay.GRAPHIC_ONLY
         graphic = icon("clean-icon")
+        tooltip = Tooltip(i18n("chapters.cache.clear"))
         setOnAction {
             volumeView.clearCache()
         }
