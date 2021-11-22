@@ -213,8 +213,16 @@
  *                                 Volume view                                 *
  *                                                                             *
  ******************************************************************************/
+.volume-view {
+    -fx-background-color: white;
+}
+
 .volume-view .volume-pane {
     -fx-border-color: #D4D4D4;
+}
+
+.volume-view .volume-pane .chapter-pane .chapter-item .check-icon {
+    -fx-icon-color: teal;
 }
 
 /*******************************************************************************

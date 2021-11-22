@@ -21,6 +21,7 @@ class ChapterShowToolBar(
     private val view: ChapterLoadPane
 ) : BiToolBar() {
     init {
+        styleClass.add("chapter-tool-bar")
         buildUI()
     }
 

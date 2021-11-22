@@ -4,7 +4,7 @@ import javafx.scene.text.Text
 import org.kordamp.ikonli.javafx.FontIcon
 import org.kordamp.ikonli.material2.Material2AL
 import org.kordamp.ikonli.material2.Material2MZ
-import org.kordamp.ikonli.material2.Material2SharpAL
+import org.kordamp.ikonli.material2.Material2OutlinedAL
 import org.kordamp.ikonli.materialdesign2.*
 import org.slf4j.LoggerFactory
 
@@ -95,7 +95,10 @@ private val iconPack: Map<String, () -> Text> = mapOf(
     "pause-icon" to fun() = FontIcon(MaterialDesignP.PAUSE),
     "stop-icon" to fun() = FontIcon(MaterialDesignS.STOP),
     "spider-icon" to fun() = FontIcon(MaterialDesignS.SPIDER_WEB),
-    "star-face-icon" to fun() = FontIcon(MaterialDesignS.STAR_FACE)
+    "star-face-icon" to fun() = FontIcon(MaterialDesignS.STAR_FACE),
+    "check-circle-outline-icon" to fun() = FontIcon(MaterialDesignC.CHECK_CIRCLE_OUTLINE),
+    "download-icon" to fun() = FontIcon(MaterialDesignD.DOWNLOAD),
+    "clean-icon" to fun() = FontIcon(Material2OutlinedAL.CLEANING_SERVICES)
 )
 
 fun icon(identifier: String): Text = (iconPack[identifier]?.invoke() ?: Text().apply {

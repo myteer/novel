@@ -13,6 +13,7 @@ import org.myteer.novel.config.Preferences
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.db.data.Chapter
 import org.myteer.novel.gui.api.Context
+import org.myteer.novel.gui.utils.icon
 import org.myteer.novel.gui.utils.styleClass
 import org.myteer.novel.gui.volume.overlay.ChapterOverlay
 
@@ -43,6 +44,9 @@ class VolumeViewBase(
             volume.chapters.map { chapter ->
                 Hyperlink(chapter.name).apply {
                     styleClass.add("chapter-item")
+                    if (!chapter.content.isNullOrBlank()) {
+                        graphic = icon("check-circle-outline-icon")
+                    }
                     setOnAction {
                         context.showOverlay(ChapterOverlay(context, preferences, database, chapter.bookId!!, chapter.id!!))
                     }

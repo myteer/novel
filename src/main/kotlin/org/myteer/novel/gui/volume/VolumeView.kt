@@ -9,7 +9,6 @@ import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.db.data.Chapter
 import org.myteer.novel.db.repository.ChapterRepository
 import org.myteer.novel.gui.api.Context
-import org.myteer.novel.gui.control.BiToolBar
 import org.myteer.novel.gui.utils.runOutsideUI
 import org.myteer.novel.gui.utils.scrollPane
 import org.myteer.novel.i18n.i18n
@@ -23,7 +22,7 @@ class VolumeView(
 ) : BorderPane() {
     private val baseItems: ObservableList<Chapter> = FXCollections.observableArrayList()
     private val volumeViewBase = VolumeViewBase(context, preferences, database, baseItems)
-    private val toolBar = BiToolBar()
+    private val toolBar = VolumeToolBar(this)
 
     init {
         buildUI()
@@ -32,7 +31,7 @@ class VolumeView(
 
     private fun buildUI() {
         top = toolBar
-        center = scrollPane(volumeViewBase, fitToWidth = true)
+        center = scrollPane(volumeViewBase, fitToWidth = true, fitToHeight = true)
     }
 
     private fun loadRecords(delayMillis: Long? = null) {
@@ -41,6 +40,14 @@ class VolumeView(
 
     fun refresh() {
         loadRecords()
+    }
+
+    fun cacheAll() {
+
+    }
+
+    fun clearCache() {
+
     }
 
     private inner class ChaptersLoadTask(private val delayMillis: Long? = null) : Task<List<Chapter>>() {
