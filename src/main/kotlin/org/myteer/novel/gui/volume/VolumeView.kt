@@ -24,7 +24,7 @@ class VolumeView(
 ) : BorderPane() {
     private val baseItems: ObservableList<Chapter> = FXCollections.observableArrayList()
     private val volumeViewBase = VolumeViewBase(context, preferences, database, baseItems)
-    private val toolBar = VolumeToolBar(this)
+    private val toolBar = VolumeToolBar(this, baseItems)
     private val cacheRunning = AtomicBoolean(false)
 
     init {
@@ -34,7 +34,7 @@ class VolumeView(
 
     private fun buildUI() {
         top = toolBar
-        center = scrollPane(volumeViewBase, fitToWidth = true, fitToHeight = true)
+        center = scrollPane(volumeViewBase, fitToWidth = true)
     }
 
     private fun loadRecords(delayMillis: Long? = null) {
