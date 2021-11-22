@@ -221,7 +221,7 @@
     -fx-border-color: #D4D4D4;
 }
 
-.volume-view .volume-pane .chapter-pane .chapter-item .check-icon {
+.volume-view .volume-pane .chapter-pane .chapter-item .check-circle-outline-icon {
     -fx-icon-color: teal;
 }
 
