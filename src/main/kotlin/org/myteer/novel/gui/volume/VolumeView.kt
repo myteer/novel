@@ -3,6 +3,7 @@ package org.myteer.novel.gui.volume
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.concurrent.Task
+import javafx.concurrent.WorkerStateEvent
 import javafx.scene.layout.BorderPane
 import javafx.util.Duration
 import org.myteer.novel.config.Preferences
@@ -12,6 +13,7 @@ import org.myteer.novel.db.data.Chapter
 import org.myteer.novel.db.repository.BookRepository
 import org.myteer.novel.db.repository.ChapterRepository
 import org.myteer.novel.gui.api.Context
+import org.myteer.novel.gui.bookmanager.task.ChapterListRefreshTask
 import org.myteer.novel.gui.utils.runOutsideUI
 import org.myteer.novel.gui.utils.scrollPane
 import org.myteer.novel.i18n.i18n
@@ -63,6 +65,14 @@ class VolumeView(
                 runOutsideUI(ClearCacheTask())
             }
         }
+    }
+
+    fun syncChapterListFromCloud() {
+        runOutsideUI(ChapterListRefreshTask(database, bookId).apply {
+            addEventHandler(WorkerStateEvent.WORKER_STATE_SUCCEEDED) {
+                refresh()
+            }
+        })
     }
 
     private inner class ChaptersLoadTask(private val delayMillis: Long? = null) : Task<List<Chapter>>() {

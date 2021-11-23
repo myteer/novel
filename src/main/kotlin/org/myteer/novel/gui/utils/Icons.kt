@@ -98,7 +98,8 @@ private val iconPack: Map<String, () -> Text> = mapOf(
     "star-face-icon" to fun() = FontIcon(MaterialDesignS.STAR_FACE),
     "check-circle-outline-icon" to fun() = FontIcon(MaterialDesignC.CHECK_CIRCLE_OUTLINE),
     "download-icon" to fun() = FontIcon(MaterialDesignD.DOWNLOAD),
-    "clean-icon" to fun() = FontIcon(Material2OutlinedAL.CLEANING_SERVICES)
+    "clean-icon" to fun() = FontIcon(Material2OutlinedAL.CLEANING_SERVICES),
+    "cloud-sync-icon" to fun() = FontIcon(MaterialDesignC.CLOUD_SYNC_OUTLINE)
 )
 
 fun icon(identifier: String): Text = (iconPack[identifier]?.invoke() ?: Text().apply {

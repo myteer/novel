@@ -27,6 +27,7 @@ class VolumeToolBar(
             buildCacheInfoLabel()
         )
         rightItems.addAll(
+            buildSyncItem(),
             buildCacheItem(),
             buildCleanItem()
         )
@@ -47,6 +48,15 @@ class VolumeToolBar(
             val cachedSize = baseItems.filter { !it.content.isNullOrBlank() }.size
             i18n("chapters.cache.info", cachedSize, baseItems.size)
         }, baseItems))
+    }
+
+    private fun buildSyncItem() = Button().apply {
+        contentDisplay = ContentDisplay.GRAPHIC_ONLY
+        graphic = icon("cloud-sync-icon")
+        tooltip = Tooltip(i18n("chapters.cloud.sync"))
+        setOnAction {
+            volumeView.syncChapterListFromCloud()
+        }
     }
 
     private fun buildCacheItem() = Button().apply {
