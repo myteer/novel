@@ -19,11 +19,14 @@ class ChapterRepository(database: NitriteDatabase) {
     }
 
     fun save(chapter: Chapter) {
-        chapter.id?.let {
-            if (null == selectById(it)) {
+        chapter.id?.let { id ->
+            val target = selectById(id)
+            if (null == target) {
                 repository.insert(chapter)
             } else {
-                repository.update(eq("id", it), createUpdateDocument(chapter))
+                createUpdateDocument(chapter, target).takeIf { it.isNotEmpty() }?.let {
+                    repository.update(eq("id", id), it)
+                }
             }
         }
     }
@@ -36,15 +39,14 @@ class ChapterRepository(database: NitriteDatabase) {
         repository.update(and(eq("bookId", bookId), not(eq("content", null))), createDocument("content", null))
     }
 
-    private fun createUpdateDocument(chapter: Chapter): Document {
+    private fun createUpdateDocument(source: Chapter, target: Chapter): Document {
         return Document().also { doc ->
-            chapter.previousId?.let { doc["previousId"] = it }
-            chapter.nextId?.let { doc["nextId"] = it }
-            chapter.hasContent?.let { doc["hasContent"] = it }
-            chapter.content?.let { doc["content"] = it }
-            doc["volumeIndex"] = chapter.volumeIndex
-            chapter.volumeName?.let { doc["volumeName"] = it }
-            doc["orderNo"] = chapter.orderNo
+            source.previousId.takeUnless { it.isNullOrBlank() || it == target.previousId }?.let { doc["previousId"] = it }
+            source.nextId.takeUnless { it.isNullOrBlank() || it == target.nextId }?.let { doc["nextId"] = it }
+            source.content.takeUnless { it.isNullOrBlank() || it == target.content }?.let { doc["content"] = it }
+            source.volumeIndex.takeUnless { it == target.volumeIndex }?.let { doc["volumeIndex"] = it }
+            source.volumeName.takeUnless { it.isNullOrBlank() || it == target.volumeName }?.let { doc["volumeName"] = it }
+            source.orderNo.takeUnless { it == target.orderNo }?.let { doc["orderNo"] = it }
         }
     }
 }
