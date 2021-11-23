@@ -8,7 +8,9 @@ import org.myteer.novel.db.DatabaseMeta
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.entry.DatabaseTracker
+import org.myteer.novel.gui.main.task.BooksRefreshTask
 import org.myteer.novel.gui.menubar.AppMenuBar
+import org.myteer.novel.gui.utils.runOutsideUI
 import java.lang.ref.WeakReference
 import java.util.*
 
@@ -48,6 +50,7 @@ class MainActivity(
             showing.set(false)
         }
         showing.set(true)
+        runOutsideUI(BooksRefreshTask(database))
     }
 
     fun isShowing(): Boolean = showing.get()

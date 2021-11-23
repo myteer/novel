@@ -218,7 +218,7 @@ class BookManagerView(
                         }
                         value?.let {
                             val book = it.toLocalBook()
-                            BookRepository(database).insert(book)
+                            BookRepository(database).save(book)
                             runOutsideUI(ChapterListRefreshTask(database, bookId))
                             baseItems.add(book)
                             table.selectionModel.clearSelection()
