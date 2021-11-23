@@ -5,11 +5,17 @@ import javafx.collections.ObservableList
 import javafx.geometry.Insets
 import javafx.scene.control.*
 import org.myteer.novel.db.data.Chapter
+import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.control.BiToolBar
 import org.myteer.novel.gui.utils.icon
+import org.myteer.novel.gui.utils.typeEquals
 import org.myteer.novel.i18n.i18n
 
-class VolumeToolBar(private val volumeView: VolumeView, private val baseItems: ObservableList<Chapter>) : BiToolBar() {
+class VolumeToolBar(
+    private val context: Context,
+    private val volumeView: VolumeView,
+    private val baseItems: ObservableList<Chapter>
+) : BiToolBar() {
     init {
         buildUI()
     }
@@ -48,7 +54,14 @@ class VolumeToolBar(private val volumeView: VolumeView, private val baseItems: O
         graphic = icon("download-icon")
         tooltip = Tooltip(i18n("chapters.cache.all"))
         setOnAction {
-            volumeView.cacheAll()
+            context.showConfirmationDialog(
+                i18n("chapters.cache.all.title"),
+                i18n("chapters.cache.all.message")
+            ) { btn ->
+                if (btn.typeEquals(ButtonType.YES)) {
+                    volumeView.cacheAll()
+                }
+            }
         }
     }
 
@@ -57,7 +70,14 @@ class VolumeToolBar(private val volumeView: VolumeView, private val baseItems: O
         graphic = icon("clean-icon")
         tooltip = Tooltip(i18n("chapters.cache.clear"))
         setOnAction {
-            volumeView.clearCache()
+            context.showConfirmationDialog(
+                i18n("chapters.cache.clear.title"),
+                i18n("chapters.cache.clear.message")
+            ) { btn ->
+                if (btn.typeEquals(ButtonType.YES)) {
+                    volumeView.clearCache()
+                }
+            }
         }
     }
 }

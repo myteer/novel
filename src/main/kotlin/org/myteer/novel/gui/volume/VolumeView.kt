@@ -4,10 +4,12 @@ import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.concurrent.Task
 import javafx.scene.layout.BorderPane
+import javafx.util.Duration
 import org.myteer.novel.config.Preferences
 import org.myteer.novel.crawl.task.ChapterQueryTask
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.db.data.Chapter
+import org.myteer.novel.db.repository.BookRepository
 import org.myteer.novel.db.repository.ChapterRepository
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.utils.runOutsideUI
@@ -24,7 +26,7 @@ class VolumeView(
 ) : BorderPane() {
     private val baseItems: ObservableList<Chapter> = FXCollections.observableArrayList()
     private val volumeViewBase = VolumeViewBase(context, preferences, database, baseItems)
-    private val toolBar = VolumeToolBar(this, baseItems)
+    private val toolBar = VolumeToolBar(context, this, baseItems)
     private val cacheRunning = AtomicBoolean(false)
 
     init {
@@ -99,11 +101,25 @@ class VolumeView(
                 context.stopProgress()
                 logger.error("Failed to cache book[id=$bookId]", it.source.exception)
                 refresh()
+                BookRepository(database).selectById(bookId)?.name?.let { bookName ->
+                    context.showInformationNotification(
+                        i18n("chapters.cache.error.title"),
+                        i18n("chapters.cache.error.message", bookName),
+                        Duration.seconds(10.0)
+                    )
+                }
             }
             setOnSucceeded {
                 cacheRunning.set(false)
                 context.stopProgress()
                 refresh()
+                BookRepository(database).selectById(bookId)?.name?.let { bookName ->
+                    context.showInformationNotification(
+                        i18n("chapters.cache.successful.title"),
+                        i18n("chapters.cache.successful.message", bookName),
+                        Duration.seconds(10.0)
+                    )
+                }
             }
         }
 
@@ -130,6 +146,11 @@ class VolumeView(
                 cacheRunning.set(false)
                 context.stopProgress()
                 logger.error("Failed to clear book[id=$bookId] cache", it.source.exception)
+                context.showErrorDialog(
+                    i18n("chapters.cache.clear.error.title"),
+                    i18n("chapters.cache.clear.error.message"),
+                    it.source.exception as? Exception
+                )
             }
             setOnSucceeded {
                 cacheRunning.set(false)
