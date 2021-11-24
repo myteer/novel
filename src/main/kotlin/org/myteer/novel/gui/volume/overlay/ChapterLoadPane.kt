@@ -12,6 +12,7 @@ import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.db.data.Chapter
 import org.myteer.novel.db.repository.ChapterRepository
 import org.myteer.novel.gui.api.Context
+import org.myteer.novel.gui.api.EmptyContext
 import org.myteer.novel.gui.utils.I18NButtonType
 import org.myteer.novel.gui.utils.runOutsideUIAsync
 import org.myteer.novel.gui.volume.overlay.ChapterShowConfiguration.Companion.CHAPTER_SHOW_CONFIG_KEY
@@ -22,10 +23,10 @@ class ChapterLoadPane(
     private val context: Context,
     private val preferences: Preferences,
     private val database: NitriteDatabase,
-    private val overlayTitle: StringProperty,
+    private val titleProperty: StringProperty,
     bookId: String,
-    chapterId: String
-) : StackPane() {
+    private val chapterIdProperty: StringProperty
+) : StackPane(), EmptyContext {
     private val loading: BooleanProperty = SimpleBooleanProperty(false)
     private val configuration: ChapterShowConfiguration = preferences.get(CHAPTER_SHOW_CONFIG_KEY)
     private val chapterProperty: ObjectProperty<Chapter> = SimpleObjectProperty()
@@ -38,7 +39,7 @@ class ChapterLoadPane(
         setMinSize(650.0, 300.0)
         setPrefSize(700.0, 600.0)
         buildUI()
-        loadData(bookId, chapterId)
+        loadData(bookId, chapterIdProperty.value)
     }
 
     private fun buildUI() {
@@ -93,7 +94,8 @@ class ChapterLoadPane(
         private fun onSucceeded(chapter: Chapter) {
             loading.set(false)
             context.stopProgress()
-            overlayTitle.set(chapter.name)
+            titleProperty.set("${chapter.bookName} - ${chapter.name}")
+            chapterIdProperty.set(chapterId)
             chapterProperty.set(chapter)
             containerPane.center = buildChapterShowPane(chapter)
         }
@@ -112,6 +114,10 @@ class ChapterLoadPane(
             }
             return chapter
         }
+    }
+
+    protected fun finalize() {
+        println("#######" + titleProperty.get())
     }
 
     private fun buildChapterShowPane(chapter: Chapter) = ChapterShowPane(configuration, chapter)

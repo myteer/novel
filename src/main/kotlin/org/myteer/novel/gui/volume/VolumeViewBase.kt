@@ -48,7 +48,11 @@ class VolumeViewBase(
                         graphic = icon("check-circle-outline-icon")
                     }
                     setOnAction {
-                        context.showOverlay(ChapterOverlay(context, preferences, database, chapter.bookId!!, chapter.id!!))
+                        var overlay: ChapterOverlay? = null
+                        overlay = ChapterOverlay(context, preferences, database, chapter.bookId!!, chapter.id!!) {
+                            context.hideOverlay(overlay!!)
+                        }
+                        context.showOverlay(overlay!!)
                     }
                 }
             }.forEach(pane.children::add)
