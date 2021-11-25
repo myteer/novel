@@ -177,8 +177,4 @@ class VolumeView(
     companion object {
         private val logger = LoggerFactory.getLogger(VolumeView::class.java)
     }
-
-    protected fun finalize() {
-        println("@@@@@")
-    }
 }
