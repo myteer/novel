@@ -15,7 +15,7 @@ import org.myteer.novel.db.data.Chapter
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.utils.icon
 import org.myteer.novel.gui.utils.styleClass
-import org.myteer.novel.gui.volume.overlay.ChapterOverlay
+import org.myteer.novel.gui.volume.chapter.ChapterActivity
 
 class VolumeViewBase(
     private val context: Context,
@@ -48,11 +48,9 @@ class VolumeViewBase(
                         graphic = icon("check-circle-outline-icon")
                     }
                     setOnAction {
-                        var overlay: ChapterOverlay? = null
-                        overlay = ChapterOverlay(context, preferences, database, chapter.bookId!!, chapter.id!!) {
-                            context.hideOverlay(overlay!!)
+                        ChapterActivity(preferences, database, chapter.bookId!!, chapter.id!!).run {
+                            show(context.getContextWindow())
                         }
-                        context.showOverlay(overlay!!)
                     }
                 }
             }.forEach(pane.children::add)

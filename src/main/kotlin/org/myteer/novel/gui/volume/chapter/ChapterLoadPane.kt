@@ -1,4 +1,4 @@
-package org.myteer.novel.gui.volume.overlay
+package org.myteer.novel.gui.volume.chapter
 
 import javafx.beans.property.*
 import javafx.concurrent.Task
@@ -15,7 +15,7 @@ import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.api.EmptyContext
 import org.myteer.novel.gui.utils.I18NButtonType
 import org.myteer.novel.gui.utils.runOutsideUIAsync
-import org.myteer.novel.gui.volume.overlay.ChapterShowConfiguration.Companion.CHAPTER_SHOW_CONFIG_KEY
+import org.myteer.novel.gui.volume.chapter.ChapterShowConfiguration.Companion.CHAPTER_SHOW_CONFIG_KEY
 import org.myteer.novel.i18n.i18n
 import org.slf4j.LoggerFactory
 
@@ -25,7 +25,7 @@ class ChapterLoadPane(
     private val database: NitriteDatabase,
     private val titleProperty: StringProperty,
     bookId: String,
-    private val chapterIdProperty: StringProperty
+    chapterId: String
 ) : StackPane(), EmptyContext {
     private val loading: BooleanProperty = SimpleBooleanProperty(false)
     private val configuration: ChapterShowConfiguration = preferences.get(CHAPTER_SHOW_CONFIG_KEY)
@@ -37,9 +37,8 @@ class ChapterLoadPane(
         styleClass.add(JMetroStyleClass.BACKGROUND)
         styleClass.add("chapter-load-pane")
         setMinSize(650.0, 300.0)
-        setPrefSize(700.0, 600.0)
         buildUI()
-        loadData(bookId, chapterIdProperty.value)
+        loadData(bookId, chapterId)
     }
 
     private fun buildUI() {
@@ -95,7 +94,6 @@ class ChapterLoadPane(
             loading.set(false)
             context.stopProgress()
             titleProperty.set("${chapter.bookName} - ${chapter.name}")
-            chapterIdProperty.set(chapterId)
             chapterProperty.set(chapter)
             containerPane.center = buildChapterShowPane(chapter)
         }
@@ -114,10 +112,6 @@ class ChapterLoadPane(
             }
             return chapter
         }
-    }
-
-    protected fun finalize() {
-        println("#######" + titleProperty.get())
     }
 
     private fun buildChapterShowPane(chapter: Chapter) = ChapterShowPane(configuration, chapter)

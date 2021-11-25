@@ -1,4 +1,4 @@
-package org.myteer.novel.gui.volume.overlay
+package org.myteer.novel.gui.volume.chapter
 
 import javafx.beans.binding.Bindings
 import javafx.geometry.Insets

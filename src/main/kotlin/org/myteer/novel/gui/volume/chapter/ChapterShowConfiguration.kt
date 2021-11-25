@@ -1,4 +1,4 @@
-package org.myteer.novel.gui.volume.overlay
+package org.myteer.novel.gui.volume.chapter
 
 import com.google.gson.*
 import javafx.beans.property.*

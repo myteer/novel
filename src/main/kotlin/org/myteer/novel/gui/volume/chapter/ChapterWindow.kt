@@ -1,12 +1,10 @@
-package org.myteer.novel.gui.volume.overlay
+package org.myteer.novel.gui.volume.chapter
 
-import javafx.beans.property.StringProperty
 import javafx.stage.Modality
 import javafx.stage.Window
 import org.myteer.novel.gui.window.BaseWindow
 
-class ChapterWindow(titleProperty: StringProperty, view: ChapterLoadPane, owner: Window?) :
-    BaseWindow<ChapterLoadPane>(titleProperty, view) {
+class ChapterWindow(view: ChapterView, owner: Window?) : BaseWindow<ChapterView>(view.titleProperty, view) {
     init {
         initModality(Modality.NONE)
         owner?.let { initOwner(it) }

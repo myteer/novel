@@ -1,4 +1,4 @@
-package org.myteer.novel.gui.volume.overlay
+package org.myteer.novel.gui.volume.chapter
 
 import javafx.beans.binding.Bindings
 import javafx.beans.property.ObjectProperty
@@ -10,7 +10,7 @@ import org.myteer.novel.db.data.Chapter
 import org.myteer.novel.gui.control.BiToolBar
 import org.myteer.novel.gui.control.FontPicker
 import org.myteer.novel.gui.utils.onValuePresent
-import org.myteer.novel.gui.volume.overlay.ChapterShowConfiguration.Companion.CHAPTER_SHOW_CONFIG_KEY
+import org.myteer.novel.gui.volume.chapter.ChapterShowConfiguration.Companion.CHAPTER_SHOW_CONFIG_KEY
 import org.myteer.novel.i18n.i18n
 import java.util.*
 
