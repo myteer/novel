@@ -5,6 +5,7 @@ import com.dlsc.workbenchfx.WorkbenchSkin
 import com.dlsc.workbenchfx.model.WorkbenchDialog
 import com.dlsc.workbenchfx.model.WorkbenchModule
 import com.dlsc.workbenchfx.view.WorkbenchView
+import com.dlsc.workbenchfx.view.controls.module.Tile
 import com.nativejavafx.taskbar.TaskbarProgressbar
 import com.nativejavafx.taskbar.TaskbarProgressbarFactory
 import com.nativejavafx.taskbar.exception.StageNotShownException
@@ -57,7 +58,7 @@ open class BaseView(content: Node? = null) : StackPane(), Context {
             override fun activate(): Node {
                 return content.get()
             }
-        }).build())
+        }).tileFactory { Tile(it).apply { isVisible = false } }.build())
     }
 
     @Suppress("UNCHECKED_CAST")
