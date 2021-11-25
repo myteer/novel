@@ -19,14 +19,12 @@ class BookRepository(database: NitriteDatabase) {
     }
 
     fun save(book: Book) {
-        book.id?.let { id ->
-            val target = selectById(id)
-            if (null == target) {
-                repository.insert(book)
-            } else {
-                createUpdateDocument(book, target).takeIf { it.isNotEmpty() }?.let {
-                    repository.update(eq("id", id), it)
-                }
+        val target = selectById(book.id)
+        if (null == target) {
+            repository.insert(book)
+        } else {
+            createUpdateDocument(book, target).takeIf { it.isNotEmpty() }?.let {
+                repository.update(eq("id", book.id), it)
             }
         }
     }

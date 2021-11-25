@@ -48,7 +48,7 @@ class VolumeViewBase(
                         graphic = icon("check-circle-outline-icon")
                     }
                     setOnAction {
-                        ChapterActivity(preferences, database, chapter.bookId!!, chapter.id!!).run {
+                        ChapterActivity(preferences, database, chapter.bookId, chapter.id).run {
                             show(context.getContextWindow())
                         }
                     }

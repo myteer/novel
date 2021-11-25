@@ -65,7 +65,7 @@ class Book {
     class BookVote(@JsonProperty("Score") val score: BigDecimal?)
 
     fun toLocalBook() = org.myteer.novel.db.data.Book().also {
-        it.id = id
+        it.id = id!!
         it.name = name
         it.author = author
         it.thumbnail = thumbnail

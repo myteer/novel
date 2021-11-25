@@ -6,10 +6,10 @@ import org.dizitart.no2.objects.Index
 
 @Index(value = "bookId", type = IndexType.NonUnique)
 class Chapter(
-    var bookId: String? = null,
+    var bookId: String = "",
     var bookName: String? = null,
     @Id
-    var id: String? = null,
+    var id: String = "",
     var name: String? = null,
     var previousId: String? = null,
     var nextId: String? = null,

@@ -5,7 +5,7 @@ import java.math.BigDecimal
 
 class Book(
     @Id
-    var id: String? = null,
+    var id: String = "",
     var name: String? = null,
     var author: String? = null,
     var thumbnail: String? = null,
@@ -48,6 +48,6 @@ class Book(
     }
 
     override fun hashCode(): Int {
-        return id?.hashCode() ?: 0
+        return id.hashCode()
     }
 }

@@ -141,7 +141,7 @@ class BookManagerView(
 
             override fun call() {
                 logger.debug("Performing remove action...")
-                val ids = items.mapNotNull { it.id }.toTypedArray()
+                val ids = items.map { it.id }.toTypedArray()
                 BookRepository(database).deleteById(*ids)
                 ChapterRepository(database).deleteByBookId(*ids)
             }

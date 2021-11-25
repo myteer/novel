@@ -24,14 +24,12 @@ class ChapterRepository(database: NitriteDatabase) {
     }
 
     fun save(chapter: Chapter) {
-        chapter.id?.let { id ->
-            val target = selectById(id)
-            if (null == target) {
-                repository.insert(chapter)
-            } else {
-                createUpdateDocument(chapter, target).takeIf { it.isNotEmpty() }?.let {
-                    repository.update(eq("id", id), it)
-                }
+        val target = selectById(chapter.id)
+        if (null == target) {
+            repository.insert(chapter)
+        } else {
+            createUpdateDocument(chapter, target).takeIf { it.isNotEmpty() }?.let {
+                repository.update(eq("id", chapter.id), it)
             }
         }
     }

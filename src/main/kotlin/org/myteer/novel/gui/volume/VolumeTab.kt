@@ -24,7 +24,7 @@ class VolumeTab(
 
     override fun buildContent(): Node {
         if (null == content.get()) {
-            content.set(VolumeView(context, preferences, database, book.id!!))
+            content.set(VolumeView(context, preferences, database, book.id))
         }
         return content.get()
     }

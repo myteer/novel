@@ -136,7 +136,7 @@ class VolumeView(
         override fun call() {
             val repository = ChapterRepository(database)
             repository.selectByBookId(bookId).filter { it.content.isNullOrBlank() }.forEach { chapter ->
-                ChapterQueryTask(bookId, chapter.id!!).apply { run() }.get()!!.let {
+                ChapterQueryTask(bookId, chapter.id).apply { run() }.get()!!.let {
                     chapter.previousId = it.previousId
                     chapter.nextId = it.nextId
                     chapter.hasContent = it.hasContent

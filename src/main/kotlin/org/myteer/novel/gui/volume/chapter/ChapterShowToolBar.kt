@@ -45,7 +45,7 @@ class ChapterShowToolBar(
             } ?: true
         }, chapterProperty))
         setOnAction {
-            view.loadData(chapterProperty.value.bookId!!, chapterProperty.value.previousId!!)
+            view.loadData(chapterProperty.value.bookId, chapterProperty.value.previousId!!)
         }
     }
 
@@ -57,7 +57,7 @@ class ChapterShowToolBar(
             } ?: true
         }, chapterProperty))
         setOnAction {
-            view.loadData(chapterProperty.value.bookId!!, chapterProperty.value.nextId!!)
+            view.loadData(chapterProperty.value.bookId, chapterProperty.value.nextId!!)
         }
     }
 

@@ -32,9 +32,9 @@ class Chapter {
     var orderNo: Int = 0
 
     fun toLocalChapter() = org.myteer.novel.db.data.Chapter().also {
-        it.bookId = bookId
+        it.bookId = bookId!!
         it.bookName = bookName
-        it.id = id
+        it.id = id!!
         it.name = name
         it.previousId = previousId
         it.nextId = nextId
