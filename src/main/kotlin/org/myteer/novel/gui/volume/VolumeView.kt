@@ -137,7 +137,7 @@ class VolumeView(
         override fun call() {
             val chapterRepository = ChapterRepository(database)
             val chapterContentRepository = ChapterContentRepository(database)
-            chapterRepository.selectByBookId(bookId).filter { true != it.contentCached }.forEach { chapter ->
+            chapterRepository.selectByBookId(bookId).filter { true != it.contentCached }.parallelStream().forEach { chapter ->
                 ChapterQueryTask(bookId, chapter.id).apply { run() }.get()!!.let {
                     // save chapter-content
                     chapterContentRepository.save(it.toLocalChapterContent())

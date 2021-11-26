@@ -2,6 +2,8 @@ package org.myteer.novel.db.repository
 
 import org.dizitart.no2.Document
 import org.dizitart.no2.Document.createDocument
+import org.dizitart.no2.FindOptions.sort
+import org.dizitart.no2.SortOrder.Ascending
 import org.dizitart.no2.objects.ObjectRepository
 import org.dizitart.no2.objects.filters.ObjectFilters.*
 import org.myteer.novel.db.NitriteDatabase
@@ -11,7 +13,7 @@ class ChapterRepository(database: NitriteDatabase) {
     private val repository: ObjectRepository<Chapter> = database.nitrite.getRepository(Chapter::class.java)
 
     fun selectByBookId(bookId: String): List<Chapter> {
-        return repository.find(eq("bookId", bookId)).toList()
+        return repository.find(eq("bookId", bookId), sort("orderNo", Ascending)).toList()
     }
 
     fun selectById(id: String): Chapter? {
