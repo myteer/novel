@@ -37,11 +37,12 @@ open class NitriteDatabase(
             this.onFailed = onFailed
         }
 
-        fun filePath(file: File) = apply {
+        private fun filePath(file: File) = apply {
             nitriteBuilder.filePath(file)
+            compressed()
         }
 
-        fun compressed() = apply {
+        private fun compressed() = apply {
             nitriteBuilder.compressed()
         }
 
