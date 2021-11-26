@@ -1,6 +1,7 @@
 package org.myteer.novel.crawl.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import org.myteer.novel.db.data.ChapterContent
 
 class Chapter {
     @JsonProperty("id")
@@ -39,9 +40,10 @@ class Chapter {
         it.previousId = previousId
         it.nextId = nextId
         it.hasContent = hasContent
-        it.content = content
         it.volumeIndex = volumeIndex
         it.volumeName = volumeName
         it.orderNo = orderNo
     }
+
+    fun toLocalChapterContent() = ChapterContent(bookId!!, id!!, content)
 }

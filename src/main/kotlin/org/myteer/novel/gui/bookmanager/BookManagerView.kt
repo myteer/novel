@@ -20,6 +20,7 @@ import org.myteer.novel.crawl.task.BookQueryTask
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.db.data.Book
 import org.myteer.novel.db.repository.BookRepository
+import org.myteer.novel.db.repository.ChapterContentRepository
 import org.myteer.novel.db.repository.ChapterRepository
 import org.myteer.novel.export.api.BookExportConfiguration
 import org.myteer.novel.export.api.BookExporter
@@ -144,6 +145,7 @@ class BookManagerView(
                 val ids = items.map { it.id }.toTypedArray()
                 BookRepository(database).deleteById(*ids)
                 ChapterRepository(database).deleteByBookId(*ids)
+                ChapterContentRepository(database).deleteByBookId(*ids)
             }
         })
     }

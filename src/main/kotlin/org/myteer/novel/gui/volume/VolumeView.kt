@@ -11,6 +11,7 @@ import org.myteer.novel.crawl.task.ChapterQueryTask
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.db.data.Chapter
 import org.myteer.novel.db.repository.BookRepository
+import org.myteer.novel.db.repository.ChapterContentRepository
 import org.myteer.novel.db.repository.ChapterRepository
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.bookmanager.task.ChapterListRefreshTask
@@ -53,7 +54,7 @@ class VolumeView(
         when {
             cacheRunning.get().not() -> {
                 cacheRunning.set(true)
-                runOutsideUI(ClearAllTask())
+                runOutsideUI(CacheAllTask())
             }
         }
     }
@@ -101,7 +102,7 @@ class VolumeView(
         }
     }
 
-    private inner class ClearAllTask : Task<Unit>() {
+    private inner class CacheAllTask : Task<Unit>() {
         init {
             setOnRunning {
                 context.showIndeterminateProgress()
@@ -115,7 +116,7 @@ class VolumeView(
                     context.showInformationNotification(
                         i18n("chapters.cache.error.title"),
                         i18n("chapters.cache.error.message", bookName),
-                        Duration.seconds(10.0)
+                        Duration.seconds(30.0)
                     )
                 }
             }
@@ -127,21 +128,24 @@ class VolumeView(
                     context.showInformationNotification(
                         i18n("chapters.cache.successful.title"),
                         i18n("chapters.cache.successful.message", bookName),
-                        Duration.seconds(10.0)
+                        Duration.seconds(30.0)
                     )
                 }
             }
         }
 
         override fun call() {
-            val repository = ChapterRepository(database)
-            repository.selectByBookId(bookId).filter { it.content.isNullOrBlank() }.forEach { chapter ->
+            val chapterRepository = ChapterRepository(database)
+            val chapterContentRepository = ChapterContentRepository(database)
+            chapterRepository.selectByBookId(bookId).filter { true != it.contentCached }.forEach { chapter ->
                 ChapterQueryTask(bookId, chapter.id).apply { run() }.get()!!.let {
+                    // save chapter-content
+                    chapterContentRepository.save(it.toLocalChapterContent())
+                    // save chapter
                     chapter.previousId = it.previousId
                     chapter.nextId = it.nextId
-                    chapter.hasContent = it.hasContent
-                    chapter.content = it.content
-                    repository.save(chapter)
+                    chapter.contentCached = true
+                    chapterRepository.save(chapter)
                 }
             }
         }
@@ -170,7 +174,8 @@ class VolumeView(
         }
 
         override fun call() {
-            ChapterRepository(database).clearContentCacheByBookId(bookId)
+            ChapterRepository(database).resetContentCachedByBookId(bookId)
+            ChapterContentRepository(database).deleteByBookId(bookId)
         }
     }
 

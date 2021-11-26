@@ -44,7 +44,7 @@ class VolumeViewBase(
             volume.chapters.map { chapter ->
                 Hyperlink(chapter.name).apply {
                     styleClass.add("chapter-item")
-                    if (!chapter.content.isNullOrBlank()) {
+                    if (true == chapter.contentCached) {
                         graphic = icon("check-circle-outline-icon")
                     }
                     setOnAction {

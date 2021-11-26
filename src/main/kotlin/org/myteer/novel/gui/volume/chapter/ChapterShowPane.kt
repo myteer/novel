@@ -9,7 +9,7 @@ import org.myteer.novel.db.data.Chapter
 
 class ChapterShowPane(
     private val configuration: ChapterShowConfiguration,
-    private val chapter: Chapter
+    private val chapterContent: String?
 ) : ScrollPane() {
     init {
         styleClass.add("chapter-show-pane")
@@ -21,7 +21,7 @@ class ChapterShowPane(
         content = buildContentText()
     }
 
-    private fun buildContentText() = Text(chapter.content).also {
+    private fun buildContentText() = Text(chapterContent).also {
         it.fontProperty().bind(Bindings.createObjectBinding({
             Font.font(configuration.fontFamilyProperty.value, configuration.fontSizeProperty.doubleValue())
         }, configuration.fontFamilyProperty, configuration.fontSizeProperty))

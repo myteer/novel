@@ -6,8 +6,8 @@ import org.dizitart.no2.objects.Index
 
 @Index(value = "bookId", type = IndexType.NonUnique)
 class ChapterContent(
-    var bookId: String,
+    var bookId: String = "",
     @Id
-    var id: String,
+    var id: String = "",
     var content: String? = null
 )

@@ -11,12 +11,7 @@ class ChapterRepository(database: NitriteDatabase) {
     private val repository: ObjectRepository<Chapter> = database.nitrite.getRepository(Chapter::class.java)
 
     fun selectByBookId(bookId: String): List<Chapter> {
-        return repository.find(eq("bookId", bookId)).map {
-            if (!it.content.isNullOrBlank()) {
-                it.content = CONTENT_PLACEHOLDER
-            }
-            it
-        }.toList()
+        return repository.find(eq("bookId", bookId)).toList()
     }
 
     fun selectById(id: String): Chapter? {
@@ -38,22 +33,19 @@ class ChapterRepository(database: NitriteDatabase) {
         repository.remove(`in`("bookId", *bookId))
     }
 
-    fun clearContentCacheByBookId(bookId: String) {
-        repository.update(and(eq("bookId", bookId), not(eq("content", null))), createDocument("content", null))
+    fun resetContentCachedByBookId(bookId: String) {
+        repository.update(and(eq("bookId", bookId), eq("contentCached", true)), createDocument("contentCached", null))
     }
 
     private fun createUpdateDocument(source: Chapter, target: Chapter): Document {
         return Document().also { doc ->
             source.previousId.takeUnless { it.isNullOrBlank() || it == target.previousId }?.let { doc["previousId"] = it }
             source.nextId.takeUnless { it.isNullOrBlank() || it == target.nextId }?.let { doc["nextId"] = it }
-            source.content.takeUnless { it.isNullOrBlank() || it == target.content }?.let { doc["content"] = it }
+            source.hasContent.takeUnless { null == it || it == target.hasContent }?.let { doc["hasContent"] = it }
+            source.contentCached.takeUnless { null == it || it == target.contentCached }?.let { doc["contentCached"] = it }
             source.volumeIndex.takeUnless { it == target.volumeIndex }?.let { doc["volumeIndex"] = it }
             source.volumeName.takeUnless { it.isNullOrBlank() || it == target.volumeName }?.let { doc["volumeName"] = it }
             source.orderNo.takeUnless { it == target.orderNo }?.let { doc["orderNo"] = it }
         }
-    }
-
-    private companion object {
-        private const val CONTENT_PLACEHOLDER = "-"
     }
 }

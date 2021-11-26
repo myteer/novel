@@ -10,9 +10,9 @@ import org.myteer.novel.config.Preferences
 import org.myteer.novel.crawl.task.ChapterQueryTask
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.db.data.Chapter
+import org.myteer.novel.db.repository.ChapterContentRepository
 import org.myteer.novel.db.repository.ChapterRepository
 import org.myteer.novel.gui.api.Context
-import org.myteer.novel.gui.api.EmptyContext
 import org.myteer.novel.gui.utils.I18NButtonType
 import org.myteer.novel.gui.utils.runOutsideUIAsync
 import org.myteer.novel.gui.volume.chapter.ChapterShowConfiguration.Companion.CHAPTER_SHOW_CONFIG_KEY
@@ -26,7 +26,7 @@ class ChapterLoadPane(
     private val titleProperty: StringProperty,
     bookId: String,
     chapterId: String
-) : StackPane(), EmptyContext {
+) : StackPane() {
     private val loading: BooleanProperty = SimpleBooleanProperty(false)
     private val configuration: ChapterShowConfiguration = preferences.get(CHAPTER_SHOW_CONFIG_KEY)
     private val chapterProperty: ObjectProperty<Chapter> = SimpleObjectProperty()
@@ -65,7 +65,7 @@ class ChapterLoadPane(
         styleClass.add("loading-pane")
     }
 
-    private inner class LoadTask(private val bookId: String, private val chapterId: String) : Task<Chapter>() {
+    private inner class LoadTask(private val bookId: String, private val chapterId: String) : Task<ChapterContainer>() {
         init {
             setOnRunning { onRunning() }
             setOnFailed { onFailed(it.source.exception) }
@@ -90,31 +90,41 @@ class ChapterLoadPane(
             }.apply { getButtonTypes().add(I18NButtonType.RETRY) }
         }
 
-        private fun onSucceeded(chapter: Chapter) {
+        private fun onSucceeded(chapterContainer: ChapterContainer) {
             loading.set(false)
             context.stopProgress()
-            titleProperty.set("${chapter.bookName} - ${chapter.name}")
-            chapterProperty.set(chapter)
-            containerPane.center = buildChapterShowPane(chapter)
+            titleProperty.set("${chapterContainer.chapter.bookName} - ${chapterContainer.chapter.name}")
+            chapterProperty.set(chapterContainer.chapter)
+            containerPane.center = buildChapterShowPane(chapterContainer.content)
         }
 
-        override fun call(): Chapter {
-            val repository = ChapterRepository(database)
-            val chapter = repository.selectById(chapterId)!!
-            if (null == chapter.content) {
+        override fun call(): ChapterContainer {
+            val chapterRepository = ChapterRepository(database)
+            val chapterContentRepository = ChapterContentRepository(database)
+            val chapter = chapterRepository.selectById(chapterId)!!
+            val content: String?
+            if (true != chapter.contentCached) {
                 ChapterQueryTask(bookId, chapterId).apply { run() }.get()!!.let {
+                    // save chapter-content
+                    chapterContentRepository.save(it.toLocalChapterContent())
+                    // save chapter
                     chapter.previousId = it.previousId
                     chapter.nextId = it.nextId
-                    chapter.hasContent = it.hasContent
-                    chapter.content = it.content
-                    repository.save(chapter)
+                    chapter.contentCached = true
+                    chapterRepository.save(chapter)
+                    // init content
+                    content = it.content
                 }
+            } else {
+                content = chapterContentRepository.selectById(chapterId)?.content
             }
-            return chapter
+            return ChapterContainer(chapter, content)
         }
     }
 
-    private fun buildChapterShowPane(chapter: Chapter) = ChapterShowPane(configuration, chapter)
+    private fun buildChapterShowPane(content: String?) = ChapterShowPane(configuration, content)
+
+    private class ChapterContainer(val chapter: Chapter, val content: String?)
 
     companion object {
         private val logger = LoggerFactory.getLogger(ChapterLoadPane::class.java)

@@ -45,7 +45,7 @@ class VolumeToolBar(
     private fun buildCacheInfoLabel() = Label().apply {
         padding = Insets(5.0)
         textProperty().bind(Bindings.createStringBinding({
-            val cachedSize = baseItems.filter { !it.content.isNullOrBlank() }.size
+            val cachedSize = baseItems.filter { true == it.contentCached }.size
             i18n("chapters.cache.info", cachedSize, baseItems.size)
         }, baseItems))
     }

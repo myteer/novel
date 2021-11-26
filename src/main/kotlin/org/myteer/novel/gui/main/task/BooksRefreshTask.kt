@@ -14,7 +14,7 @@ class BooksRefreshTask(database: NitriteDatabase) : Task<Unit>() {
     private val chapterRepository = ChapterRepository(database)
 
     override fun call() {
-        bookRepository.selectAll().mapNotNull(Book::id).forEach { bookId ->
+        bookRepository.selectAll().map(Book::id).forEach { bookId ->
             BookQueryTask(bookId).apply { run() }.get()?.let { book ->
                 bookRepository.save(book.toLocalBook())
                 ChapterListQueryTask(bookId).apply { run() }.get().takeIf { it.isNotEmpty() }?.also { chapters ->

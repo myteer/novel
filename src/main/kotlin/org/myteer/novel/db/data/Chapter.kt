@@ -14,7 +14,7 @@ class Chapter(
     var previousId: String? = null,
     var nextId: String? = null,
     var hasContent: Int? = null,
-    var content: String? = null,
+    var contentCached: Boolean? = null,
     var volumeIndex: Int = 0,
     var volumeName: String? = null,
     var orderNo: Int = 0
