@@ -35,6 +35,7 @@ import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.api.ContextDialog
 import org.myteer.novel.gui.control.ExceptionDisplayPane
 import org.myteer.novel.gui.utils.I18NButtonType
+import org.myteer.novel.gui.utils.mutableOverlays
 import org.myteer.novel.gui.utils.onWindowPresent
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -100,6 +101,11 @@ open class BaseView(content: Node? = null) : StackPane(), Context {
 
     override fun showOverlay(region: Region, blocking: Boolean) {
         workbench.showOverlay(region, blocking)
+        region.visibleProperty().addListener { _, ov, nv ->
+            if (ov && !nv) {
+                workbench.mutableOverlays.remove(region)
+            }
+        }
     }
 
     override fun hideOverlay(region: Region) {
