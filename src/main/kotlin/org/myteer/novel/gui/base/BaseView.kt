@@ -293,6 +293,11 @@ open class BaseView(content: Node? = null) : StackPane(), Context {
         init {
             workbenchDialog.styleClass.add(DIALOG_STYLE_CLASS)
             type = if (null != workbenchDialog.type) ContextDialog.Type.valueOf(workbenchDialog.type.toString()) else contextDialogType
+            workbenchDialog.showingProperty().addListener { _, ov, nv ->
+                if (ov && !nv) {
+                    workbenchDialog.onResult = null
+                }
+            }
         }
 
         override fun getType(): ContextDialog.Type? {
