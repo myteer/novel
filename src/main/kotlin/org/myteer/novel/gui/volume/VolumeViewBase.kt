@@ -59,8 +59,9 @@ class VolumeViewBase(
 
     private fun buildVolumeList(chapters: List<Chapter>): List<Volume> {
         val map = LinkedHashMultimap.create<Volume, Chapter>()
+        val volumeMap = mutableMapOf<Int, Volume>()
         chapters.forEach {
-            map.put(Volume(it.volumeIndex, it.volumeName), it)
+            map.put(volumeMap.getOrPut(it.volumeIndex) { Volume(it.volumeIndex, it.volumeName) }, it)
         }
         return map.asMap().entries.map { it.key.setChapters(it.value) }
     }
