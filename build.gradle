@@ -1,7 +1,8 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.0'
+    id "com.github.johnrengelman.shadow" version "7.1.0"
 }
 
 group 'org.myteer'
@@ -9,19 +10,7 @@ version '1.0.0-SNAPSHOT'
 
 sourceCompatibility = '16'
 targetCompatibility = '16'
-
-repositories {
-    mavenCentral()
-    maven { url 'https://jitpack.io' }
-}
-
-ext {
-
-}
-
-application {
-    mainClass = 'org.myteer.novel.main.Main'
-}
+mainClassName = 'org.myteer.novel.main.Main'
 
 compileJava {
     options.encoding = 'UTF-8'
@@ -33,12 +22,17 @@ compileJava {
     }
 }
 
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
 dependencies {
-    implementation files('lib/scenicview.jar')
     // kotlin
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
     // logging
-    implementation 'ch.qos.logback:logback-classic:1.2.6'
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+    implementation 'ch.qos.logback:logback-classic:1.2.7'
     // json
     implementation 'com.google.code.gson:gson:2.8.9'
     // database
@@ -75,4 +69,11 @@ dependencies {
     implementation 'com.jfoenix:jfoenix:9.0.10'
     implementation 'org.controlsfx:controlsfx:11.1.0'
     implementation "de.jangassen:nsmenufx:3.1.0"
+}
+
+shadowJar {
+    exclude 'javafx/**'
+    exclude 'javafx.properties'
+    exclude 'javafx-swt.jar'
+    exclude 'junit/**'
 }
