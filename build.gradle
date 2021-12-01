@@ -15,7 +15,7 @@ version '1.0.0'
 
 sourceCompatibility = '16'
 targetCompatibility = '16'
-mainClassName = 'org.myteer.novel.main.Main'
+mainClassName = 'org.myteer.novel.main.MainKt'
 applicationDefaultJvmArgs = [
         '-Dhttps.protocols=TLSv1.2,TLSv1.1,TLSv1',
         '--add-exports', 'javafx.base/com.sun.javafx=ALL-UNNAMED',
