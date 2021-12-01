@@ -1,3 +1,7 @@
+import org.gradle.internal.jvm.Jvm
+
+import java.nio.file.Files
+
 plugins {
     id 'java'
     id 'application'
@@ -35,7 +39,7 @@ compileJava {
 
 [compileKotlin, compileTestKotlin].forEach {
     it.kotlinOptions {
-        jvmTarget = '16'
+        jvmTarget = targetCompatibility
     }
 }
 
@@ -97,3 +101,115 @@ shadowJar {
 
 /* --------------------------------- Distribution ------------------------------------ */
 def distributionDir = new File(projectDir, "distribution")
+def distributionInputDir = new File(distributionDir, "input")
+def distributionRuntimeDir = new File(distributionDir, "java-runtime")
+def distributionTempDir = new File(distributionDir, "temp")
+def distributionBuildDir = new File(distributionDir, "build")
+def distributionIconDir = new File(distributionDir, "icon")
+def distributionFileAssociationsDir = new File(distributionDir, "file-associations")
+
+def jLinkExecutable = new File(Jvm.current().getJavaHome(), "bin/jlink")
+
+task cleanDistributionInput(type: Delete) {
+    doFirst {
+        delete distributionInputDir
+    }
+    doLast {
+        distributionInputDir.mkdir()
+    }
+}
+
+task buildDistributionInput {
+    dependsOn shadowJar
+    dependsOn cleanDistributionInput
+    doLast {
+        Files.copy(
+                tasks.shadowJar.archiveFile.get().asFile.toPath(),
+                new File(distributionInputDir, tasks.shadowJar.archiveFileName.get()).toPath()
+        )
+    }
+}
+
+task cleanDistributionRuntime {
+    doFirst {
+        delete distributionRuntimeDir
+    }
+}
+
+task buildDistributionRuntime(type: Exec) {
+    dependsOn cleanDistributionRuntime
+    workingDir = distributionDir.toString()
+    executable = jLinkExecutable.toString()
+    args = [
+            '--output',
+            distributionRuntimeDir,
+            '--strip-debug',
+            '--compress', '2',
+            '--no-header-files',
+            '--no-map-pages',
+            '--add-modules',
+            'java.se,javafx.base,javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.web'
+    ]
+}
+
+task cleanDistributionTemp(type: Delete) {
+    doFirst {
+        delete distributionTempDir
+    }
+    doLast {
+        distributionTempDir.mkdir()
+    }
+}
+
+task cleanDistributionBuild(type: Delete) {
+    doFirst {
+        delete distributionBuildDir
+    }
+}
+
+task preparteDistribution {
+    dependsOn buildDistributionInput
+    dependsOn buildDistributionRuntime
+    dependsOn cleanDistributionTemp
+    dependsOn cleanDistributionBuild
+}
+
+jpackage {
+    dependsOn preparteDistribution
+
+    appName = project.name
+    appVersion = project.version
+    vendor = 'MTSoftware'
+    javaOptions = applicationDefaultJvmArgs
+
+    input = distributionInputDir.toString()
+    destination = distributionBuildDir.toString()
+    temp = distributionTempDir.toString()
+    mainJar = shadowJar.archiveFileName.get()
+    runtimeImage = distributionRuntimeDir.toString()
+
+    licenseFile = "LICENSE"
+
+    winMenu = true
+    winDirChooser = true
+    winShortcut = true
+
+    linuxDebMaintainer = "myteer@qq.com"
+    linuxMenuGroup = project.name
+    linuxShortcut = true
+
+    windows {
+        icon = "${distributionIconDir}/novel.ico"
+        fileAssociations = ["${distributionFileAssociationsDir}/file-associations-win.properties"]
+    }
+
+    linux {
+        icon = "${distributionIconDir}/novel.png"
+        fileAssociations = ["${distributionFileAssociationsDir}/file-associations-linux.properties"]
+    }
+
+    mac {
+        icon = "${distributionIconDir}/novel.icns"
+        fileAssociations = ["${distributionFileAssociationsDir}/file-associations-mac.properties"]
+    }
+}
