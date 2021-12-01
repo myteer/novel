@@ -182,6 +182,7 @@ jpackage {
     appName = project.name
     appVersion = project.version
     vendor = 'MTSoftware'
+    copyright = 'Copyright (c) 2021 MTSoftware'
     javaOptions = applicationDefaultJvmArgs
 
     input = distributionInputDir.toString()
