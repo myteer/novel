@@ -213,3 +213,13 @@ jpackage {
         fileAssociations = ["${distributionFileAssociationsDir}/file-associations-mac.properties"]
     }
 }
+
+task cleanProject {
+    dependsOn clean
+    doLast {
+        delete distributionInputDir
+        delete distributionRuntimeDir
+        delete distributionTempDir
+        delete distributionBuildDir
+    }
+}
