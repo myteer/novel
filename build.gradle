@@ -97,6 +97,8 @@ shadowJar {
     exclude 'javafx.properties'
     exclude 'javafx-swt.jar'
     exclude 'junit/**'
+
+    mergeServiceFiles()
 }
 
 /* --------------------------------- Distribution ------------------------------------ */
