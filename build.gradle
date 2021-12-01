@@ -146,7 +146,7 @@ task buildDistributionRuntime(type: Exec) {
             '--strip-debug',
             '--compress', '2',
             '--no-header-files',
-            '--no-map-pages',
+            '--no-man-pages',
             '--add-modules',
             'java.se,javafx.base,javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.web'
     ]

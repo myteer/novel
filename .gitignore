@@ -6,3 +6,10 @@ build
 *.iws
 *.iml
 *.ipr
+
+## Custom ##
+*.log
+distribution/input
+distribution/java-runtime
+distribution/temp
+distribution/build
