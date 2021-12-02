@@ -1,0 +1,260 @@
+@import "base.css";
+
+/*******************************************************************************
+ *                                                                             *
+ *                                   ComboBox                                  *
+ *                                                                             *
+ ******************************************************************************/
+.combo-box-popup .list-view {
+    -fx-background-color: #2b2b2b;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                   Ikonli                                    *
+ *                                                                             *
+ ******************************************************************************/
+.ikonli-font-icon {
+    -fx-icon-color: white;
+}
+
+.button:default .ikonli-font-icon {
+    -fx-icon-color: white;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                  TableView                                  *
+ *                                                                             *
+ ******************************************************************************/
+.table-view .table-row-cell:filled {
+    -fx-border-color: transparent transparent #4e4d4d transparent;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                    TabPane                                  *
+ *                                                                             *
+ ******************************************************************************/
+.tab .tab-close-button {
+    -fx-background-color: whitesmoke;
+}
+.tab .tab-close-button:hover {
+    -fx-background-color: red;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                  TabView                                    *
+ *                                                                             *
+ ******************************************************************************/
+.tab-view > .tab-pane > .tab-header-area > .tab-header-background {
+    /* -fx-background-color: #1A1A23; */
+}
+
+.tab-view > .tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: #3C3D40;
+}
+
+.tab-view > .tab-pane > .tab-header-area > .headers-region {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 10, 0.12, -1, 2);
+}
+
+.tab-view > .tab-pane > .tab-header-area > .headers-region > .tab:hover > .tab-container > .tab-label {
+    -fx-text-fill: #D4D4D4;
+}
+
+.tab-view > .tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-label {
+    -fx-text-fill: #D4D4D4;
+}
+
+.tab-view > .tab-pane > .tab-header-area > .headers-region > .tab:selected:hover > .tab-container > .tab-label {
+    -fx-text-fill: #D4D4D4;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                   MenuBar                                   *
+ *                                                                             *
+ ******************************************************************************/
+.menu-bar:disabled {
+    -fx-background-color: #131313;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                  Base View                                  *
+ *                                                                             *
+ ******************************************************************************/
+* {
+    /* WorkbenchFX styles */
+    -fx-light-text-color: rgba(255, 255, 255, 0.7);
+    -primary-color: #333436;
+    -primary-variant-color: #282828;
+    -secondary-color: #02ABF5;
+    -secondary-variant-color: #005FA3;
+    -background-color: #282828;
+    -surface-color: #2B2B2B;
+    -error-color: #B00020;
+    -on-primary-color: -fx-light-text-color;
+    -on-secondary-color: -fx-light-text-color;
+    -on-background-color: #EAEAEA;
+    -on-surface-color: -fx-light-text-color;
+    -on-error-color: #FFFFFF;
+}
+
+.overlay-box .title-bar {
+    -fx-background-color: #343333;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                 NotificationNode                            *
+ *                                                                             *
+ ******************************************************************************/
+.notification-node {
+    -fx-background-color: #2F3133;
+    -fx-border-color: #858585;
+}
+
+.notification-node .ikonli-font-icon {
+    -fx-icon-color: #858585;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                  Login view                                 *
+ *                                                                             *
+ ******************************************************************************/
+.login-form {
+    -fx-background-image: url("/org/myteer/novel/image/background/background-dark.jpg");
+}
+
+.login-box {
+    -fx-background-color: #252525;
+    -fx-effect: dropshadow(three-pass-box, #282828, 10.0, 0, 0, 0);
+}
+
+.login-box .button {
+    -fx-background-color: #1C1C1C;
+}
+
+.login-box .button:default {
+    -fx-background-color: #0078D7;
+}
+
+.login-box .header .label {
+    -fx-text-fill: #D6D5D5;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                  Database manager                           *
+ *                                                                             *
+ ******************************************************************************/
+.state-indicator-file-not-exists {
+    -fx-icon-color: #B00020 !important;
+}
+
+.state-indicator-used {
+    -fx-icon-color: green !important;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                 Main View                                   *
+ *                                                                             *
+ ******************************************************************************/
+.main-view-toolbar {
+    -fx-border-color: #393939;
+}
+
+.tile:hover {
+    -fx-background-color: #38383B;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                           Crawl book import view                            *
+ *                                                                             *
+ ******************************************************************************/
+.crawl-book-table {
+    -fx-border-width: 0;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                         Crawl book details overlay                          *
+ *                                                                             *
+ ******************************************************************************/
+.crawl-book-query-pane {
+    -fx-background-color: #F0F0F0;
+}
+
+.crawl-book-details-pane {
+    -fx-background-color: #F0F0F0;
+}
+
+.crawl-book-details-pane .top-group,
+.crawl-book-details-pane .description-group,
+.crawl-book-details-pane .index-group,
+.crawl-book-details-pane .same-author-books-group,
+.crawl-book-details-pane .same-category-books-group {
+    -fx-background-color: white;
+}
+
+.crawl-book-details-pane > .top-group > .label.score-label {
+    -fx-text-fill: orange;
+}
+
+.crawl-book-details-pane > .top-group > .label.score-label > .ikonli-font-icon {
+    -fx-icon-color: orange;
+}
+
+.loading-pane {
+    -fx-background-color: #7A7A7A;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                            Book Manager view                                *
+ *                                                                             *
+ ******************************************************************************/
+.book-table {
+    -fx-border-width: 0;
+}
+
+.book-table-place-holder .image-view {
+    -fx-image: url("/org/myteer/novel/image/logo/book_128_white.png");
+    -fx-opacity: 0.35;
+}
+
+.book-table-place-holder .label {
+    -fx-opacity: 0.35;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                 Volume view                                 *
+ *                                                                             *
+ ******************************************************************************/
+.volume-view {
+    -fx-background-color: white;
+}
+
+.volume-view .volume-pane {
+    -fx-border-color: #D4D4D4;
+}
+
+.volume-view .volume-pane .chapter-pane .chapter-item .check-circle-outline-icon {
+    -fx-icon-color: teal;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                    Other                                    *
+ *                                                                             *
+ ******************************************************************************/
+.header-toolbar {
+    -fx-background-color: #333436;
+}
