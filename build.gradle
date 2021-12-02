@@ -150,7 +150,8 @@ task buildDistributionRuntime(type: Exec) {
             '--no-header-files',
             '--no-man-pages',
             '--add-modules',
-            'java.se,javafx.base,javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.web'
+            'jdk.localedata,java.se,javafx.base,javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.web',
+            '--include-locales', 'zh-CN'
     ]
 }
 
