@@ -13,7 +13,7 @@
 }
 
 .logo {
-    -fx-image: url(../../image/logo/bookshelf_256.png);
+    -fx-image: url(../../image/logo/book_256.png);
 }
 
 .appNameLabel {

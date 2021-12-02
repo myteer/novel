@@ -135,12 +135,12 @@ open class BaseWindow<C> : Stage, Themeable where C : Parent, C : Context {
         )
         val globalOpacity: DoubleProperty = SimpleDoubleProperty(1.0)
 
-        private const val LOGO_16 = "/org/myteer/novel/image/logo/bookshelf_16.png"
-        private const val LOGO_32 = "/org/myteer/novel/image/logo/bookshelf_32.png"
-        private const val LOGO_64 = "/org/myteer/novel/image/logo/bookshelf_64.png"
-        private const val LOGO_128 = "/org/myteer/novel/image/logo/bookshelf_128.png"
-        private const val LOGO_256 = "/org/myteer/novel/image/logo/bookshelf_256.png"
-        private const val LOGO_512 = "/org/myteer/novel/image/logo/bookshelf_512.png"
+        private const val LOGO_16 = "/org/myteer/novel/image/logo/book_16.png"
+        private const val LOGO_32 = "/org/myteer/novel/image/logo/book_32.png"
+        private const val LOGO_64 = "/org/myteer/novel/image/logo/book_64.png"
+        private const val LOGO_128 = "/org/myteer/novel/image/logo/book_128.png"
+        private const val LOGO_256 = "/org/myteer/novel/image/logo/book_256.png"
+        private const val LOGO_512 = "/org/myteer/novel/image/logo/book_512.png"
 
         private val logger = LoggerFactory.getLogger(BaseWindow::class.java)
     }

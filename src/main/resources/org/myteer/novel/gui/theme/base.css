@@ -213,7 +213,7 @@
 }
 
 .login-box .header .logo {
-    -fx-image: url("/org/myteer/novel/image/logo/bookshelf_64.png");
+    -fx-image: url("/org/myteer/novel/image/logo/book_64.png");
 }
 
 .login-box .source-adder {
@@ -256,7 +256,7 @@
 }
 
 .main-view .module-view .label-area .image-view {
-    -fx-image: url("/org/myteer/novel/image/logo/bookshelf_64.png");
+    -fx-image: url("/org/myteer/novel/image/logo/book_64.png");
 }
 
 .main-view .module-view .label-area * {

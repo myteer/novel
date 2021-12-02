@@ -200,7 +200,7 @@
  *                                                                             *
  ******************************************************************************/
 .book-table-place-holder .image-view {
-    -fx-image: url("/org/myteer/novel/image/logo/bookshelf_128_black.png");
+    -fx-image: url("/org/myteer/novel/image/logo/book_128_black.png");
     -fx-opacity: 0.35;
 }
 
