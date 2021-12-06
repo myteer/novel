@@ -8,7 +8,6 @@ import javafx.scene.control.Hyperlink
 import javafx.scene.control.Label
 import javafx.scene.layout.TilePane
 import javafx.scene.layout.VBox
-import jfxtras.styles.jmetro.JMetroStyleClass
 import org.myteer.novel.config.Preferences
 import org.myteer.novel.db.NitriteDatabase
 import org.myteer.novel.db.data.Chapter
@@ -38,7 +37,7 @@ class VolumeViewBase(
     private fun buildVolumePane(volume: Volume) = VBox().apply {
         styleClass.add("volume-pane")
         alignment = Pos.TOP_CENTER
-        children.add(Label(volume.name).styleClass(JMetroStyleClass.BACKGROUND).styleClass("volume-name"))
+        children.add(Label(volume.name).styleClass("volume-name"))
         children.add(TilePane().also { pane ->
             pane.styleClass.add("chapter-pane")
             volume.chapters.map { chapter ->

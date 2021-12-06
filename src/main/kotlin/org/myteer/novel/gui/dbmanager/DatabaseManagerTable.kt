@@ -28,6 +28,7 @@ class DatabaseManagerTable(
     private val selectedItemsCount: IntegerBinding
 
     init {
+        styleClass.add("database-manager-table")
         databaseTracker.registerObserver(this)
         itemsCount = Bindings.size(items)
         selectedItemsCount = Bindings.size(selectionModel.selectedItems)

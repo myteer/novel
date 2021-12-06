@@ -221,6 +221,10 @@
     -fx-border-color: #D4D4D4;
 }
 
+.volume-view .volume-pane .volume-name {
+    -fx-background-color: #F3F3F3;
+}
+
 .volume-view .volume-pane .chapter-pane .chapter-item .check-circle-outline-icon {
     -fx-icon-color: teal;
 }

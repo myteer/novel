@@ -152,6 +152,10 @@
  *                                  Database manager                           *
  *                                                                             *
  ******************************************************************************/
+.database-manager-table {
+    -fx-border-width: 0;
+}
+
 .state-indicator-file-not-exists {
     -fx-icon-color: #B00020 !important;
 }
@@ -188,11 +192,11 @@
  *                                                                             *
  ******************************************************************************/
 .crawl-book-query-pane {
-    -fx-background-color: #F0F0F0;
+    -fx-background-color: #282828;
 }
 
 .crawl-book-details-pane {
-    -fx-background-color: #F0F0F0;
+    -fx-background-color: #282828;
 }
 
 .crawl-book-details-pane .top-group,
@@ -200,7 +204,7 @@
 .crawl-book-details-pane .index-group,
 .crawl-book-details-pane .same-author-books-group,
 .crawl-book-details-pane .same-category-books-group {
-    -fx-background-color: white;
+    -fx-background-color: #333436;
 }
 
 .crawl-book-details-pane > .top-group > .label.score-label {
@@ -212,7 +216,7 @@
 }
 
 .loading-pane {
-    -fx-background-color: #7A7A7A;
+    -fx-background-color: #131313;
 }
 
 /*******************************************************************************
@@ -239,11 +243,15 @@
  *                                                                             *
  ******************************************************************************/
 .volume-view {
-    -fx-background-color: white;
+    -fx-background-color: #282828;
 }
 
 .volume-view .volume-pane {
-    -fx-border-color: #D4D4D4;
+    -fx-border-color: #333436;
+}
+
+.volume-view .volume-pane .volume-name {
+    -fx-background-color: #333436;
 }
 
 .volume-view .volume-pane .chapter-pane .chapter-item .check-circle-outline-icon {

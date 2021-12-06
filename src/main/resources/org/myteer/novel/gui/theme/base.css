@@ -562,14 +562,15 @@
 .volume-view .volume-pane {
     -fx-border-width: 1;
     -fx-border-insets: 20 0 0 0;
-    -fx-padding: -10 10 10 10;
+    -fx-padding: -13 10 10 10;
 }
 
 .volume-view .volume-pane .volume-name {
     -fx-font-size: 1.2em;
     -fx-font-weight: bold;
     -fx-font-style: italic;
-    -fx-padding: 0 10 0 10;
+    -fx-padding: 3 10 3 10;
+    -fx-background-radius: 3;
 }
 
 .volume-view .volume-pane .chapter-pane {
