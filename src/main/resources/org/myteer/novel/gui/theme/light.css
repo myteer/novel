@@ -231,6 +231,27 @@
 
 /*******************************************************************************
  *                                                                             *
+ *                                 Wizard dialog                               *
+ *                                                                             *
+ ******************************************************************************/
+.wizard-dialog .radio-button:hover {
+    -fx-background-color: #B8D5EA;
+}
+
+.wizard-dialog .radio-button:selected {
+    -fx-background-color: #A5C4D9;
+}
+
+.segmentLabel:focused {
+    -fx-border-color: #356EC8;
+}
+
+.segmentLabelSeparator .graphic {
+    -fx-image: url("/org/myteer/novel/image/wizard/right-arrow-black.png")
+}
+
+/*******************************************************************************
+ *                                                                             *
  *                                    Other                                    *
  *                                                                             *
  ******************************************************************************/

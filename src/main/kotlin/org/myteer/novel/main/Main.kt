@@ -1,5 +1,7 @@
 package org.myteer.novel.main
 
+import okhttp3.internal.notify
+import okhttp3.internal.wait
 import org.myteer.novel.config.PreferenceKey
 import org.myteer.novel.config.Preferences
 import org.myteer.novel.config.login.LoginData
@@ -7,7 +9,9 @@ import org.myteer.novel.exception.UncaughtExceptionHandler
 import org.myteer.novel.gui.entry.DatabaseTracker
 import org.myteer.novel.gui.keybinding.KeyBindings
 import org.myteer.novel.gui.theme.Theme
+import org.myteer.novel.gui.utils.runInsideUIAsync
 import org.myteer.novel.gui.window.BaseWindow
+import org.myteer.novel.gui.wizard.WizardActivity
 import org.myteer.novel.i18n.i18n
 import org.myteer.novel.instance.ApplicationInstanceService
 import org.myteer.novel.launcher.ActivityLauncher
@@ -18,6 +22,7 @@ import kotlin.system.exitProcess
 class Main : BaseApplication() {
     companion object {
         private val logger = LoggerFactory.getLogger(Main::class.java)
+        private val initThreadLock = Main::class.java
 
         fun main(vararg args: String) {
             // 设置未捕获异常处理器
@@ -35,7 +40,9 @@ class Main : BaseApplication() {
         handleApplicationArgument(queue)
 
         val preferences = readConfigurations(queue)
-        applyBaseConfigurations(preferences)
+        if (!showWizardActivity(preferences)) {
+            applyBaseConfigurations(preferences)
+        }
         applyAdditionalConfigurations(preferences)
 
         logger.debug("Locale is: {}", Locale.getDefault())
@@ -78,6 +85,26 @@ class Main : BaseApplication() {
                 }
             }
             return Preferences.empty()
+        }
+    }
+
+    @Init
+    private fun showWizardActivity(preferences: Preferences): Boolean {
+        synchronized(initThreadLock) {
+            if (WizardActivity.isNeeded(preferences)) {
+                hidePreloader()
+                logger.debug("WizardDialog needed")
+                runInsideUIAsync {
+                    synchronized(initThreadLock) {
+                        WizardActivity(preferences).show()
+                        initThreadLock.notify()
+                    }
+                }
+                initThreadLock.wait()
+                showPreloader()
+                return true
+            }
+            return false
         }
     }
 
