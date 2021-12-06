@@ -609,9 +609,13 @@
     -fx-padding: 10;
 }
 
+.segmentLabel {
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 2.5 0;
+}
+
 .segmentLabel:focused {
     -fx-font-weight: bold;
-    -fx-border-width: 0 0 2.5 0;
 }
 
 .segmentTitleLabel {
