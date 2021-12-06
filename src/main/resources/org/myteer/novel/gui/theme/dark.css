@@ -7,7 +7,6 @@
  ******************************************************************************/
 .text-field:focused {
     -fx-background-color: #0078D7, #111111;
-    -fx-background-insets: 0, 2;
     -fx-text-fill: white;
 }
 
