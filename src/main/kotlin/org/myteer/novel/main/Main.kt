@@ -6,16 +6,21 @@ import org.myteer.novel.config.PreferenceKey
 import org.myteer.novel.config.Preferences
 import org.myteer.novel.config.login.LoginData
 import org.myteer.novel.exception.UncaughtExceptionHandler
+import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.entry.DatabaseTracker
 import org.myteer.novel.gui.keybinding.KeyBindings
 import org.myteer.novel.gui.theme.Theme
+import org.myteer.novel.gui.update.UpdateActivity
 import org.myteer.novel.gui.utils.runInsideUIAsync
 import org.myteer.novel.gui.window.BaseWindow
 import org.myteer.novel.gui.wizard.WizardActivity
 import org.myteer.novel.i18n.i18n
 import org.myteer.novel.instance.ApplicationInstanceService
 import org.myteer.novel.launcher.ActivityLauncher
+import org.myteer.novel.update.Release
+import org.myteer.novel.update.UpdateSearcher
 import org.slf4j.LoggerFactory
+import java.time.LocalDateTime
 import java.util.*
 import kotlin.system.exitProcess
 
@@ -51,7 +56,11 @@ class Main : BaseApplication() {
         val databaseTracker = DatabaseTracker.global
         val loginData = readLoginData(preferences, databaseTracker)
 
-        launchGUI(preferences, loginData, databaseTracker, queue)
+        // searching for updates, if necessary
+        val updateRelease = searchForUpdates(preferences)
+
+        // launching the main gui environment
+        launchGUI(preferences, loginData, updateRelease, databaseTracker, queue)
     }
 
     @Init
@@ -141,12 +150,25 @@ class Main : BaseApplication() {
     }
 
     @Init
+    private fun searchForUpdates(preferences: Preferences): Release? {
+        if (preferences.get(PreferenceKey.SEARCH_UPDATES)) {
+            notifyPreloader("preloader.update.search")
+            preferences.editor().put(PreferenceKey.LAST_UPDATE_SEARCH, LocalDateTime.now())
+            return UpdateSearcher.default.trySearch {
+                logger.error("Couldn't search for updates", it)
+            }
+        }
+        return null
+    }
+
+    @Init
     private fun launchGUI(preferences: Preferences,
                           loginData: LoginData,
+                          updateRelease: Release?,
                           databaseTracker: DatabaseTracker,
                           queue: ActivityLauncher.PostLaunchQueue) {
         notifyPreloader("preloader.gui.build")
-        InitActivityLauncher(preferences, loginData, databaseTracker, getApplicationArgs(), queue).run()
+        InitActivityLauncher(preferences, loginData, updateRelease, databaseTracker, getApplicationArgs(), queue).run()
     }
 
     override fun stop() {
@@ -162,6 +184,7 @@ class Main : BaseApplication() {
     private class InitActivityLauncher(
         private val preferences: Preferences,
         private val loginData: LoginData,
+        private val updateRelease: Release?,
         databaseTracker: DatabaseTracker,
         params: List<String>,
         postLaunchQueue: PostLaunchQueue
@@ -170,6 +193,12 @@ class Main : BaseApplication() {
 
         override fun saveLoginData(loginData: LoginData) {
             preferences.editor().put(PreferenceKey.LOGIN_DATA, loginData).tryCommit()
+        }
+
+        override fun onActivityLaunched(context: Context) {
+            updateRelease?.let {
+                UpdateActivity(context, it).show()
+            }
         }
     }
 
