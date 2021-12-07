@@ -62,8 +62,8 @@ class ThemeSegmentView(private val preferences: Preferences) : StackPane() {
     ) = ThemeToggle(
         i18n(i18n),
         ImageView(thumbnailPath).apply {
-            fitWidth = 233.0
-            fitHeight = 245.0
+            fitWidth = 250.0
+            fitHeight = 207.0
         },
         themeClass,
         themeFactory
