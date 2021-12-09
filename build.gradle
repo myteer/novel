@@ -46,6 +46,7 @@ compileJava {
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
+    maven { url 'https://sandec.jfrog.io/artifactory/repo' }
 }
 
 dependencies {
@@ -91,7 +92,8 @@ dependencies {
     }
     implementation 'com.jfoenix:jfoenix:9.0.10'
     implementation 'org.controlsfx:controlsfx:11.1.0'
-    implementation "de.jangassen:nsmenufx:3.1.0"
+    implementation 'de.jangassen:nsmenufx:3.1.0'
+    implementation 'com.sandec:mdfx:0.2.3'
 }
 
 shadowJar {

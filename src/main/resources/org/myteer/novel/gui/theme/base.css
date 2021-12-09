@@ -118,7 +118,7 @@
 
 /*******************************************************************************
  *                                                                             *
- *                                   WrapLabel                                    *
+ *                                   WrapLabel                                 *
  *                                                                             *
  ******************************************************************************/
 .wrap-label {
@@ -128,6 +128,35 @@
 .wrap-label .ikonli-font-icon {
     -fx-icon-size: 20;
     -fx-cursor: hand;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                MarkdownView                                 *
+ *                                                                             *
+ ******************************************************************************/
+.medium-font {
+    -fx-font-size: 16px;
+}
+
+.markdown-text {
+    -fx-font-family: "Jetbrains Mono";
+}
+
+.markdown-italic {
+    -fx-font-style: italic;
+}
+
+.markdown-bold {
+    -fx-font-weight: bold;
+}
+
+.markdown-link-hover {
+    -fx-underline: true;
+}
+
+.markdown-strikethrough {
+    -fx-strikethrough: true;
 }
 
 /*******************************************************************************
@@ -622,6 +651,16 @@
     -fx-padding: 10;
     -fx-font-weight: bold;
     -fx-font-size: 20;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ *                                 Update dialog                               *
+ *                                                                             *
+ ******************************************************************************/
+.update-view-available-label {
+    -fx-font-size: 2em;
+    -fx-font-weight: bold;
 }
 
 /*******************************************************************************
