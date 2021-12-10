@@ -30,6 +30,10 @@ class DownloadTask(private val releaseAsset: ReleaseAsset, private val dir: File
         }
     }
 
+    init {
+        updateProgress(0.0, 100.0)
+    }
+
     override fun call(): File? {
         synchronized(lock) {
             logger.debug("Starting downloading the update bundle...")
