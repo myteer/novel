@@ -3,6 +3,8 @@ package org.myteer.novel.gui.login
 import javafx.geometry.Insets
 import javafx.scene.control.*
 import org.myteer.novel.config.Preferences
+import org.myteer.novel.gui.action.GlobalActions
+import org.myteer.novel.gui.action.MenuItems
 import org.myteer.novel.gui.api.Context
 import org.myteer.novel.gui.control.BiToolBar
 import org.myteer.novel.gui.entry.DatabaseTracker
@@ -35,8 +37,11 @@ class LoginToolBar(
     private fun buildQuickOptionsControl() = MenuButton().apply {
         contentDisplay = ContentDisplay.GRAPHIC_ONLY
         graphic = icon("settings-icon")
+        items.add(buildUpdateSearchMenuItem())
         items.add(buildSettingsMenuItem())
     }
+
+    private fun buildUpdateSearchMenuItem() = MenuItems.of(GlobalActions.SEARCH_FOR_UPDATE, context, preferences, databaseTracker)
 
     private fun buildSettingsMenuItem() = MenuItem().apply {
         text = i18n("action.settings")

@@ -23,6 +23,7 @@ class PreferencesView(private val preferences: Preferences) : BaseView() {
             AppearancePane(preferences),
             KeyBindingPane(preferences),
             LanguagePane(this, preferences),
+            UpdatePane(preferences),
             AdvancedPane(this, preferences)
         ).forEach(this::addPane)
     }

@@ -325,8 +325,11 @@ class AppMenuBar(
         private val databaseTracker: DatabaseTracker
     ) : Menu(i18n("menubar.menu.help")) {
         init {
+            menuItem(updateSearch())
             menuItem(info())
         }
+
+        private fun updateSearch(): MenuItem = MenuItems.of(GlobalActions.SEARCH_FOR_UPDATE, context, preferences, databaseTracker)
 
         private fun info(): MenuItem = MenuItems.of(GlobalActions.OPEN_APP_INFO, context, preferences, databaseTracker)
     }

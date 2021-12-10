@@ -30,7 +30,7 @@ class UpdateSearcher(private val githubRepository: GithubRepository, private val
      * Searches for the latest github release
      * @return the [Release], _null_ if there is no newer release
      */
-    private fun search(): Release? {
+    fun search(): Release? {
         JsonReader(URL(githubRepository.releasesApiUrl(1)).openStream().bufferedReader()).use { reader ->
             val releases: List<Release> = Gson().fromJson(reader, object : TypeToken<List<Release>>() {}.type)
             return releases.getOrNull(0)?.takeIf {
