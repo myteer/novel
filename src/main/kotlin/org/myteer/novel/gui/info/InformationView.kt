@@ -24,8 +24,8 @@ import java.util.*
 
 class InformationView(val context: Context) : VBox(5.0) {
     companion object {
-        private const val GIT_REPO_URL = "https://gitee.com/myteer/novel"
-        private const val LICENSE_URL = "https://gitee.com/myteer/novel/blob/master/LICENSE"
+        private const val GIT_REPO_URL = "https://github.com/myteer/novel"
+        private const val LICENSE_URL = "https://github.com/myteer/novel/blob/master/LICENSE"
         private const val LICENSE_NAME = "Apache License 2.0"
     }
 
