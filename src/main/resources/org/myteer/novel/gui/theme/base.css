@@ -658,9 +658,23 @@
  *                                 Update dialog                               *
  *                                                                             *
  ******************************************************************************/
+.update-dialog {
+    -fx-effect: dropshadow(three-pass-box, #000000, 10, 0, 0, 0);
+    -fx-background-radius: 3;
+}
+
 .update-view-available-label {
     -fx-font-size: 2em;
     -fx-font-weight: bold;
+}
+
+.no-binary-available-place-holder .label {
+    -fx-text-fill: red;
+    -fx-font-size: 15;
+}
+
+.progress-bar:paused .bar {
+    -fx-background-color: #E5C405;
 }
 
 /*******************************************************************************

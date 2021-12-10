@@ -4,15 +4,14 @@ import com.dlsc.workbenchfx.Workbench
 import com.dlsc.workbenchfx.model.WorkbenchOverlay
 import javafx.beans.property.DoubleProperty
 import javafx.beans.property.ReadOnlyObjectProperty
+import javafx.beans.value.ObservableBooleanValue
 import javafx.collections.ObservableList
 import javafx.collections.ObservableMap
 import javafx.geometry.Orientation
+import javafx.geometry.Pos
 import javafx.scene.Node
 import javafx.scene.control.*
-import javafx.scene.layout.GridPane
-import javafx.scene.layout.HBox
-import javafx.scene.layout.Priority
-import javafx.scene.layout.Region
+import javafx.scene.layout.*
 import javafx.util.StringConverter
 import org.controlsfx.control.CheckListView
 
@@ -128,4 +127,13 @@ val Workbench.mutableOverlays: ObservableMap<Region, WorkbenchOverlay>
 
 private val workbenchOverlaysField = Workbench::class.java.getDeclaredField("overlays").apply {
     isAccessible = true
+}
+
+fun <T : Node> T.bindFullVisibilityTo(to: ObservableBooleanValue) {
+    visibleProperty().bind(to)
+    managedProperty().bind(to)
+}
+
+fun Node.asCentered(pos: Pos = Pos.CENTER) = StackPane(this).also {
+    StackPane.setAlignment(this, pos)
 }

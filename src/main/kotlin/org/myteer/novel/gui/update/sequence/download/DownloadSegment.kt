@@ -10,7 +10,5 @@ class DownloadSegment(
     private val context: Context,
     private val release: Release
 ) : FixedContentTitledSegment(i18n("update.segment.download.name"), i18n("update.segment.download.title")) {
-    override fun createCenterContent(): Node {
-        TODO("Not yet implemented")
-    }
+    override fun createCenterContent(): Node = DownloadView(context, release)
 }
