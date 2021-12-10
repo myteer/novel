@@ -17,6 +17,7 @@ class NotificationSegmentView(private val release: Release) : VBox() {
     init {
         padding = Insets(10.0)
         spacing = 10.0
+        prefWidth = 400.0
         buildUI()
     }
 

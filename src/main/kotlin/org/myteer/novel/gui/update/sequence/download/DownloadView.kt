@@ -37,6 +37,7 @@ class DownloadView(private val context: Context, private val release: Release) :
     init {
         padding = Insets(10.0)
         spacing = 10.0
+        prefWidth = 400.0
         buildUI()
     }
 
@@ -203,7 +204,7 @@ class DownloadView(private val context: Context, private val release: Release) :
             init {
                 padding = Insets(5.0)
                 isFitToWidth = true
-                prefHeight = 120.0
+                maxHeight = 120.0
                 content = buildRadioBoxes().takeIf(List<*>::isNotEmpty)?.let {
                     VBox(5.0).apply { children.addAll(it) }
                 } ?: NoBinaryAvailablePlaceHolder()

@@ -13,7 +13,7 @@ class DetailsSegmentView(private val release: Release) : VBox() {
     private fun buildPreviewScrollPane() =
         scrollPane(PreviewMarkdownView(release.description), fitToWidth = true, fitToHeight = true).apply {
             setMargin(this, Insets(0.0, 0.0, 10.0, 0.0))
-            prefWidth = 200.0
-            prefHeight = 200.0
+            prefWidth = 400.0
+            maxHeight = 300.0
         }
 }
