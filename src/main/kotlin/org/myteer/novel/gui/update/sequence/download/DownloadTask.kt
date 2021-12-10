@@ -65,7 +65,7 @@ class DownloadTask(private val releaseAsset: ReleaseAsset, private val dir: File
 
                     if (isCancelled) {
                         logger.debug("Cancelled during loop")
-                        updateProgress(0, 0)
+                        updateProgress(0.0, 100.0)
                         return null
                     }
 
@@ -78,7 +78,7 @@ class DownloadTask(private val releaseAsset: ReleaseAsset, private val dir: File
                 }
 
                 logger.debug("Ending loop...")
-                updateProgress(100, 100)
+                updateProgress(100.0, 100.0)
                 logger.debug("Download task succeeded: {}", outputFile)
                 return outputFile
             } finally {
