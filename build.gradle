@@ -49,6 +49,10 @@ repositories {
     maven { url 'https://sandec.jfrog.io/artifactory/repo' }
 }
 
+configurations {
+    implementation.exclude group: 'org.openjfx'
+}
+
 dependencies {
     // kotlin
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
@@ -83,13 +87,9 @@ dependencies {
 
     implementation 'com.dlsc.workbenchfx:workbenchfx-core:11.1.0'
     implementation 'io.github.typhon0:AnimateFX:1.2.2'
-    implementation('com.github.Dansoftowner:FXTaskbarProgressBar:v11.4') {
-        exclude group: "org.openjfx"
-    }
+    implementation 'com.github.Dansoftowner:FXTaskbarProgressBar:v11.4'
     implementation 'org.fxmisc.richtext:richtextfx:0.10.7'
-    implementation('org.jfxtras:jmetro:11.6.15') {
-        exclude group: "org.openjfx"
-    }
+    implementation 'org.jfxtras:jmetro:11.6.15'
     implementation 'com.jfoenix:jfoenix:9.0.10'
     implementation 'org.controlsfx:controlsfx:11.1.0'
     implementation 'de.jangassen:nsmenufx:3.1.0'
