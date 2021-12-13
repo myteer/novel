@@ -19,10 +19,10 @@ object PropertiesSetup {
 
 
     private const val APP_NAME_VALUE = "Novel"
-    private const val APP_VERSION_VALUE = "0.0.1"
+    private const val APP_VERSION_VALUE = "1.0.0.alpha"
     private const val APP_COMPANY_VALUE = "MTSoftware"
     private const val APP_DEVELOPER_VALUE = "myteer"
-    private const val APP_BUILD_INFO_VALUE = "Built on 2021-12-01"
+    private const val APP_BUILD_INFO_VALUE = "Built on 2021-12-13"
     private const val APP_FILE_EXTENSION_VALUE = "ndb"
     private val LOG_FILE_PATH_VALUE = FileUtils.getFile(FileUtils.getTempDirectory(), "novel").toString()
     private val LOG_FILE_PATH_FULL_VALUE = "$LOG_FILE_PATH_VALUE.log"
