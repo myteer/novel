@@ -111,8 +111,15 @@ license {
     ext.vendor = 'MTSoftware'
     header = file('config/LICENSE-HEADER')
     strictCheck = true
-
-    include '**/*.css'
+    includes([
+            '**/*.kt',
+            '**/*.css',
+            '**/*.properties'
+    ])
+    mapping {
+        kt = 'SLASHSTAR_STYLE'
+        properties = 'SCRIPT_STYLE'
+    }
 }
 
 /* --------------------------------- Distribution ------------------------------------ */
